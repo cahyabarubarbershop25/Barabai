@@ -1,35 +1,16 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full bg-slate-950 text-slate-100">
+<html lang="id" class="h-full bg-slate-200 text-slate-800">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cahya Baru Barbershop - POS & Akuntansi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fffbe1',
-                            100: '#fff3b8',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            900: '#78350f'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         @media print {
             @page {
@@ -64,62 +45,63 @@
         }
     </style>
 </head>
-<body class="h-full bg-slate-950 text-slate-100 flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
-    <div id="mobileBackdrop" onclick="toggleMobileNav()" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
-    <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800/80 sticky top-0 z-40">
+<body class="h-full bg-slate-200 text-slate-800 flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-white">
+    <div id="mobileBackdrop" onclick="toggleMobileNav()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+    
+    <header class="bg-slate-100 border-b border-slate-300 sticky top-0 z-40 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Brand & Logo Baru -->
+                <!-- Brand & Logo -->
                 <div class="flex items-center space-x-3">
-                    <img src="logo.png" alt="Cahya Baru Logo" class="h-10 w-10 object-contain rounded-full bg-slate-900 border border-slate-700/60 shadow-sm" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/f59e0b?text=CB'">
+                    <img src="logo.png" alt="Cahya Baru Logo" class="h-10 w-10 object-contain rounded-full bg-slate-200 border border-slate-300 shadow-xs" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/d97706?text=CB'">
                     <div>
                         <div class="flex items-center space-x-2">
-                            <h1 class="font-bold text-base sm:text-lg text-slate-100 tracking-wide">CAHYA BARU</h1>
-                            <span class="text-[10px] bg-amber-500/20 text-amber-400 font-semibold px-2 py-0.5 rounded border border-amber-500/30 uppercase">BARBERSHOP</span>
+                            <h1 class="font-bold text-base sm:text-lg text-slate-950 tracking-wide">CAHYA BARU</h1>
+                            <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300 uppercase">BARBERSHOP</span>
                         </div>
-                        <p class="text-xs text-slate-400 hidden sm:block">Style With Purpose • Trust By Design</p>
+                        <p class="text-xs text-slate-600 hidden sm:block">Style With Purpose • Trust By Design</p>
                     </div>
                 </div>
                 <!-- Admin Status & Mobile Toggle -->
                 <div class="flex items-center space-x-3">
-                    <div id="adminBadge" class="hidden flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-amber-400 text-xs font-medium">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <div id="adminBadge" class="hidden flex items-center space-x-2 bg-amber-100 border border-amber-300 px-3 py-1 rounded-full text-amber-900 text-xs font-medium">
+                        <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
                         <span>Mode Admin</span>
-                        <button onclick="logoutAdmin()" class="ml-2 hover:text-white" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        <button onclick="logoutAdmin()" class="ml-2 hover:text-red-600" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
-                    <button id="loginBtnNav" onclick="openLoginModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center space-x-1.5">
-                        <i class="fa-solid fa-lock text-amber-400"></i>
+                    <button id="loginBtnNav" onclick="openLoginModal()" class="bg-slate-50 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center space-x-1.5 shadow-2xs">
+                        <i class="fa-solid fa-lock text-amber-600"></i>
                         <span>Login Admin</span>
                     </button>
-                    <!-- Mobile Navigation Menu Toggle -->
-                    <button onclick="toggleMobileNav()" aria-label="Toggle Mobile Menu" class="lg:hidden p-2 text-slate-300 hover:text-amber-400 bg-slate-800/80 rounded-lg active:scale-95 transition">
+                    <button onclick="toggleMobileNav()" aria-label="Toggle Mobile Menu" class="lg:hidden p-2 text-slate-700 hover:text-amber-600 bg-slate-50 border border-slate-300 rounded-lg active:scale-95 transition">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
+
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
-        <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-2xl lg:shadow-none">
+        <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none">
             <div class="space-y-6">
-                <div class="flex justify-between items-center lg:hidden pb-4 border-b border-slate-800">
-                    <span class="font-bold text-slate-200">Menu Navigasi</span>
-                    <button onclick="toggleMobileNav()" class="text-slate-400 p-1 hover:text-slate-100"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <div class="flex justify-between items-center lg:hidden pb-4 border-b border-slate-300">
+                    <span class="font-bold text-slate-900">Menu Navigasi</span>
+                    <button onclick="toggleMobileNav()" class="text-slate-600 p-1 hover:text-slate-900"><i class="fa-solid fa-xmark text-xl"></i></button>
                 </div>
                 <!-- Client Section -->
                 <div>
                     <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Area Pelanggan</p>
                     <nav class="space-y-1">
-                        <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-calendar-check w-5 text-amber-400"></i>
+                        <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
                             <span>Reservasi Online</span>
                         </button>
-                        <button onclick="switchTab('services')" id="nav-services" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-list-check w-5 text-amber-400"></i>
+                        <button onclick="switchTab('services')" id="nav-services" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-list-check w-5 text-amber-600"></i>
                             <span>Daftar Layanan</span>
                         </button>
-                        <button onclick="switchTab('reservations')" id="nav-reservations" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-clock-rotate-left w-5 text-amber-400"></i>
+                        <button onclick="switchTab('reservations')" id="nav-reservations" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-clock-rotate-left w-5 text-amber-600"></i>
                             <span>Jadwal Reservasi</span>
                         </button>
                     </nav>
@@ -128,69 +110,70 @@
                 <div>
                     <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Area Admin / Kasir</p>
                     <nav class="space-y-1">
-                        <button onclick="switchTab('pos')" id="nav-pos" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-cash-register w-5 text-amber-400"></i>
+                        <button onclick="switchTab('pos')" id="nav-pos" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-cash-register w-5 text-amber-600"></i>
                             <span>Kasir POS</span>
                         </button>
-                        <button onclick="switchTab('transactions')" id="nav-transactions" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-receipt w-5 text-amber-400"></i>
+                        <button onclick="switchTab('transactions')" id="nav-transactions" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-receipt w-5 text-amber-600"></i>
                             <span>Riwayat Transaksi</span>
                         </button>
-                        <button onclick="switchTab('expenses')" id="nav-expenses" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-money-bill-transfer w-5 text-amber-400"></i>
+                        <button onclick="switchTab('expenses')" id="nav-expenses" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-money-bill-transfer w-5 text-amber-600"></i>
                             <span>Pengeluaran Kas</span>
                         </button>
-                        <button onclick="switchTab('accounting')" id="nav-accounting" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-300 hover:bg-slate-800/70">
-                            <i class="fa-solid fa-chart-line w-5 text-amber-400"></i>
+                        <button onclick="switchTab('accounting')" id="nav-accounting" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-chart-line w-5 text-amber-600"></i>
                             <span>Laporan Akuntansi</span>
                         </button>
                     </nav>
                 </div>
             </div>
-            <div class="pt-4 border-t border-slate-800/80 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-400">Cahya Baru POS v1.01</p>
-                <p>Website Reservasi dan Administrasi</p>
+            <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
+                <p class="font-semibold text-slate-700">Cahya Baru POS v3.2</p>
+                <p>Mendukung Thermal Printer & Multi Pembayaran</p>
             </div>
         </aside>
+
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Booking Form -->
             <section id="tab-booking" class="tab-content space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-800 gap-4">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-200 gap-4">
                         <div>
-                            <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-plus text-amber-400"></i> Form Reservasi Pelanggan
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-400 mt-1">Pilih layanan, kapster pilihan Anda, serta jadwal jam yang Anda inginkan.</p>
+                            <p class="text-sm text-slate-600 mt-1">Pilih layanan, kapster pilihan Anda, serta jadwal jam yang Anda inginkan.</p>
                         </div>
                     </div>
                     <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nama Anda</label>
-                                <input type="text" id="resClientName" required placeholder="Masukkan nama lengkap" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:border-amber-500 focus:outline-none">
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nama Anda</label>
+                                <input type="text" id="resClientName" required placeholder="Masukkan nama lengkap" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
-                                <input type="tel" id="resClientPhone" required placeholder="Contoh: 08123456789" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:border-amber-500 focus:outline-none">
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
+                                <input type="tel" id="resClientPhone" required placeholder="Contoh: 08123456789" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Pilih Barber / Kapster</label>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Barber / Kapster</label>
                             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="bookingBarberList"></div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Pilih Layanan</label>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Layanan</label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="bookingServicesList"></div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Tanggal Reservasi</label>
-                                <input type="date" id="resDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:border-amber-500 focus:outline-none">
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Tanggal Reservasi</label>
+                                <input type="date" id="resDate" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Jam Reservasi</label>
-                                <select id="resTime" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:border-amber-500 focus:outline-none">
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Jam Reservasi</label>
+                                <select id="resTime" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
                                     <option value="">-- Pilih Jam --</option>
                                     <option value="10:00 WITA">10:00 WITA</option>
                                     <option value="11:00 WITA">11:00 WITA</option>
@@ -204,8 +187,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="pt-4 border-t border-slate-800 flex justify-end">
-                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center space-x-2">
+                        <div class="pt-4 border-t border-slate-200 flex justify-end">
+                            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
                                 <i class="fa-solid fa-paper-plane"></i>
                                 <span>Kirim Reservasi</span>
                             </button>
@@ -213,32 +196,34 @@
                     </form>
                 </div>
             </section>
+
             <!-- TAB 2: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="pb-6 border-b border-slate-800">
-                        <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-list-dots text-amber-400"></i> Menu Layanan & Treatment
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="pb-6 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-list-dots text-amber-600"></i> Menu Layanan & Treatment
                         </h2>
-                        <p class="text-sm text-slate-400 mt-1">Daftar harga resmi layanan Cahya Baru Barbershop.</p>
+                        <p class="text-sm text-slate-600 mt-1">Daftar harga resmi layanan Cahya Baru Barbershop.</p>
                     </div>
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
+
             <!-- TAB 3: Reservations Schedule -->
             <section id="tab-reservations" class="tab-content hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="pb-6 border-b border-slate-800 flex justify-between items-center">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="pb-6 border-b border-slate-200 flex justify-between items-center">
                         <div>
-                            <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-clock-rotate-left text-amber-400"></i> Jadwal Reservasi Masuk
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> Jadwal Reservasi Masuk
                             </h2>
-                            <p class="text-sm text-slate-400 mt-1">Daftar booking terdaftar pelanggan.</p>
+                            <p class="text-sm text-slate-600 mt-1">Daftar booking terdaftar pelanggan.</p>
                         </div>
                     </div>
                     <div class="mt-6 overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="bg-slate-950 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
                                     <th class="p-3">Pelanggan</th>
                                     <th class="p-3">Barber</th>
@@ -248,65 +233,66 @@
                                     <th class="p-3 text-right">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="reservationsTableBody" class="divide-y divide-slate-800/60"></tbody>
+                            <tbody id="reservationsTableBody" class="divide-y divide-slate-200"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
+
             <!-- TAB 4: POS Register -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-6">
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex justify-between items-center">
+                        <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 flex justify-between items-center shadow-xs">
                             <div class="flex items-center space-x-2">
-                                <i class="fa-solid fa-scissors text-amber-400 text-lg"></i>
-                                <span class="font-bold text-sm text-slate-200">KASIR KELOLA TRANSAKSI</span>
+                                <i class="fa-solid fa-scissors text-amber-600 text-lg"></i>
+                                <span class="font-bold text-sm text-slate-800">KASIR KELOLA TRANSAKSI</span>
                             </div>
-                            <button onclick="openPrinterModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
-                                <i class="fa-solid fa-print text-amber-400"></i>
+                            <button onclick="openPrinterModal()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
+                                <i class="fa-solid fa-print text-amber-600"></i>
                                 <span>Pengaturan Printer</span>
                             </button>
                         </div>
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Pilih Barber / Eksekutor</label>
+                        <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Pilih Barber / Eksekutor</label>
                             <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="posBarberList"></div>
                         </div>
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Pilih Layanan untuk Masuk Keranjang</p>
+                        <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
+                            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Layanan untuk Masuk Keranjang</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="posServicesGrid"></div>
                         </div>
                     </div>
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between h-full">
+                    <div class="bg-slate-50 border border-slate-300 rounded-2xl p-5 flex flex-col justify-between h-full shadow-xs">
                         <div>
-                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                                <h3 class="font-bold text-slate-200">Keranjang Kasir</h3>
-                                <button onclick="clearCart()" class="text-xs text-red-400 hover:underline">Kosongkan</button>
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+                                <h3 class="font-bold text-slate-900">Keranjang Kasir</h3>
+                                <button onclick="clearCart()" class="text-xs text-red-600 hover:underline">Kosongkan</button>
                             </div>
-                            <div id="posCartList" class="divide-y divide-slate-800/80 my-4 max-h-60 overflow-y-auto pr-1"></div>
+                            <div id="posCartList" class="divide-y divide-slate-200 my-4 max-h-60 overflow-y-auto pr-1"></div>
                         </div>
-                        <div class="pt-4 border-t border-slate-800 space-y-3">
+                        <div class="pt-4 border-t border-slate-200 space-y-3">
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Metode Pembayaran</label>
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Metode Pembayaran</label>
                                 <div class="grid grid-cols-2 gap-2">
-                                    <button type="button" onclick="setPosPaymentMethod('Cash')" id="pmCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400">
+                                    <button type="button" onclick="setPosPaymentMethod('Cash')" id="pmCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs">
                                         <i class="fa-solid fa-money-bill-wave"></i>
                                         <span>CASH (Tunai)</span>
                                     </button>
-                                    <button type="button" onclick="setPosPaymentMethod('QRIS')" id="pmQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400">
+                                    <button type="button" onclick="setPosPaymentMethod('QRIS')" id="pmQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600">
                                         <i class="fa-solid fa-qrcode"></i>
                                         <span>QRIS (Digital)</span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="flex justify-between text-sm text-slate-400">
+                            <div class="flex justify-between text-sm text-slate-600">
                                 <span>Subtotal</span>
-                                <span id="posSubtotal" class="font-semibold text-slate-200">Rp 0</span>
+                                <span id="posSubtotal" class="font-semibold text-slate-800">Rp 0</span>
                             </div>
-                            <div class="flex justify-between text-base font-bold text-slate-100">
+                            <div class="flex justify-between text-base font-bold text-slate-900">
                                 <span>Total Bayar</span>
-                                <span id="posTotal" class="text-amber-400">Rp 0</span>
+                                <span id="posTotal" class="text-amber-600">Rp 0</span>
                             </div>
-                            <button onclick="checkoutPOS()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition shadow-lg flex items-center justify-center space-x-2">
+                            <button onclick="checkoutPOS()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-sm flex items-center justify-center space-x-2">
                                 <i class="fa-solid fa-credit-card"></i>
                                 <span>Selesaikan & Cetak Struk</span>
                             </button>
@@ -314,18 +300,19 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 5: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="pb-6 border-b border-slate-800">
-                        <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-receipt text-amber-400"></i> Riwayat Transaksi
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="pb-6 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
                         </h2>
-                        <p class="text-sm text-slate-400 mt-1">Klik salah satu transaksi untuk melihat detail atau memproses pengembalian dana (refund).</p>
+                        <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail atau memproses pengembalian dana (refund).</p>
                     </div>
                     <div class="mt-6 overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="bg-slate-950 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
                                     <th class="p-3">ID Transaksi</th>
                                     <th class="p-3">Tanggal & Jam</th>
@@ -337,53 +324,54 @@
                                     <th class="p-3 text-right">Detail</th>
                                 </tr>
                             </thead>
-                            <tbody id="transactionHistoryTable" class="divide-y divide-slate-800/60"></tbody>
+                            <tbody id="transactionHistoryTable" class="divide-y divide-slate-200"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
+
             <!-- TAB 6: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="pb-6 border-b border-slate-800">
-                        <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-money-bill-transfer text-amber-400"></i> Pencatatan Pengeluaran Kas
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="pb-6 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-money-bill-transfer text-amber-600"></i> Pencatatan Pengeluaran Kas
                         </h2>
-                        <p class="text-sm text-slate-400 mt-1">Catat biaya operasional harian barbershop.</p>
+                        <p class="text-sm text-slate-600 mt-1">Catat biaya operasional harian barbershop.</p>
                     </div>
-                    <form onsubmit="handleAddExpense(event)" class="mt-6 space-y-4 pb-6 border-b border-slate-800">
+                    <form onsubmit="handleAddExpense(event)" class="mt-6 space-y-4 pb-6 border-b border-slate-200">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Keterangan Pengeluaran</label>
-                                <input type="text" id="expenseDesc" required placeholder="Contoh: Beli Shampoo / Listrik" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-200 text-sm focus:outline-none focus:border-amber-500">
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Keterangan Pengeluaran</label>
+                                <input type="text" id="expenseDesc" required placeholder="Contoh: Beli Shampoo / Listrik" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Jumlah (Rp)</label>
-                                <input type="number" id="expenseAmount" required placeholder="50000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-200 text-sm focus:outline-none focus:border-amber-500">
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah (Rp)</label>
+                                <input type="number" id="expenseAmount" required placeholder="50000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Sumber Pengeluaran Dari Metode</label>
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Sumber Pengeluaran Dari Metode</label>
                             <div class="grid grid-cols-2 gap-3 max-w-sm">
-                                <button type="button" onclick="setExpPaymentMethod('Cash')" id="expCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400">
+                                <button type="button" onclick="setExpPaymentMethod('Cash')" id="expCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs">
                                     <i class="fa-solid fa-money-bill-wave"></i>
                                     <span>CASH (Tunai)</span>
                                 </button>
-                                <button type="button" onclick="setExpPaymentMethod('QRIS')" id="expQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400">
+                                <button type="button" onclick="setExpPaymentMethod('QRIS')" id="expQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600">
                                     <i class="fa-solid fa-qrcode"></i>
                                     <span>QRIS (Digital)</span>
                                 </button>
                             </div>
                         </div>
                         <div class="flex justify-end pt-2">
-                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition text-sm">
+                            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm shadow-xs">
                                 Simpan Pengeluaran
                             </button>
                         </div>
                     </form>
                     <div class="mt-6 overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="bg-slate-950 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
                                     <th class="p-3">Tanggal</th>
                                     <th class="p-3">Keterangan</th>
@@ -391,59 +379,60 @@
                                     <th class="p-3 text-right">Jumlah</th>
                                 </tr>
                             </thead>
-                            <tbody id="expensesTableBody" class="divide-y divide-slate-800/60"></tbody>
+                            <tbody id="expensesTableBody" class="divide-y divide-slate-200"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
+
             <!-- TAB 7: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-800 gap-4">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 gap-4">
                         <div>
-                            <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-amber-400"></i> Laporan Ringkasan Akuntansi
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-amber-600"></i> Laporan Ringkasan Akuntansi
                             </h2>
-                            <p class="text-sm text-slate-400 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih.</p>
+                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="exportToExcel()" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
+                            <button onclick="exportToExcel()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                                 <i class="fa-solid fa-file-excel"></i>
                                 <span>Export ke Excel / Spreadsheet</span>
                             </button>
-                            <button onclick="confirmResetMonth()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
+                            <button onclick="confirmResetMonth()" class="bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                                 <i class="fa-solid fa-rotate"></i>
                                 <span>Reset Akhir Bulan</span>
                             </button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <p class="text-xs font-bold text-slate-400 uppercase">Total Pendapatan Cash</p>
-                            <p id="accCash" class="text-xl font-bold text-amber-400 mt-2">Rp 0</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
+                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pendapatan Cash</p>
+                            <p id="accCash" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
                         </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <p class="text-xs font-bold text-slate-400 uppercase">Total Pendapatan QRIS</p>
-                            <p id="accQRIS" class="text-xl font-bold text-cyan-400 mt-2">Rp 0</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
+                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pendapatan QRIS</p>
+                            <p id="accQRIS" class="text-xl font-bold text-cyan-700 mt-2">Rp 0</p>
                         </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <p class="text-xs font-bold text-slate-400 uppercase">Total Omset Penjualan</p>
-                            <p id="accRevenue" class="text-xl font-bold text-emerald-400 mt-2">Rp 0</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
+                            <p class="text-xs font-bold text-slate-500 uppercase">Total Omset Penjualan</p>
+                            <p id="accRevenue" class="text-xl font-bold text-emerald-700 mt-2">Rp 0</p>
                         </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <p class="text-xs font-bold text-slate-400 uppercase">Total Pengeluaran Kas</p>
-                            <p id="accExpenses" class="text-xl font-bold text-red-400 mt-2">Rp 0</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
+                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pengeluaran Kas</p>
+                            <p id="accExpenses" class="text-xl font-bold text-red-700 mt-2">Rp 0</p>
                         </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <p class="text-xs font-bold text-slate-400 uppercase">Laba Bersih</p>
-                            <p id="accNetProfit" class="text-xl font-bold text-amber-400 mt-2">Rp 0</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
+                            <p class="text-xs font-bold text-slate-500 uppercase">Laba Bersih</p>
+                            <p id="accNetProfit" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
                         </div>
                     </div>
                     <div class="mt-8">
-                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">Jurnal Mutasi Keuangan</h3>
+                        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Jurnal Mutasi Keuangan</h3>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm text-slate-300">
-                                <thead class="bg-slate-950 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+                            <table class="w-full text-left text-sm text-slate-700">
+                                <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                     <tr>
                                         <th class="p-3">Tanggal</th>
                                         <th class="p-3">Kode</th>
@@ -453,7 +442,7 @@
                                         <th class="p-3 text-right">Nominal</th>
                                     </tr>
                                 </thead>
-                                <tbody id="accountingLedgerBody" class="divide-y divide-slate-800/60"></tbody>
+                                <tbody id="accountingLedgerBody" class="divide-y divide-slate-200"></tbody>
                             </table>
                         </div>
                     </div>
@@ -461,69 +450,74 @@
             </section>
         </main>
     </div>
+
     <!-- Modal Login Admin -->
-    <div id="loginModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-2xl p-6 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-                <h3 class="font-bold text-slate-100">Login Akses Admin</h3>
-                <button onclick="closeModal('loginModal')" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
+    <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900">Login Akses Admin</h3>
+                <button onclick="closeModal('loginModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Kata Sandi</label>
-                <input type="password" id="adminPasswordInput" placeholder="Masukkan kata sandi" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-amber-500">
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Kata Sandi</label>
+                <input type="password" id="adminPasswordInput" placeholder="Masukkan kata sandi" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:border-amber-600">
             </div>
-            <button onclick="handleAdminLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl transition">
+            <button onclick="handleAdminLogin()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl transition shadow-sm">
                 Masuk Admin
             </button>
         </div>
     </div>
+
     <!-- Modal Detail Transaksi & Refund -->
-    <div id="detailTxModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-                <h3 class="font-bold text-slate-100">Detail Transaksi</h3>
-                <button onclick="closeModal('detailTxModal')" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
+    <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900">Detail Transaksi</h3>
+                <button onclick="closeModal('detailTxModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div id="detailTxContent" class="space-y-3 text-sm text-slate-300"></div>
-            <div id="detailTxActions" class="pt-3 border-t border-slate-800 flex justify-end space-x-2"></div>
+            <div id="detailTxContent" class="space-y-3 text-sm text-slate-700"></div>
+            <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex justify-end space-x-2"></div>
         </div>
     </div>
+
     <!-- Modal Pengaturan Printer -->
-    <div id="printerModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-                <h3 class="font-bold text-slate-100">Pengaturan Printer Thermal (58mm)</h3>
-                <button onclick="closeModal('printerModal')" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
+    <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900">Pengaturan Printer Thermal (58mm)</h3>
+                <button onclick="closeModal('printerModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="text-xs text-slate-400">Pilih metode koneksi printer thermal portable Anda:</p>
+            <p class="text-xs text-slate-600">Pilih metode koneksi printer thermal portable Anda:</p>
             
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-center">
-                <div id="printerStatusIcon" class="text-2xl text-slate-500"><i class="fa-solid fa-print"></i></div>
-                <p id="printerStatusLabel" class="text-xs font-semibold text-slate-300">Status: Siap Cetak Thermal 58mm</p>
+            <div class="bg-white p-4 rounded-xl border border-slate-300 space-y-2 text-center shadow-2xs">
+                <div id="printerStatusIcon" class="text-2xl text-slate-400"><i class="fa-solid fa-print"></i></div>
+                <p id="printerStatusLabel" class="text-xs font-semibold text-slate-700">Status: Siap Cetak Thermal 58mm</p>
             </div>
             <div class="space-y-2 pt-2">
-                <button onclick="connectUSBPrinter()" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2">
+                <button onclick="connectUSBPrinter()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-sm">
                     <i class="fa-solid fa-usb"></i>
                     <span>Konek ke Printer via Kabel USB</span>
                 </button>
-                <button onclick="connectBluetoothPrinter()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2">
+                <button onclick="connectBluetoothPrinter()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-sm">
                     <i class="fa-brands fa-bluetooth"></i>
                     <span>Konek ke Printer via Bluetooth</span>
                 </button>
-                <div class="pt-2 border-t border-slate-800">
+                <div class="pt-2 border-t border-slate-200">
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" id="autoPrintToggle" onchange="toggleAutoPrint(this)" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-amber-500 focus:ring-amber-500">
-                        <span class="text-xs text-slate-300 font-medium">Cetak Otomatis saat Bayar Selesai (Loyverse Style)</span>
+                        <input type="checkbox" id="autoPrintToggle" onchange="toggleAutoPrint(this)" class="w-4 h-4 rounded bg-white border-slate-300 text-amber-600 focus:ring-amber-500">
+                        <span class="text-xs text-slate-700 font-medium">Cetak Otomatis saat Bayar Selesai (Loyverse Style)</span>
                     </label>
                 </div>
-                <button onclick="closeModal('printerModal')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl transition text-xs mt-2">
+                <button onclick="closeModal('printerModal')" class="w-full bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold py-2.5 rounded-xl transition text-xs mt-2">
                     Tutup
                 </button>
             </div>
         </div>
     </div>
+
     <!-- Printable Area for Thermal Printer (58mm width format) -->
     <div id="printableReceipt" class="hidden"></div>
+
     <script>
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
@@ -582,7 +576,7 @@
             const container = document.getElementById('posBarberList');
             if (!container) return;
             container.innerHTML = BARBERS.map(b => `
-                <button type="button" onclick="selectPOSBarber('${b.id}')" class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.selectedBarber === b.id ? 'bg-amber-500/20 border-amber-500 text-amber-400 font-bold' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'}">
+                <button type="button" onclick="selectPOSBarber('${b.id}')" class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.selectedBarber === b.id ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
                     <i class="fa-solid fa-user-scissors text-sm mb-0.5"></i>
                     <span class="text-[11px]">${b.name}</span>
                 </button>
@@ -596,12 +590,12 @@
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
             container.innerHTML = SERVICES.map(s => `
-                <div onclick="addToCart('${s.id}')" class="p-3 bg-slate-950 border border-slate-800 hover:border-amber-500/50 cursor-pointer rounded-xl transition flex justify-between items-center group">
+                <div onclick="addToCart('${s.id}')" class="p-3 bg-white border border-slate-300 hover:border-amber-600 cursor-pointer rounded-xl transition flex justify-between items-center group shadow-2xs">
                     <div>
-                        <h4 class="font-bold text-slate-200 text-xs group-hover:text-amber-400">${s.name}</h4>
-                        <p class="text-[11px] text-slate-400 mt-0.5">${formatRp(s.price)}</p>
+                        <h4 class="font-bold text-slate-800 text-xs group-hover:text-amber-700">${s.name}</h4>
+                        <p class="text-[11px] text-slate-500 mt-0.5">${formatRp(s.price)}</p>
                     </div>
-                    <button class="bg-amber-500/10 group-hover:bg-amber-500 text-amber-400 group-hover:text-slate-950 p-2 rounded-lg transition text-xs font-bold">
+                    <button class="bg-amber-100 group-hover:bg-amber-600 text-amber-900 group-hover:text-white p-2 rounded-lg transition text-xs font-bold">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -619,7 +613,7 @@
             const totalEl = document.getElementById('posTotal');
             if (!container) return;
             if (state.cart.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Keranjang kasir kosong.</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Keranjang kasir kosong.</p>`;
                 if (subtotalEl) subtotalEl.innerText = formatRp(0);
                 if (totalEl) totalEl.innerText = formatRp(0);
                 return;
@@ -627,10 +621,10 @@
             container.innerHTML = state.cart.map((item, index) => `
                 <div class="py-2 flex justify-between items-center">
                     <div>
-                        <p class="text-xs font-semibold text-slate-200">${item.name}</p>
-                        <p class="text-[11px] text-amber-400">${formatRp(item.price)}</p>
+                        <p class="text-xs font-semibold text-slate-800">${item.name}</p>
+                        <p class="text-[11px] text-amber-600">${formatRp(item.price)}</p>
                     </div>
-                    <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-300 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="removeFromCart(${index})" class="text-red-600 hover:text-red-800 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
             `).join('');
             const total = state.cart.reduce((a, b) => a + b.price, 0);
@@ -651,11 +645,11 @@
             const btnQRIS = document.getElementById('pmQRIS');
             if (!btnCash || !btnQRIS) return;
             if (method === 'Cash') {
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400";
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             } else {
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400";
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
         function setExpPaymentMethod(method) {
@@ -664,11 +658,11 @@
             const btnQRIS = document.getElementById('expQRIS');
             if (!btnCash || !btnQRIS) return;
             if (method === 'Cash') {
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400";
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             } else {
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-500/20 border-amber-500 text-amber-400";
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-slate-950 border-slate-800 text-slate-400";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
         function openPrinterModal() {
@@ -691,7 +685,7 @@
                     await device.open({ baudRate: 9600 });
                 }
                 document.getElementById('printerStatusLabel').innerText = `Terhubung via USB Printer`;
-                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-400";
+                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
                 alert('Printer USB berhasil terhubung!');
             } catch (err) {
                 console.log('USB connection cancelled or failed:', err);
@@ -707,7 +701,7 @@
                 optionalServices: ['000018f0-0000-1000-8000-00805f9b34fb']
             }).then(device => {
                 document.getElementById('printerStatusLabel').innerText = `Terhubung Bluetooth: ${device.name || 'Thermal Printer'}`;
-                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-400";
+                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
                 alert(`Terhubung ke ${device.name || 'Printer Bluetooth'}`);
             }).catch(err => {
                 console.log('Bluetooth error or cancelled:', err);
@@ -765,12 +759,12 @@
             const activeEl = document.getElementById(`tab-${tabId}`);
             if (activeEl) activeEl.classList.remove('hidden');
             document.querySelectorAll('[id^="nav-"]').forEach(btn => {
-                btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'font-bold');
-                btn.classList.add('text-slate-300');
+                btn.classList.remove('bg-amber-100', 'text-amber-900', 'font-bold');
+                btn.classList.add('text-slate-700');
             });
             const activeBtn = document.getElementById(`nav-${tabId}`);
             if (activeBtn) {
-                activeBtn.classList.add('bg-amber-500/10', 'text-amber-400', 'font-bold');
+                activeBtn.classList.add('bg-amber-100', 'text-amber-900', 'font-bold');
             }
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -807,9 +801,7 @@
                 closeModal('loginModal');
                 document.getElementById('adminPasswordInput').value = '';
                 
-                // Re-render reservations to immediately show full phone numbers and action buttons
                 renderReservationsTable();
-                
                 switchTab('pos');
             } else {
                 alert('Kata sandi admin salah!');
@@ -820,15 +812,13 @@
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('loginBtnNav').classList.remove('hidden');
             
-            // Re-render reservations to mask phone numbers again
             renderReservationsTable();
-            
             switchTab('booking');
         }
         function renderBookingBarbers() {
             const container = document.getElementById('bookingBarberList');
             container.innerHTML = BARBERS.map(b => `
-                <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.resSelectedBarber === b.id ? 'bg-amber-500/20 border-amber-500 text-amber-400 font-bold' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'}">
+                <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.resSelectedBarber === b.id ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
                     <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
                     <span class="text-xs">${b.name}</span>
                 </button>
@@ -843,13 +833,13 @@
             container.innerHTML = SERVICES.map(s => {
                 const isSelected = state.resSelectedServices.includes(s.id);
                 return `
-                    <div onclick="toggleBookingService('${s.id}')" class="p-3 rounded-xl border cursor-pointer transition flex justify-between items-center ${isSelected ? 'bg-amber-500/10 border-amber-500 text-slate-100' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'}">
+                    <div onclick="toggleBookingService('${s.id}')" class="p-3 rounded-xl border cursor-pointer transition flex justify-between items-center ${isSelected ? 'bg-amber-100 border-amber-600 text-slate-900 shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
                         <div>
-                            <p class="font-semibold text-xs text-amber-400">${s.name}</p>
-                            <p class="text-[11px] text-slate-400 mt-0.5">${s.desc}</p>
-                            <p class="font-bold text-xs mt-1 text-slate-200">${formatRp(s.price)}</p>
+                            <p class="font-semibold text-xs text-amber-800">${s.name}</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">${s.desc}</p>
+                            <p class="font-bold text-xs mt-1 text-slate-800">${formatRp(s.price)}</p>
                         </div>
-                        <i class="fa-solid ${isSelected ? 'fa-circle-check text-amber-400 text-lg' : 'fa-circle text-slate-700'}"></i>
+                        <i class="fa-solid ${isSelected ? 'fa-circle-check text-amber-600 text-lg' : 'fa-circle text-slate-300'}"></i>
                     </div>
                 `;
             }).join('');
@@ -867,15 +857,15 @@
             const categories = [...new Set(SERVICES.map(s => s.category))];
             container.innerHTML = categories.map(cat => `
                 <div class="space-y-3">
-                    <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider border-b border-slate-800 pb-2">${cat}</h3>
+                    <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wider border-b border-slate-200 pb-2">${cat}</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         ${SERVICES.filter(s => s.category === cat).map(s => `
-                            <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl flex justify-between items-start">
+                            <div class="p-4 bg-white border border-slate-300 rounded-xl flex justify-between items-start shadow-2xs">
                                 <div>
-                                    <h4 class="font-bold text-slate-200 text-sm">${s.name}</h4>
-                                    <p class="text-xs text-slate-400 mt-1">${s.desc}</p>
+                                    <h4 class="font-bold text-slate-800 text-sm">${s.name}</h4>
+                                    <p class="text-xs text-slate-500 mt-1">${s.desc}</p>
                                 </div>
-                                <span class="font-bold text-amber-400 text-sm bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">${formatRp(s.price)}</span>
+                                <span class="font-bold text-amber-800 text-sm bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-lg">${formatRp(s.price)}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -914,41 +904,41 @@
         function renderReservationsTable() {
             const body = document.getElementById('reservationsTableBody');
             if (state.reservations.length === 0) {
-                body.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada reservasi masuk.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada reservasi masuk.</td></tr>`;
                 return;
             }
             body.innerHTML = state.reservations.map(r => `
-                <tr class="hover:bg-slate-900/50">
+                <tr class="hover:bg-slate-100/60">
                     <td class="p-3">
-                        <p class="font-bold text-slate-200">${r.clientName}</p>
-                        <p class="text-xs text-slate-400">
-                            ${state.isAdminLoggedIn ? `<a href="https://wa.me/${r.clientPhone.replace(/^0/, '62')}" target="_blank" class="font-mono text-amber-400 font-semibold hover:underline flex items-center gap-1 mt-0.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i>${r.clientPhone}</a>` : '<span class="text-slate-500">•••••••••••• (Rahasia)</span>'}
+                        <p class="font-bold text-slate-800">${r.clientName}</p>
+                        <p class="text-xs text-slate-500">
+                            ${state.isAdminLoggedIn ? `<a href="https://wa.me/${r.clientPhone.replace(/^0/, '62')}" target="_blank" class="font-mono text-amber-800 font-semibold hover:underline flex items-center gap-1 mt-0.5"><i class="fa-brands fa-whatsapp text-emerald-600"></i>${r.clientPhone}</a>` : '<span class="text-slate-400">•••••••••••• (Rahasia)</span>'}
                         </p>
                     </td>
-                    <td class="p-3 text-slate-300 font-medium">${r.barberName}</td>
-                    <td class="p-3 text-xs text-slate-400">${r.services.map(s => s.name).join(', ')}</td>
-                    <td class="p-3 text-slate-300 font-semibold">${r.date} • ${r.time}</td>
+                    <td class="p-3 text-slate-700 font-medium">${r.barberName}</td>
+                    <td class="p-3 text-xs text-slate-500">${r.services.map(s => s.name).join(', ')}</td>
+                    <td class="p-3 text-slate-700 font-semibold">${r.date} • ${r.time}</td>
                     <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${r.status === 'Selesai' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : r.status === 'Dikonfirmasi' ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${r.status || 'Menunggu'}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${r.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : r.status === 'Dikonfirmasi' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">${r.status || 'Menunggu'}</span>
                     </td>
                     <td class="p-3 text-right space-x-1">
                         ${state.isAdminLoggedIn ? `
                             <div class="flex items-center justify-end gap-1.5">
                                 ${r.status !== 'Dikonfirmasi' && r.status !== 'Selesai' ? `
-                                    <button onclick="updateReservationStatus('${r.id}', 'Dikonfirmasi')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 border border-cyan-500/30 text-xs font-semibold px-2.5 py-1 rounded-lg transition" title="Konfirmasi Reservasi">
+                                    <button onclick="updateReservationStatus('${r.id}', 'Dikonfirmasi')" class="bg-cyan-100 hover:bg-cyan-200 text-cyan-800 border border-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-lg transition" title="Konfirmasi Reservasi">
                                         Konfirmasi
                                     </button>
                                 ` : ''}
                                 ${r.status !== 'Selesai' ? `
-                                    <button onclick="processReservationToPOS('${r.id}')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold px-2.5 py-1 rounded-lg transition" title="Proses ke Kasir POS">
+                                    <button onclick="processReservationToPOS('${r.id}')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-2.5 py-1 rounded-lg transition shadow-2xs" title="Proses ke Kasir POS">
                                         Ke Kasir
                                     </button>
                                 ` : `
-                                    <span class="text-xs text-slate-500 italic">Selesai</span>
+                                    <span class="text-xs text-slate-400 italic">Selesai</span>
                                 `}
                             </div>
                         ` : `
-                            <span class="text-[11px] text-slate-500 italic">Login admin untuk aksi</span>
+                            <span class="text-[11px] text-slate-400 italic">Login admin untuk aksi</span>
                         `}
                     </td>
                 </tr>
@@ -982,7 +972,6 @@
             }
             const barberObj = BARBERS.find(b => b.id === state.selectedBarber);
             const total = state.cart.reduce((a, b) => a + b.price, 0);
-            // Generate sequential income ID starting from BB-101
             let nextNum = 101;
             if (state.transactions.length > 0) {
                 const maxNum = state.transactions.reduce((max, t) => {
@@ -1021,26 +1010,26 @@
             const body = document.getElementById('transactionHistoryTable');
             if (!body) return;
             if (state.transactions.length === 0) {
-                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-500">Belum ada riwayat transaksi.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Belum ada riwayat transaksi.</td></tr>`;
                 return;
             }
             body.innerHTML = state.transactions.map(t => {
                 const serviceNames = t.items.map(i => i.name).join(', ');
                 return `
-                    <tr onclick="viewTransactionDetail('${t.id}')" class="hover:bg-slate-800/65 cursor-pointer transition">
-                        <td class="p-3 font-mono text-xs text-amber-400 font-semibold">${t.id}</td>
-                        <td class="p-3 text-slate-300 text-xs">${t.date} ${t.time}</td>
-                        <td class="p-3 font-medium text-slate-200">${t.barberName}</td>
+                    <tr onclick="viewTransactionDetail('${t.id}')" class="hover:bg-slate-100/60 cursor-pointer transition">
+                        <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${t.id}</td>
+                        <td class="p-3 text-slate-600 text-xs">${t.date} ${t.time}</td>
+                        <td class="p-3 font-medium text-slate-800">${t.barberName}</td>
                         <td class="p-3">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'Cash' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'}">${t.paymentMethod || 'Cash'}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${t.paymentMethod || 'Cash'}</span>
                         </td>
-                        <td class="p-3 text-xs text-slate-400">${serviceNames}</td>
-                        <td class="p-3 font-bold text-slate-200">${formatRp(t.total)}</td>
+                        <td class="p-3 text-xs text-slate-500">${serviceNames}</td>
+                        <td class="p-3 font-bold text-slate-800">${formatRp(t.total)}</td>
                         <td class="p-3">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.status === 'Lunas' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">${t.status}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.status === 'Lunas' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${t.status}</span>
                         </td>
                         <td class="p-3 text-right">
-                            <button onclick="event.stopPropagation(); viewTransactionDetail('${t.id}')" class="bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 border border-amber-500/30 text-xs px-3 py-1 rounded-lg font-semibold transition">
+                            <button onclick="event.stopPropagation(); viewTransactionDetail('${t.id}')" class="bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300 text-xs px-3 py-1 rounded-lg font-semibold transition">
                                 <i class="fa-solid fa-eye mr-1"></i> Detail
                             </button>
                         </td>
@@ -1054,39 +1043,39 @@
             const content = document.getElementById('detailTxContent');
             content.innerHTML = `
                 <div class="space-y-2">
-                    <div class="flex justify-between border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">ID Transaksi:</span>
-                        <span class="font-mono text-amber-400 font-bold">${tx.id}</span>
+                    <div class="flex justify-between border-b border-slate-200 pb-2">
+                        <span class="text-slate-500">ID Transaksi:</span>
+                        <span class="font-mono text-amber-800 font-bold">${tx.id}</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">Waktu:</span>
-                        <span class="text-slate-200">${tx.date} ${tx.time}</span>
+                    <div class="flex justify-between border-b border-slate-200 pb-2">
+                        <span class="text-slate-500">Waktu:</span>
+                        <span class="text-slate-800">${tx.date} ${tx.time}</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">Barber:</span>
-                        <span class="text-slate-200 font-medium">${tx.barberName}</span>
+                    <div class="flex justify-between border-b border-slate-200 pb-2">
+                        <span class="text-slate-500">Barber:</span>
+                        <span class="text-slate-800 font-medium">${tx.barberName}</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">Metode Pembayaran:</span>
-                        <span class="text-slate-200 font-bold">${tx.paymentMethod || 'Cash'}</span>
+                    <div class="flex justify-between border-b border-slate-200 pb-2">
+                        <span class="text-slate-500">Metode Pembayaran:</span>
+                        <span class="text-slate-800 font-bold">${tx.paymentMethod || 'Cash'}</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">Status:</span>
-                        <span id="detailTxStatusLabel" class="font-bold ${tx.status === 'Lunas' ? 'text-emerald-400' : 'text-red-400'}">${tx.status}</span>
+                    <div class="flex justify-between border-b border-slate-200 pb-2">
+                        <span class="text-slate-500">Status:</span>
+                        <span id="detailTxStatusLabel" class="font-bold ${tx.status === 'Lunas' ? 'text-emerald-700' : 'text-red-700'}">${tx.status}</span>
                     </div>
                 </div>
                 <div class="pt-2">
-                    <p class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-2">Rincian Layanan:</p>
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                    <p class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-2">Rincian Layanan:</p>
+                    <div class="bg-white p-3 rounded-xl border border-slate-300 space-y-1.5 shadow-2xs">
                         ${tx.items.map(i => `
                             <div class="flex justify-between text-xs">
-                                <span class="text-slate-300">${i.name}</span>
-                                <span class="text-slate-200 font-semibold">${formatRp(i.price)}</span>
+                                <span class="text-slate-700">${i.name}</span>
+                                <span class="text-slate-800 font-semibold">${formatRp(i.price)}</span>
                             </div>
                         `).join('')}
                     </div>
                 </div>
-                <div class="pt-2 flex justify-between font-bold text-base text-amber-400 border-t border-slate-800">
+                <div class="pt-2 flex justify-between font-bold text-base text-amber-800 border-t border-slate-200">
                     <span>Total Nominal:</span>
                     <span>${formatRp(tx.total)}</span>
                 </div>
@@ -1094,12 +1083,12 @@
             const actions = document.getElementById('detailTxActions');
             actions.innerHTML = `
                 ${state.isAdminLoggedIn && tx.status === 'Lunas' ? `
-                    <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/30 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
+                    <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
                         <i class="fa-solid fa-rotate-left"></i>
                         <span>Proses Pengembalian Dana (Refund)</span>
                     </button>
                 ` : ``}
-                <button onclick="closeModal('detailTxModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition">Tutup</button>
+                <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition">Tutup</button>
             `;
             openModal('detailTxModal');
         }
@@ -1127,7 +1116,6 @@
             const desc = document.getElementById('expenseDesc').value;
             const amount = Number(document.getElementById('expenseAmount').value);
             if (!desc || !amount) return;
-            // Generate sequential expense ID starting from BBPK-101
             let nextExpNum = 101;
             if (state.expenses.length > 0) {
                 const maxExpNum = state.expenses.reduce((max, ex) => {
@@ -1157,17 +1145,17 @@
             const body = document.getElementById('expensesTableBody');
             if (!body) return;
             if (state.expenses.length === 0) {
-                body.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-500">Belum ada catatan pengeluaran.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Belum ada catatan pengeluaran.</td></tr>`;
                 return;
             }
             body.innerHTML = state.expenses.map(e => `
-                <tr class="hover:bg-slate-900/50">
-                    <td class="p-3 text-xs text-slate-400">${e.date}</td>
-                    <td class="p-3 font-medium text-slate-200">${e.desc}</td>
+                <tr class="hover:bg-slate-100/60">
+                    <td class="p-3 text-xs text-slate-500">${e.date}</td>
+                    <td class="p-3 font-medium text-slate-800">${e.desc}</td>
                     <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${e.paymentMethod === 'Cash' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'}">${e.paymentMethod || 'Cash'}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${e.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${e.paymentMethod || 'Cash'}</span>
                     </td>
-                    <td class="p-3 font-bold text-red-400 text-right">${formatRp(e.amount)}</td>
+                    <td class="p-3 font-bold text-red-700 text-right">${formatRp(e.amount)}</td>
                 </tr>
             `).join('');
         }
@@ -1244,27 +1232,26 @@
                 });
             });
             if (ledgerItems.length === 0) {
-                ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada transaksi di jurnal.</td></tr>`;
+                ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal.</td></tr>`;
                 return;
             }
             ledgerBody.innerHTML = ledgerItems.map(item => `
-                <tr class="hover:bg-slate-900/50">
-                    <td class="p-3 text-xs text-slate-400">${item.date}</td>
-                    <td class="p-3 font-mono text-xs text-amber-400 font-semibold">${item.code}</td>
-                    <td class="p-3 font-medium text-slate-200">${item.desc}</td>
+                <tr class="hover:bg-slate-100/60">
+                    <td class="p-3 text-xs text-slate-500">${item.date}</td>
+                    <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${item.code}</td>
+                    <td class="p-3 font-medium text-slate-800">${item.desc}</td>
                     <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.method === 'Cash' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'}">${item.method}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.method === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${item.method}</span>
                     </td>
                     <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'Pemasukan' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">${item.type}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'Pemasukan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${item.type}</span>
                     </td>
-                    <td class="p-3 font-bold text-right ${item.amount >= 0 ? 'text-emerald-400' : 'text-red-400'}">${formatRp(item.amount)}</td>
+                    <td class="p-3 font-bold text-right ${item.amount >= 0 ? 'text-emerald-700' : 'text-red-700'}">${formatRp(item.amount)}</td>
                 </tr>
             `).join('');
         }
         function exportToExcel() {
             let csvContent = "\uFEFF"; 
-            
             csvContent += "LAPORAN KEUANGAN CAHYA BARU BARBERSHOP\n";
             csvContent += `Tanggal Export;"${new Date().toLocaleDateString('id-ID')}"\n\n`;
             let totalCashRevenue = 0;
