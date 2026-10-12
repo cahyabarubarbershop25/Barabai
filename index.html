@@ -812,10 +812,10 @@
                 commands.push(encoder.encode(headerText));
                 commands.push(new Uint8Array([0x1B, 0x61, 0x00])); // Left
                 let infoText = 
-                    `No      : ${tx.id}\n` +
-                    `Date    : ${tx.date} ${tx.time}\n` +
-                    `Cashier : Bonartha | Barber: ${tx.barberName}\n` +
-                    `Metode  : ${tx.paymentMethod}\n` +
+                    `No    : ${tx.id}\n` +
+                    `Date  : ${tx.date} ${tx.time}\n` +
+                    `Kasir : Bonartha | Barber: ${tx.barberName}\n` +
+                    `Metode: ${tx.paymentMethod}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(infoText));
                 tx.items.forEach(item => {
