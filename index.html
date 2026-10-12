@@ -71,7 +71,7 @@
                     </div>
                     <button id="loginBtnNav" onclick="openLoginModal()" class="bg-slate-50 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center space-x-1.5 shadow-2xs">
                         <i class="fa-solid fa-lock text-amber-600"></i>
-                        <span>Login Admin</span>
+                        <span>Admin</span>
                     </button>
                     <button onclick="toggleMobileNav()" aria-label="Toggle Mobile Menu" class="lg:hidden p-2 text-slate-700 hover:text-amber-600 bg-slate-50 border border-slate-300 rounded-lg active:scale-95 transition">
                         <i class="fa-solid fa-bars text-xl"></i>
@@ -255,7 +255,7 @@
                                 </button>
                                 <button onclick="openPrinterModal()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
                                     <i class="fa-solid fa-print text-amber-600"></i>
-                                    <span>Printer VSC MP-58M</span>
+                                    <span>Thermal Printer</span>
                                 </button>
                             </div>
                         </div>
@@ -755,7 +755,7 @@
                 let infoText = 
                     `No  : ${tx.id}\n` +
                     `Tgl : ${tx.date} ${tx.time}\n` +
-                    `Ksr : Admin | Bbr: ${tx.barberName}\n` +
+                    `Ksr : Bonartha | Bbr: ${tx.barberName}\n` +
                     `Mtd : ${tx.paymentMethod}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(infoText));
