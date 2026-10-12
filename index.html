@@ -57,7 +57,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h1 class="font-bold text-base sm:text-lg text-slate-950 tracking-wide">CAHYABARU</h1>
-                            <span class="text-[14px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300 uppercase">BARBERSHOP</span>
+                            <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300 uppercase">BARBERSHOP</span>
                         </div>
                         <p class="text-xs text-slate-600 hidden sm:block">Ruang Reservasi dan Administrasi</p>
                     </div>
@@ -66,7 +66,7 @@
                 <div class="flex items-center space-x-3">
                     <div id="adminBadge" class="hidden flex items-center space-x-2 bg-amber-100 border border-amber-300 px-3 py-1 rounded-full text-amber-900 text-xs font-medium">
                         <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
-                        <span>Mode Admin</span>
+                        <span>Admin</span>
                         <button onclick="logoutAdmin()" class="ml-2 hover:text-red-600" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                     <button id="loginBtnNav" onclick="openLoginModal()" class="bg-slate-50 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center space-x-1.5 shadow-2xs">
@@ -112,7 +112,7 @@
                     <nav class="space-y-1">
                         <button onclick="switchTab('pos')" id="nav-pos" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-cash-register w-5 text-amber-600"></i>
-                            <span>Kasir POS</span>
+                            <span>Kasir POS & Menu</span>
                         </button>
                         <button onclick="switchTab('transactions')" id="nav-transactions" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-receipt w-5 text-amber-600"></i>
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">Cahya Baru Reservation 1.01</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.01</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
@@ -204,7 +204,7 @@
                         <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <i class="fa-solid fa-list-dots text-amber-600"></i> Menu Layanan & Treatment
                         </h2>
-                        <p class="text-sm text-slate-600 mt-1">Daftar harga resmi layanan Cahya Baru Barbershop.</p>
+                        <p class="text-sm text-slate-600 mt-1">Daftar harga layanan Cahya Baru Barbershop.</p>
                     </div>
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
@@ -218,7 +218,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> Jadwal Reservasi Masuk
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Daftar booking terdaftar pelanggan.</p>
+                            <p class="text-sm text-slate-600 mt-1">Daftar booking pelanggan.</p>
                         </div>
                     </div>
                     <div class="mt-6 overflow-x-auto">
@@ -239,26 +239,35 @@
                 </div>
             </section>
 
-            <!-- TAB 4: POS Register -->
+            <!-- TAB 4: POS Register & Menu Management -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-6">
-                        <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 flex justify-between items-center shadow-xs">
+                        <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3 shadow-xs">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-solid fa-scissors text-amber-600 text-lg"></i>
                                 <span class="font-bold text-sm text-slate-800">KASIR KELOLA TRANSAKSI</span>
                             </div>
-                            <button onclick="openPrinterModal()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
-                                <i class="fa-solid fa-print text-amber-600"></i>
-                                <span>Pengaturan Printer</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openAddMenuModal()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center space-x-1.5 transition shadow-2xs">
+                                    <i class="fa-solid fa-plus"></i>
+                                    <span>Tambah Menu Baru</span>
+                                </button>
+                                <button onclick="openPrinterModal()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
+                                    <i class="fa-solid fa-print text-amber-600"></i>
+                                    <span>Printer VSC MP-58M</span>
+                                </button>
+                            </div>
                         </div>
                         <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Pilih Barber / Eksekutor</label>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Pilih Barber</label>
                             <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="posBarberList"></div>
                         </div>
                         <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
-                            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Layanan untuk Masuk Keranjang</p>
+                            <div class="flex justify-between items-center mb-3">
+                                <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Pilih Layanan untuk Masuk Keranjang</p>
+                                <span class="text-[11px] text-slate-400 italic">Klik tombol hapus (🗑️) pada item untuk menghapus menu</span>
+                            </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="posServicesGrid"></div>
                         </div>
                     </div>
@@ -308,7 +317,7 @@
                         <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
                         </h2>
-                        <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail atau memproses pengembalian dana (refund).</p>
+                        <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
                     </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
@@ -468,7 +477,44 @@
         </div>
     </div>
 
-    <!-- Modal Detail Transaksi & Refund -->
+    <!-- Modal Tambah Menu Layanan / Produk -->
+    <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900">Tambah Menu Layanan Baru</h3>
+                <button onclick="closeModal('addMenuModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleAddNewService(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Kategori Layanan</label>
+                    <select id="newServiceCategory" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
+                        <option value="Haircut Opsional">Haircut Opsional</option>
+                        <option value="Chemical Treatment">Chemical Treatment</option>
+                        <option value="Additional Treatment">Additional Treatment</option>
+                        <option value="Produk / Lainnya">Produk / Lainnya</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Nama Layanan / Produk</label>
+                    <input type="text" id="newServiceName" required placeholder="Contoh: Pomade Clay / Hair Styling" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Harga (Rp)</label>
+                    <input type="number" id="newServicePrice" required placeholder="75000" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
+                    <input type="text" id="newServiceDesc" placeholder="Contoh: Termasuk minyak rambut premium" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
+                </div>
+                <div class="pt-2 flex justify-end space-x-2">
+                    <button type="button" onclick="closeModal('addMenuModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition">Batal</button>
+                    <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm">Simpan Menu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Detail Transaksi, Cetak Ulang & Refund -->
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -476,36 +522,32 @@
                 <button onclick="closeModal('detailTxModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="detailTxContent" class="space-y-3 text-sm text-slate-700"></div>
-            <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex justify-end space-x-2"></div>
+            <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
 
-    <!-- Modal Pengaturan Printer -->
+    <!-- Modal Pengaturan Printer VSC MP-58M -->
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-                <h3 class="font-bold text-slate-900">Pengaturan Printer Thermal (58mm)</h3>
+                <h3 class="font-bold text-slate-900">Pengaturan Printer VSC MP-58M</h3>
                 <button onclick="closeModal('printerModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="text-xs text-slate-600">Pilih metode koneksi printer thermal portable Anda:</p>
+            <p class="text-xs text-slate-600">Pastikan Bluetooth & GPS HP aktif, serta printer VSC MP-58M sudah di-pairing sebelumnya.</p>
             
             <div class="bg-white p-4 rounded-xl border border-slate-300 space-y-2 text-center shadow-2xs">
                 <div id="printerStatusIcon" class="text-2xl text-slate-400"><i class="fa-solid fa-print"></i></div>
-                <p id="printerStatusLabel" class="text-xs font-semibold text-slate-700">Status: Siap Cetak Thermal 58mm</p>
+                <p id="printerStatusLabel" class="text-xs font-semibold text-slate-700">Status: Belum Terhubung</p>
             </div>
             <div class="space-y-2 pt-2">
-                <button onclick="connectUSBPrinter()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-sm">
-                    <i class="fa-solid fa-usb"></i>
-                    <span>Konek ke Printer via Kabel USB</span>
-                </button>
                 <button onclick="connectBluetoothPrinter()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-sm">
                     <i class="fa-brands fa-bluetooth"></i>
-                    <span>Konek ke Printer via Bluetooth</span>
+                    <span>Konek ke Printer VSC MP-58M via Bluetooth</span>
                 </button>
                 <div class="pt-2 border-t border-slate-200">
                     <label class="flex items-center space-x-2 cursor-pointer">
                         <input type="checkbox" id="autoPrintToggle" onchange="toggleAutoPrint(this)" class="w-4 h-4 rounded bg-white border-slate-300 text-amber-600 focus:ring-amber-500">
-                        <span class="text-xs text-slate-700 font-medium">Cetak Otomatis saat Bayar Selesai (Loyverse Style)</span>
+                        <span class="text-xs text-slate-700 font-medium">Cetak Otomatis saat Bayar Selesai</span>
                     </label>
                 </div>
                 <button onclick="closeModal('printerModal')" class="w-full bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold py-2.5 rounded-xl transition text-xs mt-2">
@@ -515,7 +557,7 @@
         </div>
     </div>
 
-    <!-- Printable Area for Thermal Printer (58mm width format) -->
+    <!-- Printable Area cadangan (hidden) -->
     <div id="printableReceipt" class="hidden"></div>
 
     <script>
@@ -529,7 +571,8 @@
             { id: "reza", name: "Reza" },
             { id: "mutawali", name: "Mutawali" }
         ];
-        const SERVICES = [
+
+        const DEFAULT_SERVICES = [
             { id: "s1", category: "Haircut Opsional", name: "Reguler Haircut", price: 60000, desc: "Potong, keramas, styling" },
             { id: "s2", category: "Haircut Opsional", name: "Signature Haircut", price: 80000, desc: "Keramas, potong, hairmask, styling" },
             { id: "s3", category: "Haircut Opsional", name: "Luxury Haircut", price: 150000, desc: "Keramas, potong, hairmask, facemask, pijat, styling, parfum" },
@@ -541,6 +584,7 @@
             { id: "s9", category: "Additional Treatment", name: "Home Servis", price: 100000, desc: "Layanan potong dipanggil ke rumah" },
             { id: "s10", category: "Additional Treatment", name: "Wedding Styling", price: 600000, desc: "Styling khusus pengantin/pesta" }
         ];
+
         let state = {
             isAdminLoggedIn: false,
             activeTab: 'booking',
@@ -551,10 +595,15 @@
             posPaymentMethod: 'Cash',
             expPaymentMethod: 'Cash',
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
+            services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             reservations: JSON.parse(localStorage.getItem('cb_reservations') || '[]'),
             transactions: JSON.parse(localStorage.getItem('cb_transactions') || '[]'),
             expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]')
         };
+
+        let bluetoothDevice = null;
+        let bluetoothCharacteristic = null;
+
         window.addEventListener('DOMContentLoaded', () => {
             renderBookingBarbers();
             renderBookingServices();
@@ -572,6 +621,179 @@
             }
             switchTab('booking');
         });
+
+        function toggleMobileNav() {
+            const sidebar = document.getElementById('sidebarNav');
+            const backdrop = document.getElementById('mobileBackdrop');
+            if (!sidebar || !backdrop) return;
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function openAddMenuModal() {
+            if (!state.isAdminLoggedIn) {
+                openLoginModal();
+                return;
+            }
+            openModal('addMenuModal');
+        }
+
+        function handleAddNewService(e) {
+            e.preventDefault();
+            const name = document.getElementById('newServiceName').value;
+            const category = document.getElementById('newServiceCategory').value;
+            const price = Number(document.getElementById('newServicePrice').value);
+            const desc = document.getElementById('newServiceDesc').value || '-';
+
+            const newService = {
+                id: 's-' + Date.now(),
+                category: category,
+                name: name,
+                price: price,
+                desc: desc
+            };
+
+            state.services.push(newService);
+            localStorage.setItem('cb_services', JSON.stringify(state.services));
+
+            document.getElementById('newServiceName').value = '';
+            document.getElementById('newServicePrice').value = '';
+            document.getElementById('newServiceDesc').value = '';
+            closeModal('addMenuModal');
+
+            renderBookingServices();
+            renderFullServices();
+            renderPOSServices();
+            alert(`Menu "${name}" berhasil ditambahkan!`);
+        }
+
+        function deleteService(serviceId, event) {
+            event.stopPropagation();
+            if (!state.isAdminLoggedIn) {
+                openLoginModal();
+                return;
+            }
+            if (confirm('Apakah Anda yakin ingin menghapus menu layanan ini?')) {
+                state.services = state.services.filter(s => s.id !== serviceId);
+                localStorage.setItem('cb_services', JSON.stringify(state.services));
+
+                renderBookingServices();
+                renderFullServices();
+                renderPOSServices();
+            }
+        }
+
+        async function connectBluetoothPrinter() {
+            if (!navigator.bluetooth) {
+                alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
+                return;
+            }
+            try {
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [
+                        { services: ['000018f0-0000-1000-8000-00805f9b34fb'] },
+                        { namePrefix: 'VSC' },
+                        { namePrefix: 'Printer' },
+                        { namePrefix: 'MPT' },
+                        { namePrefix: 'RP' }
+                    ],
+                    optionalServices: ['000018f0-0000-1000-8000-00805f9b34fb', '0000ffe0-0000-1000-8000-00805f9b34fb']
+                });
+
+                bluetoothDevice = device;
+                const server = await device.gatt.connect();
+                
+                let service;
+                try {
+                    service = await server.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb');
+                } catch (e) {
+                    service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+                }
+
+                const characteristics = await service.getCharacteristics();
+                bluetoothCharacteristic = characteristics.find(c => c.properties.write || c.properties.writeWithoutResponse);
+
+                if (!bluetoothCharacteristic) {
+                    throw new Error('Karakteristik write printer tidak ditemukan.');
+                }
+
+                document.getElementById('printerStatusLabel').innerText = `Terhubung: ${device.name || 'VSC MP-58M'}`;
+                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
+                alert(`Berhasil terhubung ke printer ${device.name || 'VSC MP-58M'}!`);
+            } catch (err) {
+                console.log('Bluetooth connection error:', err);
+                alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif, serta printer sudah di-pairing.');
+            }
+        }
+
+        async function printReceipt(tx) {
+            if (!bluetoothCharacteristic) {
+                openPrinterModal();
+                return;
+            }
+
+            try {
+                let encoder = new TextEncoder();
+                let commands = [];
+
+                commands.push(new Uint8Array([0x1B, 0x40])); // Init
+                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); // Center
+
+                let headerText = 
+                    "\x1B\x21\x20CAHYA BARU BARBERSHOP\x1B\x21\x00\n" +
+                    "Style With Purpose\n" +
+                    "--------------------------------\n";
+                commands.push(encoder.encode(headerText));
+
+                commands.push(new Uint8Array([0x1B, 0x61, 0x00])); // Left
+                let infoText = 
+                    `No  : ${tx.id}\n` +
+                    `Tgl : ${tx.date} ${tx.time}\n` +
+                    `Ksr : Admin | Bbr: ${tx.barberName}\n` +
+                    `Mtd : ${tx.paymentMethod}\n` +
+                    "--------------------------------\n";
+                commands.push(encoder.encode(infoText));
+
+                tx.items.forEach(item => {
+                    let itemName = item.name.padEnd(20, ' ');
+                    let itemPrice = formatRp(item.price).padStart(12, ' ');
+                    commands.push(encoder.encode(`${itemName}${itemPrice}\n`));
+                });
+
+                let totalText = 
+                    "--------------------------------\n" +
+                    `TOTAL: ${formatRp(tx.total).padStart(26, ' ')}\n` +
+                    "--------------------------------\n";
+                commands.push(encoder.encode(totalText));
+
+                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); // Center
+                let footerText = 
+                    "Terima Kasih Atas Kunjungan Anda\n" +
+                    "Simpan struk ini sebagai bukti\n\n\n";
+                commands.push(encoder.encode(footerText));
+
+                for (let cmd of commands) {
+                    await bluetoothCharacteristic.writeValue(cmd);
+                }
+                alert('Struk berhasil dicetak!');
+            } catch (err) {
+                console.error("Gagal mencetak:", err);
+                alert("Gagal mencetak ke printer. Pastikan printer menyala dan terhubung kembali.");
+            }
+        }
+
+        function reprintTransaction(txId) {
+            const tx = state.transactions.find(x => x.id === txId);
+            if (!tx) return;
+            printReceipt(tx);
+        }
+
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -589,20 +811,23 @@
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
-            container.innerHTML = SERVICES.map(s => `
+            container.innerHTML = state.services.map(s => `
                 <div onclick="addToCart('${s.id}')" class="p-3 bg-white border border-slate-300 hover:border-amber-600 cursor-pointer rounded-xl transition flex justify-between items-center group shadow-2xs">
                     <div>
                         <h4 class="font-bold text-slate-800 text-xs group-hover:text-amber-700">${s.name}</h4>
                         <p class="text-[11px] text-slate-500 mt-0.5">${formatRp(s.price)}</p>
                     </div>
-                    <button class="bg-amber-100 group-hover:bg-amber-600 text-amber-900 group-hover:text-white p-2 rounded-lg transition text-xs font-bold">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                    <div class="flex items-center space-x-1">
+                        <button onclick="deleteService('${s.id}', event)" class="text-slate-400 hover:text-red-600 p-1.5 transition" title="Hapus Menu"><i class="fa-solid fa-trash text-xs"></i></button>
+                        <button class="bg-amber-100 group-hover:bg-amber-600 text-amber-900 group-hover:text-white p-2 rounded-lg transition text-xs font-bold">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
         function addToCart(serviceId) {
-            const s = SERVICES.find(x => x.id === serviceId);
+            const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
@@ -668,85 +893,9 @@
         function openPrinterModal() {
             openModal('printerModal');
         }
-        async function connectUSBPrinter() {
-            if (!navigator.usb && !navigator.serial) {
-                alert('Web USB/Serial API tidak didukung pada browser ini.');
-                return;
-            }
-            try {
-                let device;
-                if (navigator.usb) {
-                    device = await navigator.usb.requestDevice({ filters: [] });
-                    await device.open();
-                    if (device.configuration === null) await device.selectConfiguration(1);
-                    await device.claimInterface(0);
-                } else if (navigator.serial) {
-                    device = await navigator.serial.requestPort();
-                    await device.open({ baudRate: 9600 });
-                }
-                document.getElementById('printerStatusLabel').innerText = `Terhubung via USB Printer`;
-                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
-                alert('Printer USB berhasil terhubung!');
-            } catch (err) {
-                console.log('USB connection cancelled or failed:', err);
-            }
-        }
-        function connectBluetoothPrinter() {
-            if (!navigator.bluetooth) {
-                alert('Web Bluetooth API tidak didukung pada browser ini.');
-                return;
-            }
-            navigator.bluetooth.requestDevice({
-                acceptAllDevices: true,
-                optionalServices: ['000018f0-0000-1000-8000-00805f9b34fb']
-            }).then(device => {
-                document.getElementById('printerStatusLabel').innerText = `Terhubung Bluetooth: ${device.name || 'Thermal Printer'}`;
-                document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
-                alert(`Terhubung ke ${device.name || 'Printer Bluetooth'}`);
-            }).catch(err => {
-                console.log('Bluetooth error or cancelled:', err);
-            });
-        }
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
-        }
-        function printReceipt(tx) {
-            const container = document.getElementById('printableReceipt');
-            container.innerHTML = `
-                <div style="font-family: 'Courier New', Courier, monospace; font-size: 11px; width: 58mm; padding: 2px; color: #000; background: #fff;">
-                    <div style="text-align: center;">
-                        <p style="font-weight: bold; font-size: 13px; margin: 0 0 2px 0;">CAHYA BARU BARBERSHOP</p>
-                        <p style="margin: 0 0 2px 0; font-size: 10px;">Style With Purpose</p>
-                        <p style="margin: 0 0 2px 0;">--------------------------------</p>
-                    </div>
-                    <div style="margin-bottom: 3px; font-size: 10px;">
-                        <p style="margin: 1px 0;">No : ${tx.id}</p>
-                        <p style="margin: 1px 0;">Tgl: ${tx.date} ${tx.time}</p>
-                        <p style="margin: 1px 0;">Ksr: Admin | Bbr: ${tx.barberName}</p>
-                        <p style="margin: 1px 0;">Mtd: ${tx.paymentMethod}</p>
-                    </div>
-                    <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 3px 0; margin: 3px 0;">
-                        ${tx.items.map(i => `
-                            <div style="display: flex; justify-content: space-between; margin: 2px 0;">
-                                <span style="max-width: 34mm; overflow: hidden;">${i.name}</span>
-                                <span>${formatRp(i.price)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; margin: 4px 0;">
-                        <span>TOTAL</span>
-                        <span>${formatRp(tx.total)}</span>
-                    </div>
-                    <div style="text-align: center; margin-top: 8px; font-size: 10px;">
-                        <p style="margin: 0;">Terima Kasih</p>
-                        <p style="margin: 2px 0 0 0;">Simpan struk ini sebagai bukti</p>
-                    </div>
-                </div>
-            `;
-            setTimeout(() => {
-                window.print();
-            }, 150);
         }
         function switchTab(tabId) {
             const adminTabs = ['pos', 'transactions', 'expenses', 'accounting'];
@@ -783,6 +932,7 @@
             }
             return 'Rp ' + formattedNum;
         }
+
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
@@ -830,7 +980,7 @@
         }
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
-            container.innerHTML = SERVICES.map(s => {
+            container.innerHTML = state.services.map(s => {
                 const isSelected = state.resSelectedServices.includes(s.id);
                 return `
                     <div onclick="toggleBookingService('${s.id}')" class="p-3 rounded-xl border cursor-pointer transition flex justify-between items-center ${isSelected ? 'bg-amber-100 border-amber-600 text-slate-900 shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
@@ -854,12 +1004,12 @@
         }
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
-            const categories = [...new Set(SERVICES.map(s => s.category))];
+            const categories = [...new Set(state.services.map(s => s.category))];
             container.innerHTML = categories.map(cat => `
                 <div class="space-y-3">
                     <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wider border-b border-slate-200 pb-2">${cat}</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${SERVICES.filter(s => s.category === cat).map(s => `
+                        ${state.services.filter(s => s.category === cat).map(s => `
                             <div class="p-4 bg-white border border-slate-300 rounded-xl flex justify-between items-start shadow-2xs">
                                 <div>
                                     <h4 class="font-bold text-slate-800 text-sm">${s.name}</h4>
@@ -879,7 +1029,7 @@
                 return;
             }
             const barberObj = BARBERS.find(b => b.id === state.resSelectedBarber);
-            const selectedServiceObjs = SERVICES.filter(s => state.resSelectedServices.includes(s.id));
+            const selectedServiceObjs = state.services.filter(s => state.resSelectedServices.includes(s.id));
             const newReservation = {
                 id: 'RES-' + Date.now(),
                 clientName: document.getElementById('resClientName').value,
@@ -1082,13 +1232,17 @@
             `;
             const actions = document.getElementById('detailTxActions');
             actions.innerHTML = `
+                <button onclick="reprintTransaction('${tx.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Cetak Ulang Struk</span>
+                </button>
                 ${state.isAdminLoggedIn && tx.status === 'Lunas' ? `
-                    <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
+                    <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
                         <i class="fa-solid fa-rotate-left"></i>
-                        <span>Proses Pengembalian Dana (Refund)</span>
+                        <span>Refund</span>
                     </button>
                 ` : ``}
-                <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition">Tutup</button>
+                <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition ml-auto">Tutup</button>
             `;
             openModal('detailTxModal');
         }
@@ -1250,10 +1404,9 @@
                 </tr>
             `).join('');
         }
+
+        // Fungsi Ekspor ke Excel (.xls) dengan Format Accounting Bawaan Excel
         function exportToExcel() {
-            let csvContent = "\uFEFF"; 
-            csvContent += "LAPORAN KEUANGAN CAHYA BARU BARBERSHOP\n";
-            csvContent += `Tanggal Export;"${new Date().toLocaleDateString('id-ID')}"\n\n`;
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
             state.transactions.forEach(t => {
@@ -1262,45 +1415,158 @@
                     else totalQRISRevenue += t.total;
                 }
             });
+
             let totalCashExpense = 0;
             let totalQRISExpense = 0;
             state.expenses.forEach(e => {
                 if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += e.amount;
                 else totalQRISExpense += e.amount;
             });
+
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
-            csvContent += `Total Pendapatan Cash (Bersih);${netCash}\n`;
-            csvContent += `Total Pendapatan QRIS (Bersih);${netQRIS}\n`;
-            csvContent += `Total Omset Penjualan;${totalRevenue}\n`;
-            csvContent += `Total Pengeluaran Kas;${totalExpenses}\n`;
-            csvContent += `Laba Bersih;${netProfit}\n\n`;
-            csvContent += "JURNAL MUTASI KEUANGAN\n";
-            csvContent += "Tanggal;Kode Transaksi;Deskripsi (Barber - Layanan);Metode;Tipe;Nominal\n";
+
+            const dateFormatted = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            let excelTemplate = `
+            <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+            <head>
+                <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+                <!--[if gte mso 9]>
+                <xml>
+                    <x:ExcelWorkbook>
+                        <x:ExcelWorksheets>
+                            <x:ExcelWorksheet>
+                                <x:Name>Laporan Keuangan</x:Name>
+                                <x:WorksheetOptions>
+                                    <x:DisplayGridlines/>
+                                </x:WorksheetOptions>
+                            </x:ExcelWorksheet>
+                        </x:ExcelWorksheets>
+                    </x:ExcelWorkbook>
+                </xml>
+                <![endif]-->
+                <style>
+                    .num-accounting { mso-number-format: "\\"Rp\\"\\ \\#\\,\\#\\#0\\;\\(\\"Rp\\"\\ \\#\\,\\#\\#0\\)\\;\\\"-\\\""; }
+                    .text-cell { mso-number-format: "\\@"; }
+                    th { font-weight: bold; background-color: #f1f5f9; border: 0.5pt solid #cbd5e1; }
+                    td { border: 0.5pt solid #cbd5e1; }
+                </style>
+            </head>
+            <body>
+                <h2>LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</h2>
+                <p><b>Periode / Tanggal Export:</b> ${dateFormatted}</p>
+                <br/>
+                
+                <h3>RINGKASAN KEUANGAN</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 250px;">Keterangan</th>
+                            <th style="width: 180px;">Nominal (Rp)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Pendapatan Cash (Bersih)</td>
+                            <td class="num-accounting" align="right">${netCash}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Pendapatan QRIS (Bersih)</td>
+                            <td class="num-accounting" align="right">${netQRIS}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Omset Penjualan</td>
+                            <td class="num-accounting" align="right">${totalRevenue}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Pengeluaran Kas</td>
+                            <td class="num-accounting" align="right">${totalExpenses}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Laba Bersih</b></td>
+                            <td class="num-accounting" align="right"><b>${netProfit}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/><br/>
+
+                <h3>JURNAL MUTASI KEUANGAN</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;">Tanggal & Jam</th>
+                            <th style="width: 120px;">Kode Transaksi</th>
+                            <th style="width: 300px;">Deskripsi (Barber & Layanan / Keterangan)</th>
+                            <th style="width: 120px;">Metode Pembayaran</th>
+                            <th style="width: 110px;">Jenis Mutasi</th>
+                            <th style="width: 180px;">Nominal (Rp)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
             state.transactions.forEach(t => {
                 const serviceStr = t.items.map(i => i.name).join(', ');
                 const descStr = `${t.barberName} - ${serviceStr}`;
                 if (t.status === 'Lunas') {
-                    csvContent += `"${t.date} ${t.time}";"${t.id}";"${descStr}";"${t.paymentMethod || 'Cash'}";"Pemasukan";${t.total}\n`;
+                    excelTemplate += `
+                        <tr>
+                            <td class="text-cell">${t.date} ${t.time}</td>
+                            <td class="text-cell">${t.id}</td>
+                            <td class="text-cell">${descStr}</td>
+                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
+                            <td class="text-cell">Pemasukan</td>
+                            <td class="num-accounting" align="right">${t.total}</td>
+                        </tr>
+                    `;
                 } else if (t.status === 'Refunded') {
-                    csvContent += `"${t.date} ${t.time}";"${t.id}";"${descStr} (Refund)";"${t.paymentMethod || 'Cash'}";"Refund";-${t.total}\n`;
+                    excelTemplate += `
+                        <tr>
+                            <td class="text-cell">${t.date} ${t.time}</td>
+                            <td class="text-cell">${t.id}</td>
+                            <td class="text-cell">${descStr} (Refund)</td>
+                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
+                            <td class="text-cell">Refund</td>
+                            <td class="num-accounting" align="right">${-t.total}</td>
+                        </tr>
+                    `;
                 }
             });
+
             state.expenses.forEach(e => {
-                csvContent += `"${e.date}";"${e.id}";"${e.desc}";"${e.paymentMethod || 'Cash'}";"Pengeluaran";-${e.amount}\n`;
+                excelTemplate += `
+                    <tr>
+                        <td class="text-cell">${e.date}</td>
+                        <td class="text-cell">${e.id}</td>
+                        <td class="text-cell">${e.desc}</td>
+                        <td class="text-cell">${e.paymentMethod || 'Cash'}</td>
+                        <td class="text-cell">Pengeluaran</td>
+                        <td class="num-accounting" align="right">${-e.amount}</td>
+                    </tr>
+                `;
             });
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+            excelTemplate += `
+                    </tbody>
+                </table>
+            </body>
+            </html>
+            `;
+
+            const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.setAttribute("href", url);
-            link.setAttribute("download", `Laporan_Keuangan_CahyaBaru_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Laporan_Keuangan_CahyaBaru_${new Date().toISOString().slice(0,10)}.xls`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
+
         function confirmResetMonth() {
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
