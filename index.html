@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cahya Baru Barbershop - POS & Reservasi</title>
+    <title>Cahya Baru Barbershop - POS & Akuntansi Real-Time</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,65 +13,48 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         @media print {
-            @page {
-                size: 58mm auto;
-                margin: 0mm;
-            }
-            body, html {
-                width: 58mm !important;
-                min-width: 58mm !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                background: #fff !important;
-                color: #000 !important;
-            }
+            @page { size: 58mm auto; margin: 0mm; }
+            body, html { width: 58mm !important; min-width: 58mm !important; margin: 0 !important; padding: 0 !important; background: #fff !important; color: #000 !important; }
             body * { visibility: hidden !important; }
             #printableReceipt, #printableReceipt * { visibility: visible !important; }
             #printableReceipt {
-                display: block !important;
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 58mm !important;
-                max-width: 58mm !important;
-                padding: 4px !important;
-                margin: 0 !important;
-                color: #000 !important;
-                background: #fff !important;
-                font-family: 'Courier New', Courier, monospace !important;
-                font-size: 11px !important;
-                line-height: 1.2 !important;
+                display: block !important; position: absolute !important; left: 0 !important; top: 0 !important;
+                width: 58mm !important; max-width: 58mm !important; padding: 4px !important; margin: 0 !important;
+                color: #000 !important; background: #fff !important; font-family: 'Courier New', Courier, monospace !important; font-size: 11px !important; line-height: 1.2 !important;
             }
         }
     </style>
 </head>
 <body class="h-full bg-slate-200 text-slate-800 flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-white">
+    <!-- Indikator Sinkronisasi Cloud -->
+    <div id="syncIndicator" class="bg-amber-600 text-white text-[11px] px-4 py-1 text-center font-medium flex items-center justify-center gap-2">
+        <i class="fa-solid fa-cloud-arrow-down animate-bounce"></i> <span>Menghubungkan ke Database Cloud...</span>
+    </div>
+
     <div id="mobileBackdrop" onclick="toggleMobileNav()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
     
     <header class="bg-slate-100 border-b border-slate-300 sticky top-0 z-40 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Brand & Logo -->
                 <div class="flex items-center space-x-3">
                     <img src="logo.png" alt="Cahya Baru Logo" class="h-10 w-10 object-contain rounded-full bg-slate-200 border border-slate-300 shadow-xs" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/d97706?text=CB'">
                     <div>
                         <div class="flex items-center space-x-2">
-                            <h1 class="font-bold text-base sm:text-lg text-slate-950 tracking-wide">CAHYABARU</h1>
-                            <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300 uppercase">CB</span>
+                            <h1 class="font-bold text-base sm:text-lg text-slate-950 tracking-wide">CAHYA BARU</h1>
+                            <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300 uppercase">BARBERSHOP</span>
                         </div>
-                        <p class="text-xs text-slate-600 hidden sm:block">Ruang Reservasi dan Administrasi</p>
+                        <p class="text-xs text-slate-600 hidden sm:block">Style With Purpose • Real-Time Cloud POS</p>
                     </div>
                 </div>
-                <!-- Admin Status & Mobile Toggle -->
                 <div class="flex items-center space-x-3">
                     <div id="adminBadge" class="hidden flex items-center space-x-2 bg-amber-100 border border-amber-300 px-3 py-1 rounded-full text-amber-900 text-xs font-medium">
                         <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
-                        <span>Adm</span>
+                        <span>Mode Admin</span>
                         <button onclick="logoutAdmin()" class="ml-2 hover:text-red-600" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                     <button id="loginBtnNav" onclick="openLoginModal()" class="bg-slate-50 hover:bg-slate-200 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center space-x-1.5 shadow-2xs">
                         <i class="fa-solid fa-lock text-amber-600"></i>
-                        <span>Adm</span>
+                        <span>Login Admin</span>
                     </button>
                     <button onclick="toggleMobileNav()" aria-label="Toggle Mobile Menu" class="lg:hidden p-2 text-slate-700 hover:text-amber-600 bg-slate-50 border border-slate-300 rounded-lg active:scale-95 transition">
                         <i class="fa-solid fa-bars text-xl"></i>
@@ -88,7 +71,6 @@
                     <span class="font-bold text-slate-900">Menu Navigasi</span>
                     <button onclick="toggleMobileNav()" class="text-slate-600 p-1 hover:text-slate-900"><i class="fa-solid fa-xmark text-xl"></i></button>
                 </div>
-                <!-- Client Section -->
                 <div>
                     <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Area Pelanggan</p>
                     <nav class="space-y-1">
@@ -106,7 +88,6 @@
                         </button>
                     </nav>
                 </div>
-                <!-- Admin Section -->
                 <div>
                     <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Area Admin / Kasir</p>
                     <nav class="space-y-1">
@@ -130,8 +111,8 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.01</p>
-                <p>All Rights Reserved.</p>
+                <p class="font-semibold text-slate-700">Cahya Baru Cloud v3.6</p>
+                <p>Google Sheets Real-Time Sync</p>
             </div>
         </aside>
 
@@ -204,7 +185,7 @@
                         <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <i class="fa-solid fa-list-dots text-amber-600"></i> Menu Layanan & Treatment
                         </h2>
-                        <p class="text-sm text-slate-600 mt-1">Daftar harga layanan Cahya Baru Barbershop.</p>
+                        <p class="text-sm text-slate-600 mt-1">Daftar harga resmi layanan Cahya Baru Barbershop.</p>
                     </div>
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
@@ -218,8 +199,11 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> Jadwal Reservasi Masuk
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Daftar booking pelanggan.</p>
+                            <p class="text-sm text-slate-600 mt-1">Daftar booking terdaftar pelanggan.</p>
                         </div>
+                        <button onclick="syncDataFromCloud(true)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-rotate text-amber-600"></i> Refresh Data
+                        </button>
                     </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
@@ -255,12 +239,12 @@
                                 </button>
                                 <button onclick="openPrinterModal()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-2 transition">
                                     <i class="fa-solid fa-print text-amber-600"></i>
-                                    <span>Thermal Printer</span>
+                                    <span>Printer VSC MP-58M</span>
                                 </button>
                             </div>
                         </div>
                         <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Pilih Barber</label>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Pilih Barber / Eksekutor</label>
                             <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="posBarberList"></div>
                         </div>
                         <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
@@ -313,11 +297,16 @@
             <!-- TAB 5: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="pb-6 border-b border-slate-200">
-                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
-                        </h2>
-                        <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
+                    <div class="pb-6 border-b border-slate-200 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
+                        </div>
+                        <button onclick="syncDataFromCloud(true)" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-rotate text-amber-600"></i> Refresh
+                        </button>
                     </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
@@ -530,10 +519,10 @@
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-                <h3 class="font-bold text-slate-900">Pengaturan Printer</h3>
+                <h3 class="font-bold text-slate-900">Pengaturan Printer VSC MP-58M</h3>
                 <button onclick="closeModal('printerModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <p class="text-xs text-slate-600">Pastikan Bluetooth aktif, serta printer sudah di-nyalakan sebelumnya.</p>
+            <p class="text-xs text-slate-600">Pastikan Bluetooth & GPS HP aktif, serta printer VSC MP-58M sudah di-pairing sebelumnya.</p>
             
             <div class="bg-white p-4 rounded-xl border border-slate-300 space-y-2 text-center shadow-2xs">
                 <div id="printerStatusIcon" class="text-2xl text-slate-400"><i class="fa-solid fa-print"></i></div>
@@ -542,7 +531,7 @@
             <div class="space-y-2 pt-2">
                 <button onclick="connectBluetoothPrinter()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-sm">
                     <i class="fa-brands fa-bluetooth"></i>
-                    <span>Konek ke Thermal Printer via Bluetooth</span>
+                    <span>Konek ke Printer VSC MP-58M via Bluetooth</span>
                 </button>
                 <div class="pt-2 border-t border-slate-200">
                     <label class="flex items-center space-x-2 cursor-pointer">
@@ -561,6 +550,11 @@
     <div id="printableReceipt" class="hidden"></div>
 
     <script>
+        // ==========================================
+        // GANTI URL DI BAWAH DENGAN WEB APP URL GOOGLE SCRIPT ANDA
+        // ==========================================
+        const API_URL = "https://script.google.com/macros/s/AKfycb.../exec";
+
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
         const BARBERS = [
@@ -596,15 +590,80 @@
             expPaymentMethod: 'Cash',
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
-            reservations: JSON.parse(localStorage.getItem('cb_reservations') || '[]'),
-            transactions: JSON.parse(localStorage.getItem('cb_transactions') || '[]'),
-            expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]')
+            reservations: [],
+            transactions: [],
+            expenses: []
         };
 
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
 
         window.addEventListener('DOMContentLoaded', () => {
+            syncDataFromCloud();
+            // Sinkronisasi otomatis setiap 10 detik agar real-time antar perangkat
+            setInterval(() => syncDataFromCloud(false), 10000);
+            
+            const autoPrintCheckbox = document.getElementById('autoPrintToggle');
+            if (autoPrintCheckbox) {
+                autoPrintCheckbox.checked = state.autoPrint;
+            }
+            switchTab('booking');
+        });
+
+        // Fungsi Sinkronisasi Cloud (Google Sheets)
+        async function syncDataFromCloud(showAlert = false) {
+            if (API_URL.includes("MASUKKAN_URL")) {
+                updateUI();
+                return;
+            }
+            const indicator = document.getElementById('syncIndicator');
+            try {
+                if (showAlert) {
+                    indicator.className = "bg-blue-600 text-white text-[11px] px-4 py-1 text-center font-medium flex items-center justify-center gap-2";
+                    indicator.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyinkronkan data...</span>`;
+                }
+
+                const response = await fetch(API_URL + "?action=getData");
+                const result = await response.json();
+                
+                if (result.services && result.services.length > 0) state.services = result.services;
+                if (result.reservations) state.reservations = result.reservations;
+                if (result.transactions) state.transactions = result.transactions;
+                if (result.expenses) state.expenses = result.expenses;
+
+                updateUI();
+                indicator.className = "bg-emerald-600 text-white text-[11px] px-4 py-1 text-center font-medium flex items-center justify-center gap-2";
+                indicator.innerHTML = `<i class="fa-solid fa-cloud"></i> <span>Terhubung ke Cloud (Real-Time Sync Aktif)</span>`;
+                setTimeout(() => { indicator.classList.add('hidden'); }, 3000);
+            } catch (err) {
+                console.error("Gagal sinkronisasi cloud:", err);
+                indicator.className = "bg-red-600 text-white text-[11px] px-4 py-1 text-center font-medium flex items-center justify-center gap-2";
+                indicator.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>Gagal terhubung ke Cloud. Memakai memori lokal.</span>`;
+                updateUI();
+            }
+        }
+
+        async function saveToCloud() {
+            if (API_URL.includes("MASUKKAN_URL")) return;
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'saveAll',
+                        services: state.services,
+                        reservations: state.reservations,
+                        transactions: state.transactions,
+                        expenses: state.expenses
+                    })
+                });
+            } catch (err) {
+                console.error("Gagal menyimpan ke cloud:", err);
+            }
+        }
+
+        function updateUI() {
             renderBookingBarbers();
             renderBookingServices();
             renderFullServices();
@@ -614,13 +673,7 @@
             renderTransactionHistory();
             renderExpensesTable();
             renderAccounting();
-            
-            const autoPrintCheckbox = document.getElementById('autoPrintToggle');
-            if (autoPrintCheckbox) {
-                autoPrintCheckbox.checked = state.autoPrint;
-            }
-            switchTab('booking');
-        });
+        }
 
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
@@ -660,17 +713,15 @@
             };
 
             state.services.push(newService);
-            localStorage.setItem('cb_services', JSON.stringify(state.services));
+            saveToCloud();
 
             document.getElementById('newServiceName').value = '';
             document.getElementById('newServicePrice').value = '';
             document.getElementById('newServiceDesc').value = '';
             closeModal('addMenuModal');
 
-            renderBookingServices();
-            renderFullServices();
-            renderPOSServices();
-            alert(`Menu "${name}" berhasil ditambahkan!`);
+            updateUI();
+            alert(`Menu "${name}" berhasil ditambahkan ke Cloud!`);
         }
 
         function deleteService(serviceId, event) {
@@ -681,11 +732,8 @@
             }
             if (confirm('Apakah Anda yakin ingin menghapus menu layanan ini?')) {
                 state.services = state.services.filter(s => s.id !== serviceId);
-                localStorage.setItem('cb_services', JSON.stringify(state.services));
-
-                renderBookingServices();
-                renderFullServices();
-                renderPOSServices();
+                saveToCloud();
+                updateUI();
             }
         }
 
@@ -746,7 +794,7 @@
                 commands.push(new Uint8Array([0x1B, 0x61, 0x01])); // Center
 
                 let headerText = 
-                    "\x1B\x21\x20CAHYABARU BARBERSHOP\x1B\x21\x00\n" +
+                    "\x1B\x21\x20CAHYA BARU BARBERSHOP\x1B\x21\x00\n" +
                     "Style With Purpose\n" +
                     "--------------------------------\n";
                 commands.push(encoder.encode(headerText));
@@ -755,7 +803,7 @@
                 let infoText = 
                     `No  : ${tx.id}\n` +
                     `Tgl : ${tx.date} ${tx.time}\n` +
-                    `Ksr : Bonartha | Bbr: ${tx.barberName}\n` +
+                    `Ksr : Admin | Bbr: ${tx.barberName}\n` +
                     `Mtd : ${tx.paymentMethod}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(infoText));
@@ -933,15 +981,10 @@
             return 'Rp ' + formattedNum;
         }
 
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-        }
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-        function openLoginModal() {
-            openModal('loginModal');
-        }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        function openLoginModal() { openModal('loginModal'); }
+
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -950,7 +993,6 @@
                 document.getElementById('loginBtnNav').classList.add('hidden');
                 closeModal('loginModal');
                 document.getElementById('adminPasswordInput').value = '';
-                
                 renderReservationsTable();
                 switchTab('pos');
             } else {
@@ -961,7 +1003,6 @@
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('loginBtnNav').classList.remove('hidden');
-            
             renderReservationsTable();
             switchTab('booking');
         }
@@ -1041,9 +1082,9 @@
                 status: 'Menunggu'
             };
             state.reservations.unshift(newReservation);
-            localStorage.setItem('cb_reservations', JSON.stringify(state.reservations));
-            alert(`Reservasi berhasil dibuat untuk ${newReservation.clientName}! Terjadwal dengan Barber ${newReservation.barberName}.`);
+            saveToCloud();
             
+            alert(`Reservasi berhasil dikirim ke Cloud untuk ${newReservation.clientName}!`);
             document.getElementById('resClientName').value = '';
             document.getElementById('resClientPhone').value = '';
             state.resSelectedServices = [];
@@ -1062,11 +1103,11 @@
                     <td class="p-3">
                         <p class="font-bold text-slate-800">${r.clientName}</p>
                         <p class="text-xs text-slate-500">
-                            ${state.isAdminLoggedIn ? `<a href="https://wa.me/${r.clientPhone.replace(/^0/, '62')}" target="_blank" class="font-mono text-amber-800 font-semibold hover:underline flex items-center gap-1 mt-0.5"><i class="fa-brands fa-whatsapp text-emerald-600"></i>${r.clientPhone}</a>` : '<span class="text-slate-400">•••••••••••• (Rahasia)</span>'}
+                            ${state.isAdminLoggedIn ? `<a href="https://wa.me/${String(r.clientPhone).replace(/^0/, '62')}" target="_blank" class="font-mono text-amber-800 font-semibold hover:underline flex items-center gap-1 mt-0.5"><i class="fa-brands fa-whatsapp text-emerald-600"></i>${r.clientPhone}</a>` : '<span class="text-slate-400">•••••••••••• (Rahasia)</span>'}
                         </p>
                     </td>
                     <td class="p-3 text-slate-700 font-medium">${r.barberName}</td>
-                    <td class="p-3 text-xs text-slate-500">${r.services.map(s => s.name).join(', ')}</td>
+                    <td class="p-3 text-xs text-slate-500">${Array.isArray(r.services) ? r.services.map(s => s.name).join(', ') : '-'}</td>
                     <td class="p-3 text-slate-700 font-semibold">${r.date} • ${r.time}</td>
                     <td class="p-3">
                         <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${r.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : r.status === 'Dikonfirmasi' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">${r.status || 'Menunggu'}</span>
@@ -1075,21 +1116,13 @@
                         ${state.isAdminLoggedIn ? `
                             <div class="flex items-center justify-end gap-1.5">
                                 ${r.status !== 'Dikonfirmasi' && r.status !== 'Selesai' ? `
-                                    <button onclick="updateReservationStatus('${r.id}', 'Dikonfirmasi')" class="bg-cyan-100 hover:bg-cyan-200 text-cyan-800 border border-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-lg transition" title="Konfirmasi Reservasi">
-                                        Konfirmasi
-                                    </button>
+                                    <button onclick="updateReservationStatus('${r.id}', 'Dikonfirmasi')" class="bg-cyan-100 hover:bg-cyan-200 text-cyan-800 border border-cyan-300 text-xs font-semibold px-2.5 py-1 rounded-lg transition">Konfirmasi</button>
                                 ` : ''}
                                 ${r.status !== 'Selesai' ? `
-                                    <button onclick="processReservationToPOS('${r.id}')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-2.5 py-1 rounded-lg transition shadow-2xs" title="Proses ke Kasir POS">
-                                        Ke Kasir
-                                    </button>
-                                ` : `
-                                    <span class="text-xs text-slate-400 italic">Selesai</span>
-                                `}
+                                    <button onclick="processReservationToPOS('${r.id}')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-2.5 py-1 rounded-lg transition shadow-2xs">Ke Kasir</button>
+                                ` : `<span class="text-xs text-slate-400 italic">Selesai</span>`}
                             </div>
-                        ` : `
-                            <span class="text-[11px] text-slate-400 italic">Login admin untuk aksi</span>
-                        `}
+                        ` : `<span class="text-[11px] text-slate-400 italic">Login admin untuk aksi</span>`}
                     </td>
                 </tr>
             `).join('');
@@ -1098,7 +1131,7 @@
             const r = state.reservations.find(x => x.id === resId);
             if (!r) return;
             r.status = newStatus;
-            localStorage.setItem('cb_reservations', JSON.stringify(state.reservations));
+            saveToCloud();
             renderReservationsTable();
         }
         function processReservationToPOS(resId) {
@@ -1107,9 +1140,9 @@
             const barberObj = BARBERS.find(b => b.name === r.barberName);
             if (barberObj) state.selectedBarber = barberObj.id;
             
-            state.cart = [...r.services];
+            state.cart = Array.isArray(r.services) ? [...r.services] : [];
             r.status = 'Selesai';
-            localStorage.setItem('cb_reservations', JSON.stringify(state.reservations));
+            saveToCloud();
             renderPOSBarbers();
             renderPOSCart();
             renderReservationsTable();
@@ -1121,7 +1154,7 @@
                 return;
             }
             const barberObj = BARBERS.find(b => b.id === state.selectedBarber);
-            const total = state.cart.reduce((a, b) => a + b.price, 0);
+            const total = state.cart.reduce((a, b) => a + Number(b.price), 0);
             let nextNum = 101;
             if (state.transactions.length > 0) {
                 const maxNum = state.transactions.reduce((max, t) => {
@@ -1144,7 +1177,7 @@
                 status: 'Lunas'
             };
             state.transactions.unshift(transaction);
-            localStorage.setItem('cb_transactions', JSON.stringify(state.transactions));
+            saveToCloud();
             if (state.autoPrint) {
                 printReceipt(transaction);
             }
@@ -1153,7 +1186,7 @@
             renderAccounting();
             
             if (!state.autoPrint) {
-                alert('Transaksi Berhasil Diselesaikan!');
+                alert('Transaksi Berhasil Diselesaikan & Disimpan ke Cloud!');
             }
         }
         function renderTransactionHistory() {
@@ -1164,20 +1197,17 @@
                 return;
             }
             body.innerHTML = state.transactions.map(t => {
-                const serviceNames = t.items.map(i => i.name).join(', ');
+                const itemsList = Array.isArray(t.items) ? t.items : JSON.parse(t.items || '[]');
+                const serviceNames = itemsList.map(i => i.name).join(', ');
                 return `
                     <tr onclick="viewTransactionDetail('${t.id}')" class="hover:bg-slate-100/60 cursor-pointer transition">
                         <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${t.id}</td>
                         <td class="p-3 text-slate-600 text-xs">${t.date} ${t.time}</td>
                         <td class="p-3 font-medium text-slate-800">${t.barberName}</td>
-                        <td class="p-3">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${t.paymentMethod || 'Cash'}</span>
-                        </td>
+                        <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${t.paymentMethod || 'Cash'}</span></td>
                         <td class="p-3 text-xs text-slate-500">${serviceNames}</td>
                         <td class="p-3 font-bold text-slate-800">${formatRp(t.total)}</td>
-                        <td class="p-3">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.status === 'Lunas' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${t.status}</span>
-                        </td>
+                        <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.status === 'Lunas' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${t.status}</span></td>
                         <td class="p-3 text-right">
                             <button onclick="event.stopPropagation(); viewTransactionDetail('${t.id}')" class="bg-amber-100 text-amber-900 hover:bg-amber-200 border border-amber-300 text-xs px-3 py-1 rounded-lg font-semibold transition">
                                 <i class="fa-solid fa-eye mr-1"></i> Detail
@@ -1190,58 +1220,28 @@
         function viewTransactionDetail(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
+            const itemsList = Array.isArray(tx.items) ? tx.items : JSON.parse(tx.items || '[]');
             const content = document.getElementById('detailTxContent');
             content.innerHTML = `
                 <div class="space-y-2">
-                    <div class="flex justify-between border-b border-slate-200 pb-2">
-                        <span class="text-slate-500">ID Transaksi:</span>
-                        <span class="font-mono text-amber-800 font-bold">${tx.id}</span>
-                    </div>
-                    <div class="flex justify-between border-b border-slate-200 pb-2">
-                        <span class="text-slate-500">Waktu:</span>
-                        <span class="text-slate-800">${tx.date} ${tx.time}</span>
-                    </div>
-                    <div class="flex justify-between border-b border-slate-200 pb-2">
-                        <span class="text-slate-500">Barber:</span>
-                        <span class="text-slate-800 font-medium">${tx.barberName}</span>
-                    </div>
-                    <div class="flex justify-between border-b border-slate-200 pb-2">
-                        <span class="text-slate-500">Metode Pembayaran:</span>
-                        <span class="text-slate-800 font-bold">${tx.paymentMethod || 'Cash'}</span>
-                    </div>
-                    <div class="flex justify-between border-b border-slate-200 pb-2">
-                        <span class="text-slate-500">Status:</span>
-                        <span id="detailTxStatusLabel" class="font-bold ${tx.status === 'Lunas' ? 'text-emerald-700' : 'text-red-700'}">${tx.status}</span>
-                    </div>
+                    <div class="flex justify-between border-b border-slate-200 pb-2"><span class="text-slate-500">ID Transaksi:</span><span class="font-mono text-amber-800 font-bold">${tx.id}</span></div>
+                    <div class="flex justify-between border-b border-slate-200 pb-2"><span class="text-slate-500">Waktu:</span><span class="text-slate-800">${tx.date} ${tx.time}</span></div>
+                    <div class="flex justify-between border-b border-slate-200 pb-2"><span class="text-slate-500">Barber:</span><span class="text-slate-800 font-medium">${tx.barberName}</span></div>
+                    <div class="flex justify-between border-b border-slate-200 pb-2"><span class="text-slate-500">Metode Pembayaran:</span><span class="text-slate-800 font-bold">${tx.paymentMethod || 'Cash'}</span></div>
+                    <div class="flex justify-between border-b border-slate-200 pb-2"><span class="text-slate-500">Status:</span><span class="font-bold ${tx.status === 'Lunas' ? 'text-emerald-700' : 'text-red-700'}">${tx.status}</span></div>
                 </div>
                 <div class="pt-2">
                     <p class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-2">Rincian Layanan:</p>
                     <div class="bg-white p-3 rounded-xl border border-slate-300 space-y-1.5 shadow-2xs">
-                        ${tx.items.map(i => `
-                            <div class="flex justify-between text-xs">
-                                <span class="text-slate-700">${i.name}</span>
-                                <span class="text-slate-800 font-semibold">${formatRp(i.price)}</span>
-                            </div>
-                        `).join('')}
+                        ${itemsList.map(i => `<div class="flex justify-between text-xs"><span class="text-slate-700">${i.name}</span><span class="text-slate-800 font-semibold">${formatRp(i.price)}</span></div>`).join('')}
                     </div>
                 </div>
-                <div class="pt-2 flex justify-between font-bold text-base text-amber-800 border-t border-slate-200">
-                    <span>Total Nominal:</span>
-                    <span>${formatRp(tx.total)}</span>
-                </div>
+                <div class="pt-2 flex justify-between font-bold text-base text-amber-800 border-t border-slate-200"><span>Total Nominal:</span><span>${formatRp(tx.total)}</span></div>
             `;
             const actions = document.getElementById('detailTxActions');
             actions.innerHTML = `
-                <button onclick="reprintTransaction('${tx.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
-                    <i class="fa-solid fa-print"></i>
-                    <span>Cetak Ulang Struk</span>
-                </button>
-                ${state.isAdminLoggedIn && tx.status === 'Lunas' ? `
-                    <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        <span>Refund</span>
-                    </button>
-                ` : ``}
+                <button onclick="reprintTransaction('${tx.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs"><i class="fa-solid fa-print"></i><span>Cetak Ulang</span></button>
+                ${state.isAdminLoggedIn && tx.status === 'Lunas' ? `<button onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5"><i class="fa-solid fa-rotate-left"></i><span>Refund</span></button>` : ``}
                 <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition ml-auto">Tutup</button>
             `;
             openModal('detailTxModal');
@@ -1250,19 +1250,17 @@
             const pwd = prompt('Masukkan kata sandi keamanan refund (CahyaBaruSolid):');
             if (pwd === null) return;
             if (pwd !== REFUND_PASSWORD) {
-                alert('Kata sandi keamanan refund salah! Pengembalian dana dibatalkan.');
+                alert('Kata sandi keamanan refund salah!');
                 return;
             }
             const txIndex = state.transactions.findIndex(x => x.id === txId);
             if (txIndex !== -1) {
                 state.transactions[txIndex].status = 'Refunded';
-                localStorage.setItem('cb_transactions', JSON.stringify(state.transactions));
-                
+                saveToCloud();
                 renderTransactionHistory();
                 renderAccounting();
-                
                 closeModal('detailTxModal');
-                alert('Pengembalian dana (Refund) berhasil! Status transaksi kini diperbarui menjadi Refunded.');
+                alert('Pengembalian dana (Refund) berhasil!');
             }
         }
         function handleAddExpense(e) {
@@ -1289,7 +1287,7 @@
                 amount: amount
             };
             state.expenses.unshift(expense);
-            localStorage.setItem('cb_expenses', JSON.stringify(state.expenses));
+            saveToCloud();
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
             renderExpensesTable();
@@ -1306,9 +1304,7 @@
                 <tr class="hover:bg-slate-100/60">
                     <td class="p-3 text-xs text-slate-500">${e.date}</td>
                     <td class="p-3 font-medium text-slate-800">${e.desc}</td>
-                    <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${e.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${e.paymentMethod || 'Cash'}</span>
-                    </td>
+                    <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${e.paymentMethod === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${e.paymentMethod || 'Cash'}</span></td>
                     <td class="p-3 font-bold text-red-700 text-right">${formatRp(e.amount)}</td>
                 </tr>
             `).join('');
@@ -1321,70 +1317,46 @@
             const netEl = document.getElementById('accNetProfit');
             const ledgerBody = document.getElementById('accountingLedgerBody');
             if (!cashEl || !qrisEl || !revEl || !expEl || !netEl || !ledgerBody) return;
-            let totalCashRevenue = 0;
-            let totalQRISRevenue = 0;
+            
+            let totalCashRevenue = 0, totalQRISRevenue = 0;
             state.transactions.forEach(t => {
                 if (t.status === 'Lunas') {
-                    if ((t.paymentMethod || 'Cash') === 'Cash') {
-                        totalCashRevenue += t.total;
-                    } else {
-                        totalQRISRevenue += t.total;
-                    }
+                    if ((t.paymentMethod || 'Cash') === 'Cash') totalCashRevenue += Number(t.total);
+                    else totalQRISRevenue += Number(t.total);
                 }
             });
-            let totalCashExpense = 0;
-            let totalQRISExpense = 0;
+            let totalCashExpense = 0, totalQRISExpense = 0;
             state.expenses.forEach(e => {
-                if ((e.paymentMethod || 'Cash') === 'Cash') {
-                    totalCashExpense += e.amount;
-                } else {
-                    totalQRISExpense += e.amount;
-                }
+                if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += Number(e.amount);
+                else totalQRISExpense += Number(e.amount);
             });
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
+
             cashEl.innerText = formatRp(netCash);
             qrisEl.innerText = formatRp(netQRIS);
             revEl.innerText = formatRp(totalRevenue);
             expEl.innerText = formatRp(totalExpenses);
             netEl.innerText = formatRp(netProfit);
+
             let ledgerItems = [];
             state.transactions.forEach(t => {
-                const serviceStr = t.items.map(i => i.name).join(', ');
+                const itemsList = Array.isArray(t.items) ? t.items : JSON.parse(t.items || '[]');
+                const serviceStr = itemsList.map(i => i.name).join(', ');
                 const descStr = `${t.barberName} - ${serviceStr}`;
                 if (t.status === 'Lunas') {
-                    ledgerItems.push({
-                        date: t.date + ' ' + t.time,
-                        code: t.id,
-                        desc: descStr,
-                        method: t.paymentMethod || 'Cash',
-                        type: 'Pemasukan',
-                        amount: t.total
-                    });
+                    ledgerItems.push({ date: t.date + ' ' + t.time, code: t.id, desc: descStr, method: t.paymentMethod || 'Cash', type: 'Pemasukan', amount: Number(t.total) });
                 } else if (t.status === 'Refunded') {
-                    ledgerItems.push({
-                        date: t.date + ' ' + t.time,
-                        code: t.id,
-                        desc: `${descStr} (Refund)`,
-                        method: t.paymentMethod || 'Cash',
-                        type: 'Refund',
-                        amount: -t.total
-                    });
+                    ledgerItems.push({ date: t.date + ' ' + t.time, code: t.id, desc: `${descStr} (Refund)`, method: t.paymentMethod || 'Cash', type: 'Refund', amount: -Number(t.total) });
                 }
             });
             state.expenses.forEach(e => {
-                ledgerItems.push({
-                    date: e.date,
-                    code: e.id,
-                    desc: e.desc,
-                    method: e.paymentMethod || 'Cash',
-                    type: 'Pengeluaran',
-                    amount: -e.amount
-                });
+                ledgerItems.push({ date: e.date, code: e.id, desc: e.desc, method: e.paymentMethod || 'Cash', type: 'Pengeluaran', amount: -Number(e.amount) });
             });
+
             if (ledgerItems.length === 0) {
                 ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal.</td></tr>`;
                 return;
@@ -1394,35 +1366,26 @@
                     <td class="p-3 text-xs text-slate-500">${item.date}</td>
                     <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${item.code}</td>
                     <td class="p-3 font-medium text-slate-800">${item.desc}</td>
-                    <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.method === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${item.method}</span>
-                    </td>
-                    <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'Pemasukan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${item.type}</span>
-                    </td>
+                    <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.method === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${item.method}</span></td>
+                    <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'Pemasukan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${item.type}</span></td>
                     <td class="p-3 font-bold text-right ${item.amount >= 0 ? 'text-emerald-700' : 'text-red-700'}">${formatRp(item.amount)}</td>
                 </tr>
             `).join('');
         }
 
-        // Fungsi Ekspor ke Excel (.xls) dengan Format Accounting Bawaan Excel
         function exportToExcel() {
-            let totalCashRevenue = 0;
-            let totalQRISRevenue = 0;
+            let totalCashRevenue = 0, totalQRISRevenue = 0;
             state.transactions.forEach(t => {
                 if (t.status === 'Lunas') {
-                    if ((t.paymentMethod || 'Cash') === 'Cash') totalCashRevenue += t.total;
-                    else totalQRISRevenue += t.total;
+                    if ((t.paymentMethod || 'Cash') === 'Cash') totalCashRevenue += Number(t.total);
+                    else totalQRISRevenue += Number(t.total);
                 }
             });
-
-            let totalCashExpense = 0;
-            let totalQRISExpense = 0;
+            let totalCashExpense = 0, totalQRISExpense = 0;
             state.expenses.forEach(e => {
-                if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += e.amount;
-                else totalQRISExpense += e.amount;
+                if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += Number(e.amount);
+                else totalQRISExpense += Number(e.amount);
             });
-
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
@@ -1433,129 +1396,45 @@
 
             let excelTemplate = `
             <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-            <head>
-                <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
-                <!--[if gte mso 9]>
-                <xml>
-                    <x:ExcelWorkbook>
-                        <x:ExcelWorksheets>
-                            <x:ExcelWorksheet>
-                                <x:Name>Laporan Keuangan</x:Name>
-                                <x:WorksheetOptions>
-                                    <x:DisplayGridlines/>
-                                </x:WorksheetOptions>
-                            </x:ExcelWorksheet>
-                        </x:ExcelWorksheets>
-                    </x:ExcelWorkbook>
-                </xml>
-                <![endif]-->
-                <style>
-                    .num-accounting { mso-number-format: "\\"Rp\\"\\ \\#\\,\\#\\#0\\;\\(\\"Rp\\"\\ \\#\\,\\#\\#0\\)\\;\\\"-\\\""; }
-                    .text-cell { mso-number-format: "\\@"; }
-                    th { font-weight: bold; background-color: #f1f5f9; border: 0.5pt solid #cbd5e1; }
-                    td { border: 0.5pt solid #cbd5e1; }
-                </style>
+            <head><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+                <style>.num-accounting { mso-number-format: "\\"Rp\\"\\ \\#\\,\\#\\#0\\;\\(\\"Rp\\"\\ \\#\\,\\#\\#0\\)\\;\\\"-\\\""; } .text-cell { mso-number-format: "\\@"; } th { font-weight: bold; background-color: #f1f5f9; border: 0.5pt solid #cbd5e1; } td { border: 0.5pt solid #cbd5e1; }</style>
             </head>
             <body>
                 <h2>LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</h2>
-                <p><b>Periode / Tanggal Export:</b> ${dateFormatted}</p>
-                <br/>
-                
+                <p><b>Periode:</b> ${dateFormatted}</p><br/>
                 <h3>RINGKASAN KEUANGAN</h3>
                 <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 250px;">Keterangan</th>
-                            <th style="width: 180px;">Nominal (Rp)</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th style="width: 250px;">Keterangan</th><th style="width: 180px;">Nominal (Rp)</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td>Total Pendapatan Cash (Bersih)</td>
-                            <td class="num-accounting" align="right">${netCash}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Pendapatan QRIS (Bersih)</td>
-                            <td class="num-accounting" align="right">${netQRIS}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Omset Penjualan</td>
-                            <td class="num-accounting" align="right">${totalRevenue}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Pengeluaran Kas</td>
-                            <td class="num-accounting" align="right">${totalExpenses}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Laba Bersih</b></td>
-                            <td class="num-accounting" align="right"><b>${netProfit}</b></td>
-                        </tr>
+                        <tr><td>Total Pendapatan Cash (Bersih)</td><td class="num-accounting" align="right">${netCash}</td></tr>
+                        <tr><td>Total Pendapatan QRIS (Bersih)</td><td class="num-accounting" align="right">${netQRIS}</td></tr>
+                        <tr><td>Total Omset Penjualan</td><td class="num-accounting" align="right">${totalRevenue}</td></tr>
+                        <tr><td>Total Pengeluaran Kas</td><td class="num-accounting" align="right">${totalExpenses}</td></tr>
+                        <tr><td><b>Laba Bersih</b></td><td class="num-accounting" align="right"><b>${netProfit}</b></td></tr>
                     </tbody>
-                </table>
-                <br/><br/>
-
+                </table><br/><br/>
                 <h3>JURNAL MUTASI KEUANGAN</h3>
                 <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 150px;">Tanggal & Jam</th>
-                            <th style="width: 120px;">Kode Transaksi</th>
-                            <th style="width: 300px;">Deskripsi (Barber & Layanan / Keterangan)</th>
-                            <th style="width: 120px;">Metode Pembayaran</th>
-                            <th style="width: 110px;">Jenis Mutasi</th>
-                            <th style="width: 180px;">Nominal (Rp)</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th style="width: 150px;">Tanggal & Jam</th><th style="width: 120px;">Kode Transaksi</th><th style="width: 300px;">Deskripsi</th><th style="width: 120px;">Metode</th><th style="width: 110px;">Jenis</th><th style="width: 180px;">Nominal (Rp)</th></tr></thead>
                     <tbody>
             `;
 
             state.transactions.forEach(t => {
-                const serviceStr = t.items.map(i => i.name).join(', ');
+                const itemsList = Array.isArray(t.items) ? t.items : JSON.parse(t.items || '[]');
+                const serviceStr = itemsList.map(i => i.name).join(', ');
                 const descStr = `${t.barberName} - ${serviceStr}`;
                 if (t.status === 'Lunas') {
-                    excelTemplate += `
-                        <tr>
-                            <td class="text-cell">${t.date} ${t.time}</td>
-                            <td class="text-cell">${t.id}</td>
-                            <td class="text-cell">${descStr}</td>
-                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
-                            <td class="text-cell">Pemasukan</td>
-                            <td class="num-accounting" align="right">${t.total}</td>
-                        </tr>
-                    `;
+                    excelTemplate += `<tr><td class="text-cell">${t.date} ${t.time}</td><td class="text-cell">${t.id}</td><td class="text-cell">${descStr}</td><td class="text-cell">${t.paymentMethod || 'Cash'}</td><td class="text-cell">Pemasukan</td><td class="num-accounting" align="right">${t.total}</td></tr>`;
                 } else if (t.status === 'Refunded') {
-                    excelTemplate += `
-                        <tr>
-                            <td class="text-cell">${t.date} ${t.time}</td>
-                            <td class="text-cell">${t.id}</td>
-                            <td class="text-cell">${descStr} (Refund)</td>
-                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
-                            <td class="text-cell">Refund</td>
-                            <td class="num-accounting" align="right">${-t.total}</td>
-                        </tr>
-                    `;
+                    excelTemplate += `<tr><td class="text-cell">${t.date} ${t.time}</td><td class="text-cell">${t.id}</td><td class="text-cell">${descStr} (Refund)</td><td class="text-cell">${t.paymentMethod || 'Cash'}</td><td class="text-cell">Refund</td><td class="num-accounting" align="right">${-t.total}</td></tr>`;
                 }
             });
 
             state.expenses.forEach(e => {
-                excelTemplate += `
-                    <tr>
-                        <td class="text-cell">${e.date}</td>
-                        <td class="text-cell">${e.id}</td>
-                        <td class="text-cell">${e.desc}</td>
-                        <td class="text-cell">${e.paymentMethod || 'Cash'}</td>
-                        <td class="text-cell">Pengeluaran</td>
-                        <td class="num-accounting" align="right">${-e.amount}</td>
-                    </tr>
-                `;
+                excelTemplate += `<tr><td class="text-cell">${e.date}</td><td class="text-cell">${e.id}</td><td class="text-cell">${e.desc}</td><td class="text-cell">${e.paymentMethod || 'Cash'}</td><td class="text-cell">Pengeluaran</td><td class="num-accounting" align="right">${-e.amount}</td></tr>`;
             });
 
-            excelTemplate += `
-                    </tbody>
-                </table>
-            </body>
-            </html>
-            `;
+            excelTemplate += `</tbody></table></body></html>`;
 
             const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
@@ -1571,15 +1450,12 @@
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
             if (pwd === REFUND_PASSWORD) {
-                if (confirm('Apakah Anda yakin ingin mereset seluruh data transaksi, pengeluaran, dan jurnal keuangan bulan ini?')) {
+                if (confirm('Apakah Anda yakin ingin mereset seluruh data bulan ini?')) {
                     state.transactions = [];
                     state.expenses = [];
-                    localStorage.removeItem('cb_transactions');
-                    localStorage.removeItem('cb_expenses');
-                    renderTransactionHistory();
-                    renderExpensesTable();
-                    renderAccounting();
-                    alert('Data bulan ini berhasil direset!');
+                    saveToCloud();
+                    updateUI();
+                    alert('Data berhasil direset!');
                 }
             } else {
                 alert('Kata sandi reset salah!');
