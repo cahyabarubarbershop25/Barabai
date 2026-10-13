@@ -720,7 +720,7 @@
     </div>
     <div id="printableReceipt" class="hidden"></div>
     <script>
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8gKj2IIc21szVyDq0HgazNjW8iyp5UCMaivDWuT3UVsm2cIA5BTVb7hSkGbknEuELHQ/exec";
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxdKhTns-0vxtCK5uraO5hj3Zi1tz7LDHSMNrOgclIHC9sEQT-jvhv4zr5-l4sS4cmL0g/exec";
         const NOMOR_WA_KASIR = "6283853293150";
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
@@ -791,10 +791,8 @@
                 .then(data => {
                     state.reservations = data.reservations || [];
                     
-                    // Map transactions from Sheet
                     if (data.transactions && data.transactions.length > 0) {
                         state.transactions = data.transactions.map(t => {
-                            // Layanan di sheet disimpan sebagai string, kita ubah kembali jadi array item
                             let itemsArr = [];
                             const layananStr = String(t.layanan || t.items || '');
                             layananStr.split(',').forEach(lName => {
@@ -817,7 +815,6 @@
                         state.transactions = [];
                     }
 
-                    // Map expenses from Sheet
                     if (data.expenses && data.expenses.length > 0) {
                         state.expenses = data.expenses.map(e => ({
                             id: String(e['id pengeluaran'] || e.id || 'BBPK-101'),
@@ -895,9 +892,29 @@
         }
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
+            
+            const res = state.reservations[index];
+            const clientName = res.nama || res.name;
+            const resDate = String(res.tanggal || res.date || '');
+            
             state.reservations[index].status = newStatus;
+
+            // Kirim pembaruan status ke Google Sheet agar device lain ikut berubah
+            const updatePayload = {
+                type: "update_reservation_status",
+                name: clientName,
+                date: resDate,
+                status: newStatus
+            };
+
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatePayload)
+            }).catch(err => console.error("Gagal update status ke sheet:", err));
+
             if (newStatus === 'Selesai') {
-                const res = state.reservations[index];
                 const barberName = res.barber || 'Fadil';
                 const foundBarber = BARBERS.find(b => b.name.toLowerCase() === barberName.toLowerCase());
                 if (foundBarber) {
@@ -916,7 +933,9 @@
                 }
                 renderPOSCart();
                 switchTab('pos');
-                alert(`Status reservasi ${res.nama || 'Pelanggan'} diubah menjadi Selesai. Dialihkan ke Kasir POS untuk penyelesaian pembayaran.`);
+                alert(`Status reservasi ${clientName} diubah menjadi Selesai & disinkronkan ke Sheet. Dialihkan ke Kasir POS.`);
+            } else {
+                alert(`Status reservasi ${clientName} berhasil diubah menjadi ${newStatus} dan disimpan ke Sheet!`);
             }
             renderScheduleTable();
         }
@@ -1294,7 +1313,6 @@
             `).join('');
         }
         
-        // FUNGSI UTAMA RESERVASI KE GOOGLE SHEET & WHATSAPP
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (state.resSelectedServices.length === 0) {
@@ -1339,7 +1357,6 @@
             window.location.href = urlWA;
         }
 
-        // KASIR POS CHECKOUT (TERKIRIM KE SHEET `Transactions`)
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -1371,7 +1388,6 @@
                 status: 'Lunas'
             };
 
-            // Kirim ke Google Sheet
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -1379,7 +1395,6 @@
                 body: JSON.stringify(transaction)
             }).catch(err => console.error("Sheet transaction error:", err));
 
-            // Tambah ke state lokal untuk tampilan langsung
             const localTx = {
                 id: transaction.id,
                 date: transaction.date,
@@ -1512,7 +1527,6 @@
             }
         }
 
-        // PENGELUARAN KAS (TERKIRIM KE SHEET `Expenses`)
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -1538,7 +1552,6 @@
                 amount: amount
             };
 
-            // Kirim ke Google Sheet
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
