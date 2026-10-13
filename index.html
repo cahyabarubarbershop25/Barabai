@@ -209,7 +209,7 @@
                             <p class="text-sm text-slate-600 mt-1">Daftar jadwal Reservasi.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="loadScheduleFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
                                 <i class="fa-solid fa-rotate"></i>
                                 <span>Refresh Data</span>
                             </button>
@@ -464,11 +464,17 @@
             <!-- TAB 5: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="pb-6 border-b border-slate-200">
-                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
-                        </h2>
-                        <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
+                    <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
+                        </div>
+                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Refresh Data</span>
+                        </button>
                     </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
@@ -484,7 +490,9 @@
                                     <th class="p-3 text-right">Detail</th>
                                 </tr>
                             </thead>
-                            <tbody id="transactionHistoryTable" class="divide-y divide-slate-200"></tbody>
+                            <tbody id="transactionHistoryTable" class="divide-y divide-slate-200">
+                                <tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -492,11 +500,17 @@
             <!-- TAB 6: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="pb-6 border-b border-slate-200">
-                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-money-bill-transfer text-amber-600"></i> Pencatatan Pengeluaran Kas
-                        </h2>
-                        <p class="text-sm text-slate-600 mt-1">Catat biaya operasional harian barbershop.</p>
+                    <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-money-bill-transfer text-amber-600"></i> Pencatatan Pengeluaran Kas
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Catat biaya operasional harian barbershop.</p>
+                        </div>
+                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Refresh Data</span>
+                        </button>
                     </div>
                     <form onsubmit="handleAddExpense(event)" class="mt-6 space-y-4 pb-6 border-b border-slate-200">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -538,7 +552,9 @@
                                     <th class="p-3 text-right">Jumlah</th>
                                 </tr>
                             </thead>
-                            <tbody id="expensesTableBody" class="divide-y divide-slate-200"></tbody>
+                            <tbody id="expensesTableBody" class="divide-y divide-slate-200">
+                                <tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -553,14 +569,18 @@
                             </h2>
                             <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih.</p>
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                                <i class="fa-solid fa-rotate"></i>
+                                <span>Refresh</span>
+                            </button>
                             <button onclick="exportToExcel()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                                 <i class="fa-solid fa-file-excel"></i>
-                                <span>Export ke Excel / Spreadsheet</span>
+                                <span>Export ke Excel</span>
                             </button>
                             <button onclick="confirmResetMonth()" class="bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                                 <i class="fa-solid fa-rotate"></i>
-                                <span>Reset Akhir Bulan</span>
+                                <span>Reset Bulan Ini</span>
                             </button>
                         </div>
                     </div>
@@ -700,8 +720,7 @@
     </div>
     <div id="printableReceipt" class="hidden"></div>
     <script>
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw82NRu7RnznncB8VMc4vK8ru5XxkZQLu74Or2Z8z55aT9ZaouQ4kLZ4Pnh4wYGLvgC-A/exec";
-
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8gKj2IIc21szVyDq0HgazNjW8iyp5UCMaivDWuT3UVsm2cIA5BTVb7hSkGbknEuELHQ/exec";
         const NOMOR_WA_KASIR = "6283853293150";
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
@@ -736,8 +755,8 @@
             expPaymentMethod: 'Cash',
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
-            transactions: JSON.parse(localStorage.getItem('cb_transactions') || '[]'),
-            expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]'),
+            transactions: [],
+            expenses: [],
             reservations: []
         };
         let bluetoothDevice = null;
@@ -749,10 +768,7 @@
             renderFullServices();
             renderPOSBarbers();
             renderPOSServices();
-            renderTransactionHistory();
-            renderExpensesTable();
-            renderAccounting();
-            loadScheduleFromSheet();
+            loadAllDataFromSheet();
             
             const autoPrintCheckbox = document.getElementById('autoPrintToggle');
             if (autoPrintCheckbox) {
@@ -761,21 +777,69 @@
             switchTab('booking');
         });
 
-        function loadScheduleFromSheet() {
-            const container = document.getElementById('scheduleTableBody');
-            if (!container) return;
+        function loadAllDataFromSheet() {
+            const scheduleContainer = document.getElementById('scheduleTableBody');
+            const txContainer = document.getElementById('transactionHistoryTable');
+            const expContainer = document.getElementById('expensesTableBody');
 
-            container.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data Reservasi...</td></tr>`;
+            if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
+            if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
+            if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
 
             fetch(GOOGLE_SHEET_WEB_APP_URL)
                 .then(res => res.json())
                 .then(data => {
-                    state.reservations = data || [];
+                    state.reservations = data.reservations || [];
+                    
+                    // Map transactions from Sheet
+                    if (data.transactions && data.transactions.length > 0) {
+                        state.transactions = data.transactions.map(t => {
+                            // Layanan di sheet disimpan sebagai string, kita ubah kembali jadi array item
+                            let itemsArr = [];
+                            const layananStr = String(t.layanan || t.items || '');
+                            layananStr.split(',').forEach(lName => {
+                                const cleanName = lName.trim();
+                                const foundS = state.services.find(s => s.name.toLowerCase() === cleanName.toLowerCase());
+                                itemsArr.push({ name: cleanName, price: foundS ? foundS.price : 0 });
+                            });
+                            return {
+                                id: String(t['id transaksi'] || t.id || 'BB-101'),
+                                date: String(t.tanggal || t.date || '').split('T')[0],
+                                time: String(t.jam || t.time || ''),
+                                barberName: String(t.barber || t.barbername || '-'),
+                                paymentMethod: String(t.metode || t.paymentmethod || 'Cash'),
+                                items: itemsArr,
+                                total: Number(t.total || 0),
+                                status: String(t.status || 'Lunas')
+                            };
+                        });
+                    } else {
+                        state.transactions = [];
+                    }
+
+                    // Map expenses from Sheet
+                    if (data.expenses && data.expenses.length > 0) {
+                        state.expenses = data.expenses.map(e => ({
+                            id: String(e['id pengeluaran'] || e.id || 'BBPK-101'),
+                            date: String(e.tanggal || e.date || '').split('T')[0],
+                            desc: String(e.keterangan || e.desc || '-'),
+                            paymentMethod: String(e.metode || e.paymentmethod || 'Cash'),
+                            amount: Number(e.jumlah || e.amount || 0)
+                        }));
+                    } else {
+                        state.expenses = [];
+                    }
+
                     renderScheduleTable();
+                    renderTransactionHistory();
+                    renderExpensesTable();
+                    renderAccounting();
                 })
                 .catch(err => {
                     console.error("Gagal mengambil data sheet:", err);
-                    container.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi atau URL Web App.</td></tr>`;
+                    if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi atau URL Web App.</td></tr>`;
+                    if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat transaksi.</td></tr>`;
+                    if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat pengeluaran.</td></tr>`;
                 });
         }
 
@@ -783,20 +847,16 @@
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
             if (!container) return;
-
             if (thPhone) {
                 thPhone.style.display = state.isAdminLoggedIn ? '' : 'none';
             }
-
             if (!state.reservations || state.reservations.length === 0) {
                 container.innerHTML = `<tr><td colspan="${state.isAdminLoggedIn ? 6 : 5}" class="text-center py-6 text-slate-400">Belum ada jadwal reservasi.</td></tr>`;
                 return;
             }
-
             container.innerHTML = state.reservations.map((item, index) => {
                 const currentStatus = item.status || 'Menunggu';
                 const phoneCol = state.isAdminLoggedIn ? `<td class="p-3 font-mono text-xs text-slate-700">${item['no. whatsapp'] || item.phone || '-'}</td>` : '';
-
                 let statusColHTML = '';
                 if (state.isAdminLoggedIn) {
                     statusColHTML = `
@@ -811,7 +871,6 @@
                 } else {
                     statusColHTML = getCustomerStatusBadge(currentStatus);
                 }
-
                 return `
                     <tr class="hover:bg-slate-100/60 transition">
                         <td class="p-3 font-medium text-slate-900">${item.nama || item.name || '-'}</td>
@@ -824,7 +883,6 @@
                 `;
             }).join('');
         }
-
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -835,11 +893,9 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
-
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             state.reservations[index].status = newStatus;
-
             if (newStatus === 'Selesai') {
                 const res = state.reservations[index];
                 const barberName = res.barber || 'Fadil';
@@ -848,7 +904,6 @@
                     state.selectedBarber = foundBarber.id;
                     renderPOSBarbers();
                 }
-
                 const serviceStr = (res.layanan || res.services || '').toLowerCase();
                 state.cart = [];
                 state.services.forEach(s => {
@@ -856,18 +911,15 @@
                         state.cart.push({ ...s });
                     }
                 });
-
                 if (state.cart.length === 0 && state.services.length > 0) {
                     state.cart.push({ ...state.services[0] });
                 }
-
                 renderPOSCart();
                 switchTab('pos');
                 alert(`Status reservasi ${res.nama || 'Pelanggan'} diubah menjadi Selesai. Dialihkan ke Kasir POS untuk penyelesaian pembayaran.`);
             }
             renderScheduleTable();
         }
-
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1259,7 +1311,6 @@
                 .filter(s => state.resSelectedServices.includes(s.id))
                 .map(s => s.name)
                 .join(', ');
-
             const reservationData = {
                 name: clientName,
                 phone: clientPhone,
@@ -1270,14 +1321,12 @@
                 status: 'Menunggu',
                 timestamp: new Date().toLocaleString('id-ID')
             };
-
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reservationData)
             }).catch(err => console.error("Sheet error:", err));
-
             const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
@@ -1290,6 +1339,7 @@
             window.location.href = urlWA;
         }
 
+        // KASIR POS CHECKOUT (TERKIRIM KE SHEET `Transactions`)
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -1308,29 +1358,52 @@
                 }, 100);
                 nextNum = maxNum + 1;
             }
+            const itemsStr = state.cart.map(i => i.name).join(', ');
             const transaction = {
+                type: 'transaction',
                 id: 'BB-' + nextNum,
                 date: new Date().toLocaleDateString('id-ID'),
                 time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
                 barberName: barberObj ? barberObj.name : 'Unknown',
                 paymentMethod: state.posPaymentMethod,
+                items: itemsStr,
+                total: total,
+                status: 'Lunas'
+            };
+
+            // Kirim ke Google Sheet
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(transaction)
+            }).catch(err => console.error("Sheet transaction error:", err));
+
+            // Tambah ke state lokal untuk tampilan langsung
+            const localTx = {
+                id: transaction.id,
+                date: transaction.date,
+                time: transaction.time,
+                barberName: transaction.barberName,
+                paymentMethod: transaction.paymentMethod,
                 items: [...state.cart],
                 total: total,
                 status: 'Lunas'
             };
-            state.transactions.unshift(transaction);
-            localStorage.setItem('cb_transactions', JSON.stringify(state.transactions));
+            state.transactions.unshift(localTx);
+
             if (state.autoPrint) {
-                printReceipt(transaction);
+                printReceipt(localTx);
             }
             clearCart();
             renderTransactionHistory();
             renderAccounting();
             
             if (!state.autoPrint) {
-                alert('Transaksi Berhasil Diselesaikan!');
+                alert('Transaksi Berhasil Diselesaikan & Disinkronkan ke Sheet!');
             }
         }
+
         function renderTransactionHistory() {
             const body = document.getElementById('transactionHistoryTable');
             if (!body) return;
@@ -1339,7 +1412,7 @@
                 return;
             }
             body.innerHTML = state.transactions.map(t => {
-                const serviceNames = t.items.map(i => i.name).join(', ');
+                const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 return `
                     <tr onclick="viewTransactionDetail('${t.id}')" class="hover:bg-slate-100/60 cursor-pointer transition">
                         <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${t.id}</td>
@@ -1366,6 +1439,7 @@
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             const content = document.getElementById('detailTxContent');
+            const itemsList = Array.isArray(tx.items) ? tx.items : [{ name: String(tx.items), price: tx.total }];
             content.innerHTML = `
                 <div class="space-y-2">
                     <div class="flex justify-between border-b border-slate-200 pb-2">
@@ -1392,10 +1466,10 @@
                 <div class="pt-2">
                     <p class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-2">Rincian Layanan:</p>
                     <div class="bg-white p-3 rounded-xl border border-slate-300 space-y-1.5 shadow-2xs">
-                        ${tx.items.map(i => `
+                        ${itemsList.map(i => `
                             <div class="flex justify-between text-xs">
-                                <span class="text-slate-700">${i.name}</span>
-                                <span class="text-slate-800 font-semibold">${formatRp(i.price)}</span>
+                                <span class="text-slate-700">${i.name || i}</span>
+                                <span class="text-slate-800 font-semibold">${formatRp(i.price || tx.total)}</span>
                             </div>
                         `).join('')}
                     </div>
@@ -1431,15 +1505,14 @@
             const txIndex = state.transactions.findIndex(x => x.id === txId);
             if (txIndex !== -1) {
                 state.transactions[txIndex].status = 'Refunded';
-                localStorage.setItem('cb_transactions', JSON.stringify(state.transactions));
-                
                 renderTransactionHistory();
                 renderAccounting();
-                
                 closeModal('detailTxModal');
-                alert('Pengembalian dana (Refund) berhasil! Status transaksi kini diperbarui menjadi Refunded.');
+                alert('Pengembalian dana (Refund) berhasil!');
             }
         }
+
+        // PENGELUARAN KAS (TERKIRIM KE SHEET `Expenses`)
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -1457,19 +1530,30 @@
                 nextExpNum = maxExpNum + 1;
             }
             const expense = {
+                type: 'expense',
                 id: 'BBPK-' + nextExpNum,
                 date: new Date().toLocaleDateString('id-ID'),
                 desc: desc,
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
             };
+
+            // Kirim ke Google Sheet
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(expense)
+            }).catch(err => console.error("Sheet expense error:", err));
+
             state.expenses.unshift(expense);
-            localStorage.setItem('cb_expenses', JSON.stringify(state.expenses));
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
             renderExpensesTable();
             renderAccounting();
+            alert('Pengeluaran berhasil dicatat & disinkronkan ke Sheet!');
         }
+
         function renderExpensesTable() {
             const body = document.getElementById('expensesTableBody');
             if (!body) return;
@@ -1528,8 +1612,8 @@
             netEl.innerText = formatRp(netProfit);
             let ledgerItems = [];
             state.transactions.forEach(t => {
-                const serviceStr = t.items.map(i => i.name).join(', ');
-                const descStr = `${t.barberName} - ${serviceStr}`;
+                const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
+                const descStr = `${t.barberName} - ${serviceNames}`;
                 if (t.status === 'Lunas') {
                     ledgerItems.push({
                         date: t.date + ' ' + t.time,
@@ -1677,8 +1761,8 @@
                     <tbody>
             `;
             state.transactions.forEach(t => {
-                const serviceStr = t.items.map(i => i.name).join(', ');
-                const descStr = `${t.barberName} - ${serviceStr}`;
+                const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
+                const descStr = `${t.barberName} - ${serviceNames}`;
                 if (t.status === 'Lunas') {
                     excelTemplate += `
                         <tr>
@@ -1734,15 +1818,13 @@
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
             if (pwd === REFUND_PASSWORD) {
-                if (confirm('Apakah Anda yakin ingin mereset seluruh data transaksi, pengeluaran, dan jurnal keuangan bulan ini?')) {
+                if (confirm('Apakah Anda yakin ingin mereset seluruh data transaksi dan pengeluaran?')) {
                     state.transactions = [];
                     state.expenses = [];
-                    localStorage.removeItem('cb_transactions');
-                    localStorage.removeItem('cb_expenses');
                     renderTransactionHistory();
                     renderExpensesTable();
                     renderAccounting();
-                    alert('Data bulan ini berhasil direset!');
+                    alert('Tampilan laporan berhasil direset!');
                 }
             } else {
                 alert('Kata sandi reset salah!');
