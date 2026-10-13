@@ -818,7 +818,7 @@
                         ${phoneCol}
                         <td class="p-3 text-slate-700">${item.barber || '-'}</td>
                         <td class="p-3 text-xs text-slate-600">${item.layanan || item.services || '-'}</td>
-                        <td class="p-3 text-xs text-slate-600">${item.tanggal || item.date || '-'} - ${item.jam || item.time || '-'}</td>
+                        <td class="p-3 text-xs text-slate-600">${String(item.tanggal || item.date || '').split('T')[0]} - ${item.jam || item.time || '-'}</td>
                         <td class="p-3">${statusColHTML}</td>
                     </tr>
                 `;
