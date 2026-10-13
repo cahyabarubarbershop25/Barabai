@@ -6,31 +6,6 @@
     <title>Cahya Baru Barbershop - POS & Reservasi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase SDK Modular -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-        
-        // Konfigurasi Firebase Anda (Silakan ganti dengan kredensial Firebase Anda jika diperlukan)
-        const firebaseConfig = {
-            databaseURL: "https://cahyabaru-reservasi-default-rtdb.firebaseio.com/"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // Global Firebase functions
-        window.FB_DB = db;
-        window.FB_Ref = ref;
-        window.FB_Set = set;
-        window.FB_Push = push;
-        window.FB_OnValue = onValue;
-        window.FB_Update = update;
-        window.FB_Remove = remove;
-
-        // Trigger event setelah Firebase siap
-        window.dispatchEvent(new Event('firebase-ready'));
-    </script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #e2e8f0; }
@@ -120,7 +95,6 @@
                             <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
                             <span>Reservasi Online</span>
                         </button>
-                        <!-- TAB BARU: Jadwal Reservasi -->
                         <button onclick="switchTab('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-calendar-days w-5 text-amber-600"></i>
                             <span>Jadwal Reservasi</span>
@@ -159,7 +133,7 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.02</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.01</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
@@ -218,49 +192,48 @@
                         <div class="pt-4 border-t border-slate-200 flex justify-end">
                             <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
                                 <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>Kirim Reservasi ke Sistem & WhatsApp</span>
+                                <span>Kirim Reservasi via WhatsApp</span>
                             </button>
                         </div>
                     </form>
                 </div>
             </section>
-            
-            <!-- TAB BARU: Jadwal Reservasi (Live Firebase) -->
+            <!-- TAB: Jadwal Reservasi (Google Sheet) -->
             <section id="tab-schedule" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 gap-4">
+                    <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-days text-amber-600"></i> Jadwal Reservasi LIVE
+                                <i class="fa-solid fa-calendar-days text-amber-600"></i> Jadwal Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Daftar jadwal antrean reservasi barbershop secara real-time dari semua perangkat.</p>
+                            <p class="text-sm text-slate-600 mt-1">Daftar jadwal reservasi dari Google Sheet.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="date" id="filterResDate" onchange="renderScheduleTable()" class="bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
-                            <button onclick="document.getElementById('filterResDate').value=''; renderScheduleTable();" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition">Semua Tanggal</button>
+                            <button onclick="loadScheduleFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                                <i class="fa-solid fa-rotate"></i>
+                                <span>Refresh Data</span>
+                            </button>
                         </div>
                     </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
                             <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
-                                    <th class="p-3">Tanggal & Jam</th>
                                     <th class="p-3">Nama Pelanggan</th>
-                                    <th class="p-3">No. WhatsApp <span id="waHeaderStatus" class="text-[9px] font-normal text-amber-700">(Admin Only)</span></th>
+                                    <th class="p-3" id="thPhoneHeader">No. WhatsApp</th>
                                     <th class="p-3">Barber</th>
                                     <th class="p-3">Layanan</th>
-                                    <th class="p-3">Status</th>
-                                    <th class="p-3 text-right">Aksi</th>
+                                    <th class="p-3">Tanggal & Jam</th>
+                                    <th class="p-3">Status Reservasi</th>
                                 </tr>
                             </thead>
                             <tbody id="scheduleTableBody" class="divide-y divide-slate-200">
-                                <tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data jadwal dari server...</td></tr>
+                                <tr><td colspan="6" class="text-center py-6 text-slate-400">Klik "Refresh Data" untuk memuat jadwal.</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
-
             <!-- TAB 2: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -686,6 +659,8 @@
     </div>
     <div id="printableReceipt" class="hidden"></div>
     <script>
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw82NRu7RnznncB8VMc4vK8ru5XxkZQLu74Or2Z8z55aT9ZaouQ4kLZ4Pnh4wYGLvgC-A/exec";
+
         const NOMOR_WA_KASIR = "6283853293150";
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
@@ -722,15 +697,11 @@
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: JSON.parse(localStorage.getItem('cb_transactions') || '[]'),
             expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]'),
-            firebaseReservations: {}
+            reservations: []
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
-
-        window.addEventListener('firebase-ready', () => {
-            initFirebaseListener();
-        });
-
+        
         window.addEventListener('DOMContentLoaded', () => {
             renderBookingBarbers();
             renderBookingServices();
@@ -740,6 +711,7 @@
             renderTransactionHistory();
             renderExpensesTable();
             renderAccounting();
+            loadScheduleFromSheet();
             
             const autoPrintCheckbox = document.getElementById('autoPrintToggle');
             if (autoPrintCheckbox) {
@@ -748,15 +720,73 @@
             switchTab('booking');
         });
 
-        // Inisialisasi Realtime Listener Firebase untuk Jadwal Reservasi
-        function initFirebaseListener() {
-            if (!window.FB_DB) return;
-            const resRef = window.FB_Ref(window.FB_DB, 'reservations');
-            window.FB_OnValue(resRef, (snapshot) => {
-                const data = snapshot.val();
-                state.firebaseReservations = data || {};
-                renderScheduleTable();
-            });
+        function loadScheduleFromSheet() {
+            const container = document.getElementById('scheduleTableBody');
+            if (!container) return;
+
+            container.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data dari Google Sheet...</td></tr>`;
+
+            fetch(GOOGLE_SHEET_WEB_APP_URL)
+                .then(res => res.json())
+                .then(data => {
+                    state.reservations = data || [];
+                    renderScheduleTable();
+                })
+                .catch(err => {
+                    console.error("Gagal mengambil data sheet:", err);
+                    container.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi atau URL Web App.</td></tr>`;
+                });
+        }
+
+        function renderScheduleTable() {
+            const container = document.getElementById('scheduleTableBody');
+            const thPhone = document.getElementById('thPhoneHeader');
+            if (!container) return;
+
+            if (thPhone) {
+                thPhone.style.display = state.isAdminLoggedIn ? '' : 'none';
+            }
+
+            if (!state.reservations || state.reservations.length === 0) {
+                container.innerHTML = `<tr><td colspan="${state.isAdminLoggedIn ? 6 : 5}" class="text-center py-6 text-slate-400">Belum ada jadwal reservasi.</td></tr>`;
+                return;
+            }
+
+            container.innerHTML = state.reservations.map((item, index) => {
+                const statusBadge = getStatusBadge(item.status || 'Pending');
+                const phoneCol = state.isAdminLoggedIn ? `<td class="p-3 font-mono text-xs text-slate-700">${item['no. whatsapp'] || item.phone || '-'}</td>` : '';
+
+                return `
+                    <tr class="hover:bg-slate-100/60 transition">
+                        <td class="p-3 font-medium text-slate-900">${item.nama || item.name || '-'}</td>
+                        ${phoneCol}
+                        <td class="p-3 text-slate-700">${item.barber || '-'}</td>
+                        <td class="p-3 text-xs text-slate-600">${item.layanan || item.services || '-'}</td>
+                        <td class="p-3 text-xs text-slate-600">${item.tanggal || item.date || '-'} - ${item.jam || item.time || '-'}</td>
+                        <td class="p-3">
+                            <div class="flex items-center space-x-2">
+                                ${statusBadge}
+                                ${state.isAdminLoggedIn ? `
+                                    <span class="text-[10px] text-slate-400 italic">(Admin View)</span>
+                                ` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getStatusBadge(status) {
+            switch(status) {
+                case 'Dikonfirmasi':
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Dikonfirmasi</span>';
+                case 'Selesai':
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">Selesai</span>';
+                case 'Dibatalkan':
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-800 border border-red-300">Dibatalkan</span>';
+                default:
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Pending</span>';
+            }
         }
 
         function toggleMobileNav() {
@@ -766,7 +796,7 @@
             
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
-                backdrop.classList.remove('hidden');
+                backdrop.classList.add('hidden');
             } else {
                 sidebar.classList.add('-translate-x-full');
                 backdrop.classList.add('hidden');
@@ -863,14 +893,14 @@
             try {
                 let encoder = new TextEncoder();
                 let commands = [];
-                commands.push(new Uint8Array([0x1B, 0x40])); // Init
-                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); // Center
+                commands.push(new Uint8Array([0x1B, 0x40])); 
+                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); 
                 let headerText = 
                     "\x1B\x21\x20CAHYABARU BARBERSHOP\x1B\x21\x00\n" +
                     "Style With Purpose\n" +
                     "--------------------------------\n";
                 commands.push(encoder.encode(headerText));
-                commands.push(new Uint8Array([0x1B, 0x61, 0x00])); // Left
+                commands.push(new Uint8Array([0x1B, 0x61, 0x00])); 
                 let infoText = 
                     `No    : ${tx.id}\n` +
                     `Date  : ${tx.date} ${tx.time}\n` +
@@ -888,7 +918,7 @@
                     `TOTAL: ${formatRp(tx.total).padStart(26, ' ')}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(totalText));
-                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); // Center
+                commands.push(new Uint8Array([0x1B, 0x61, 0x01])); 
                 let footerText = 
                     "Terima Kasih Atas Kunjungan Anda\n" +
                     "Simpan struk ini sebagai bukti\n\n\n";
@@ -1062,7 +1092,7 @@
                 document.getElementById('loginBtnNav').classList.add('hidden');
                 closeModal('loginModal');
                 document.getElementById('adminPasswordInput').value = '';
-                renderScheduleTable(); // Re-render jadwal untuk menampilkan nomor WA dan status editable
+                renderScheduleTable();
                 switchTab('pos');
             } else {
                 alert('Kata sandi admin salah!');
@@ -1072,7 +1102,7 @@
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('loginBtnNav').classList.remove('hidden');
-            renderScheduleTable(); // Re-render jadwal untuk menyembunyikan nomor WA dan mengunci status
+            renderScheduleTable();
             switchTab('booking');
         }
         function renderBookingBarbers() {
@@ -1132,112 +1162,8 @@
                 </div>
             `).join('');
         }
-
-        // FUNGSI RENDER TAB "JADWAL RESERVASI" DENGAN FIREBASE & ATURAN ADMIN
-        function renderScheduleTable() {
-            const tbody = document.getElementById('scheduleTableBody');
-            const filterDateEl = document.getElementById('filterResDate');
-            const waHeaderStatus = document.getElementById('waHeaderStatus');
-            if (!tbody) return;
-
-            if (waHeaderStatus) {
-                waHeaderStatus.innerText = state.isAdminLoggedIn ? "(Admin Mode: Terlihat)" : "(Admin Only)";
-            }
-
-            const rawData = state.firebaseReservations;
-            let keys = Object.keys(rawData);
-
-            if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Belum ada data reservasi masuk.</td></tr>`;
-                return;
-            }
-
-            let list = keys.map(k => ({ id: k, ...rawData[k] }));
-            
-            // Urutkan berdasarkan tanggal & jam terbaru
-            list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-
-            // Filter tanggal jika dipilih
-            const filterDate = filterDateEl ? filterDateEl.value : '';
-            if (filterDate) {
-                list = list.filter(item => item.resDate === filterDate);
-            }
-
-            if (list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Tidak ada reservasi pada tanggal tersebut.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = list.map(item => {
-                const barberObj = BARBERS.find(b => b.id === item.barberId);
-                const barberName = barberObj ? barberObj.name : (item.barberName || 'Bebas');
-                const status = item.status || 'Pending';
-                
-                // Aturan No WA: Hanya terlihat saat Mode Admin
-                let phoneDisplay = '<span class="text-slate-400 italic">Disembunyikan (Admin Only)</span>';
-                if (state.isAdminLoggedIn) {
-                    phoneDisplay = `<a href="https://wa.me/${item.clientPhone.replace(/^0/, '62')}" target="_blank" class="text-emerald-700 font-mono font-semibold hover:underline flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> ${item.clientPhone}</a>`;
-                }
-
-                // Aturan Status: Hanya bisa diubah oleh Mode Admin
-                let statusControl = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${status === 'Dikonfirmasi' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : status === 'Selesai' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : status === 'Dibatalkan' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">${status}</span>`;
-                
-                if (state.isAdminLoggedIn) {
-                    statusControl = `
-                        <select onchange="updateReservationStatus('${item.id}', this.value)" class="bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-800 focus:outline-none focus:border-amber-600 font-semibold">
-                            <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
-                            <option value="Dikonfirmasi" ${status === 'Dikonfirmasi' ? 'selected' : ''}>Dikonfirmasi</option>
-                            <option value="Selesai" ${status === 'Selesai' ? 'selected' : ''}>Selesai</option>
-                            <option value="Dibatalkan" ${status === 'Dibatalkan' ? 'selected' : ''}>Dibatalkan</option>
-                        </select>
-                    `;
-                }
-
-                let deleteBtn = '';
-                if (state.isAdminLoggedIn) {
-                    deleteBtn = `<button onclick="deleteReservation('${item.id}')" class="text-red-600 hover:text-red-800 text-xs p-1.5 transition" title="Hapus Reservasi"><i class="fa-solid fa-trash"></i></button>`;
-                }
-
-                return `
-                    <tr class="hover:bg-slate-100/60 transition">
-                        <td class="p-3 text-xs text-slate-600">
-                            <span class="font-bold text-slate-800">${item.resDate}</span><br>
-                            <span class="text-amber-800 font-semibold">${item.resTime}</span>
-                        </td>
-                        <td class="p-3 font-bold text-slate-800 text-xs">${item.clientName}</td>
-                        <td class="p-3 text-xs">${phoneDisplay}</td>
-                        <td class="p-3 text-xs font-medium text-slate-700">${barberName}</td>
-                        <td class="p-3 text-xs text-slate-600">${item.servicesText}</td>
-                        <td class="p-3">${statusControl}</td>
-                        <td class="p-3 text-right flex items-center justify-end gap-1">
-                            ${deleteBtn}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // Update Status Reservasi ke Firebase (Hanya Admin)
-        function updateReservationStatus(id, newStatus) {
-            if (!state.isAdminLoggedIn || !window.FB_DB) return;
-            const itemRef = window.FB_Ref(window.FB_DB, 'reservations/' + id);
-            window.FB_Update(itemRef, { status: newStatus }).then(() => {
-                // Berhasil diperbarui secara live
-            }).catch(err => {
-                alert("Gagal mengubah status: " + err.message);
-            });
-        }
-
-        // Hapus Reservasi dari Firebase (Admin)
-        function deleteReservation(id) {
-            if (!state.isAdminLoggedIn || !window.FB_DB) return;
-            if (confirm("Apakah Anda yakin ingin menghapus data reservasi ini?")) {
-                const itemRef = window.FB_Ref(window.FB_DB, 'reservations/' + id);
-                window.FB_Remove(itemRef);
-            }
-        }
-
-        // FUNGSI UTAMA: MENGIRIM RESERVASI KE FIREBASE & WHATSAPP KASIR
+        
+        // FUNGSI UTAMA RESERVASI KE GOOGLE SHEET & WHATSAPP
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (state.resSelectedServices.length === 0) {
@@ -1250,45 +1176,39 @@
             const resTime = document.getElementById('resTime').value;
             const barberObj = BARBERS.find(b => b.id === state.resSelectedBarber);
             const barberName = barberObj ? barberObj.name : 'Bebas';
-            const selectedServicesObj = state.services.filter(s => state.resSelectedServices.includes(s.id));
-            const selectedServicesNames = selectedServicesObj.map(s => s.name).join(', ');
+            const selectedServices = state.services
+                .filter(s => state.resSelectedServices.includes(s.id))
+                .map(s => s.name)
+                .join(', ');
 
-            // Simpan ke Firebase Realtime Database
-            if (window.FB_DB) {
-                const resRef = window.FB_Ref(window.FB_DB, 'reservations');
-                const newResRef = window.FB_Push(resRef);
-                window.FB_Set(newResRef, {
-                    clientName: clientName,
-                    clientPhone: clientPhone,
-                    barberId: state.resSelectedBarber,
-                    barberName: barberName,
-                    servicesText: selectedServicesNames,
-                    resDate: resDate,
-                    resTime: resTime,
-                    status: 'Pending',
-                    createdAt: new Date().toISOString()
-                }).catch(err => {
-                    console.error("Firebase save error:", err);
-                });
-            }
+            const reservationData = {
+                name: clientName,
+                phone: clientPhone,
+                barber: barberName,
+                services: selectedServices,
+                date: resDate,
+                time: resTime,
+                status: 'Pending',
+                timestamp: new Date().toLocaleString('id-ID')
+            };
+
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reservationData)
+            }).catch(err => console.error("Sheet error:", err));
 
             const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
                             `*Barber/Kapster:* ${barberName}\n` +
-                            `*Layanan:* ${selectedServicesNames}\n` +
+                            `*Layanan:* ${selectedServices}\n` +
                             `*Jadwal:* ${resDate} - Jam ${resTime}\n\n` +
                             `Mohon konfirmasi ketersediaan jadwalnya. Terima kasih!`;
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             
-            // Reset form & arahkan ke tab jadwal reservasi atau WhatsApp
-            document.getElementById('resClientName').value = '';
-            document.getElementById('resClientPhone').value = '';
-            state.resSelectedServices = [];
-            renderBookingServices();
-            
-            window.open(urlWA, '_blank');
-            switchTab('schedule');
+            window.location.href = urlWA;
         }
 
         function checkoutPOS() {
@@ -1752,4 +1672,3 @@
     </script>
 </body>
 </html>
-```[cite: 1]
