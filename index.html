@@ -6,6 +6,31 @@
     <title>Cahya Baru Barbershop - POS & Reservasi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK Modular -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        
+        // Konfigurasi Firebase Anda (Silakan ganti dengan kredensial Firebase Anda jika diperlukan)
+        const firebaseConfig = {
+            databaseURL: "https://cahyabaru-reservasi-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Global Firebase functions
+        window.FB_DB = db;
+        window.FB_Ref = ref;
+        window.FB_Set = set;
+        window.FB_Push = push;
+        window.FB_OnValue = onValue;
+        window.FB_Update = update;
+        window.FB_Remove = remove;
+
+        // Trigger event setelah Firebase siap
+        window.dispatchEvent(new Event('firebase-ready'));
+    </script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #e2e8f0; }
@@ -80,7 +105,6 @@
             </div>
         </div>
     </header>
-
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
         <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none">
             <div class="space-y-6">
@@ -95,6 +119,11 @@
                         <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
                             <span>Reservasi Online</span>
+                        </button>
+                        <!-- TAB BARU: Jadwal Reservasi -->
+                        <button onclick="switchTab('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-calendar-days w-5 text-amber-600"></i>
+                            <span>Jadwal Reservasi</span>
                         </button>
                         <button onclick="switchTab('services')" id="nav-services" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-list-check w-5 text-amber-600"></i>
@@ -130,11 +159,10 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.01</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.02</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
-
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Booking Form -->
             <section id="tab-booking" class="tab-content space-y-6">
@@ -190,10 +218,46 @@
                         <div class="pt-4 border-t border-slate-200 flex justify-end">
                             <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
                                 <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>Kirim Reservasi via WhatsApp</span>
+                                <span>Kirim Reservasi ke Sistem & WhatsApp</span>
                             </button>
                         </div>
                     </form>
+                </div>
+            </section>
+            
+            <!-- TAB BARU: Jadwal Reservasi (Live Firebase) -->
+            <section id="tab-schedule" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-days text-amber-600"></i> Jadwal Reservasi LIVE
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Daftar jadwal antrean reservasi barbershop secara real-time dari semua perangkat.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="date" id="filterResDate" onchange="renderScheduleTable()" class="bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            <button onclick="document.getElementById('filterResDate').value=''; renderScheduleTable();" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition">Semua Tanggal</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
+                                <tr>
+                                    <th class="p-3">Tanggal & Jam</th>
+                                    <th class="p-3">Nama Pelanggan</th>
+                                    <th class="p-3">No. WhatsApp <span id="waHeaderStatus" class="text-[9px] font-normal text-amber-700">(Admin Only)</span></th>
+                                    <th class="p-3">Barber</th>
+                                    <th class="p-3">Layanan</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody" class="divide-y divide-slate-200">
+                                <tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data jadwal dari server...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
@@ -209,7 +273,6 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-
             <!-- TAB 3: Tentang Kami -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -219,7 +282,6 @@
                         </h2>
                         <p class="text-sm text-slate-600 mt-1">Style With Purpose • Pengalaman cukur modern & profesional.</p>
                     </div>
-
                     <!-- Sejarah & Portofolio Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Sejarah -->
@@ -235,7 +297,6 @@
                                 Dengan perpaduan teknik potong rambut profesional dan pelayanan terbaik, kami selalu memastikan setiap pelanggan keluar dengan rasa percaya diri yang tinggi.
                             </p>
                         </div>
-
                         <!-- Portofolio -->
                         <div class="bg-white p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                             <div class="flex items-center gap-2 text-amber-700 font-bold">
@@ -261,7 +322,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Tim Barber & Tim Kasir Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                         <!-- Tim Barber -->
@@ -297,7 +357,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Tim Kasir & Admin -->
                         <div class="bg-white p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                             <div class="flex items-center gap-2 text-amber-700 font-bold">
@@ -318,7 +377,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 4: POS Register & Menu Management -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -389,7 +447,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 5: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -418,7 +475,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 6: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -473,7 +529,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 7: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -539,7 +594,6 @@
             </section>
         </main>
     </div>
-
     <!-- Modals -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
@@ -556,7 +610,6 @@
             </button>
         </div>
     </div>
-
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -592,7 +645,6 @@
             </form>
         </div>
     </div>
-
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -603,7 +655,6 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
-
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -633,9 +684,7 @@
             </div>
         </div>
     </div>
-
     <div id="printableReceipt" class="hidden"></div>
-
     <script>
         const NOMOR_WA_KASIR = "6283853293150";
         const ADMIN_PASSWORD = "CahyaBaru2025";
@@ -672,10 +721,15 @@
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: JSON.parse(localStorage.getItem('cb_transactions') || '[]'),
-            expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]')
+            expenses: JSON.parse(localStorage.getItem('cb_expenses') || '[]'),
+            firebaseReservations: {}
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
+
+        window.addEventListener('firebase-ready', () => {
+            initFirebaseListener();
+        });
 
         window.addEventListener('DOMContentLoaded', () => {
             renderBookingBarbers();
@@ -694,6 +748,17 @@
             switchTab('booking');
         });
 
+        // Inisialisasi Realtime Listener Firebase untuk Jadwal Reservasi
+        function initFirebaseListener() {
+            if (!window.FB_DB) return;
+            const resRef = window.FB_Ref(window.FB_DB, 'reservations');
+            window.FB_OnValue(resRef, (snapshot) => {
+                const data = snapshot.val();
+                state.firebaseReservations = data || {};
+                renderScheduleTable();
+            });
+        }
+
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -707,7 +772,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -715,7 +779,6 @@
             }
             openModal('addMenuModal');
         }
-
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -740,7 +803,6 @@
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
-
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -755,7 +817,6 @@
                 renderPOSServices();
             }
         }
-
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -794,7 +855,6 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif, serta printer sudah di-pairing.');
             }
         }
-
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -842,13 +902,11 @@
                 alert("Gagal mencetak ke printer. Pastikan printer menyala dan terhubung kembali.");
             }
         }
-
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
-
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -859,12 +917,10 @@
                 </button>
             `).join('');
         }
-
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
-
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -883,14 +939,12 @@
                 </div>
             `).join('');
         }
-
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
-
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -915,17 +969,14 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
-
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
-
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
-
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -939,7 +990,6 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -953,16 +1003,13 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function openPrinterModal() {
             openModal('printerModal');
         }
-
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
-
         function switchTab(tabId) {
             const adminTabs = ['pos', 'transactions', 'expenses', 'accounting'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
@@ -990,7 +1037,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -999,19 +1045,15 @@
             }
             return 'Rp ' + formattedNum;
         }
-
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
-
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
-
         function openLoginModal() {
             openModal('loginModal');
         }
-
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1020,19 +1062,19 @@
                 document.getElementById('loginBtnNav').classList.add('hidden');
                 closeModal('loginModal');
                 document.getElementById('adminPasswordInput').value = '';
+                renderScheduleTable(); // Re-render jadwal untuk menampilkan nomor WA dan status editable
                 switchTab('pos');
             } else {
                 alert('Kata sandi admin salah!');
             }
         }
-
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('loginBtnNav').classList.remove('hidden');
+            renderScheduleTable(); // Re-render jadwal untuk menyembunyikan nomor WA dan mengunci status
             switchTab('booking');
         }
-
         function renderBookingBarbers() {
             const container = document.getElementById('bookingBarberList');
             container.innerHTML = BARBERS.map(b => `
@@ -1042,12 +1084,10 @@
                 </button>
             `).join('');
         }
-
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             renderBookingBarbers();
         }
-
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             container.innerHTML = state.services.map(s => {
@@ -1064,7 +1104,6 @@
                 `;
             }).join('');
         }
-
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1073,7 +1112,6 @@
             }
             renderBookingServices();
         }
-
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             const categories = [...new Set(state.services.map(s => s.category))];
@@ -1095,37 +1133,162 @@
             `).join('');
         }
 
-        // FUNGSI UTAMA: MENGIRIM RESERVASI LANGSUNG KE WHATSAPP KASIR
+        // FUNGSI RENDER TAB "JADWAL RESERVASI" DENGAN FIREBASE & ATURAN ADMIN
+        function renderScheduleTable() {
+            const tbody = document.getElementById('scheduleTableBody');
+            const filterDateEl = document.getElementById('filterResDate');
+            const waHeaderStatus = document.getElementById('waHeaderStatus');
+            if (!tbody) return;
+
+            if (waHeaderStatus) {
+                waHeaderStatus.innerText = state.isAdminLoggedIn ? "(Admin Mode: Terlihat)" : "(Admin Only)";
+            }
+
+            const rawData = state.firebaseReservations;
+            let keys = Object.keys(rawData);
+
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Belum ada data reservasi masuk.</td></tr>`;
+                return;
+            }
+
+            let list = keys.map(k => ({ id: k, ...rawData[k] }));
+            
+            // Urutkan berdasarkan tanggal & jam terbaru
+            list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+            // Filter tanggal jika dipilih
+            const filterDate = filterDateEl ? filterDateEl.value : '';
+            if (filterDate) {
+                list = list.filter(item => item.resDate === filterDate);
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Tidak ada reservasi pada tanggal tersebut.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map(item => {
+                const barberObj = BARBERS.find(b => b.id === item.barberId);
+                const barberName = barberObj ? barberObj.name : (item.barberName || 'Bebas');
+                const status = item.status || 'Pending';
+                
+                // Aturan No WA: Hanya terlihat saat Mode Admin
+                let phoneDisplay = '<span class="text-slate-400 italic">Disembunyikan (Admin Only)</span>';
+                if (state.isAdminLoggedIn) {
+                    phoneDisplay = `<a href="https://wa.me/${item.clientPhone.replace(/^0/, '62')}" target="_blank" class="text-emerald-700 font-mono font-semibold hover:underline flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> ${item.clientPhone}</a>`;
+                }
+
+                // Aturan Status: Hanya bisa diubah oleh Mode Admin
+                let statusControl = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${status === 'Dikonfirmasi' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : status === 'Selesai' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : status === 'Dibatalkan' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">${status}</span>`;
+                
+                if (state.isAdminLoggedIn) {
+                    statusControl = `
+                        <select onchange="updateReservationStatus('${item.id}', this.value)" class="bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-800 focus:outline-none focus:border-amber-600 font-semibold">
+                            <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Dikonfirmasi" ${status === 'Dikonfirmasi' ? 'selected' : ''}>Dikonfirmasi</option>
+                            <option value="Selesai" ${status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            <option value="Dibatalkan" ${status === 'Dibatalkan' ? 'selected' : ''}>Dibatalkan</option>
+                        </select>
+                    `;
+                }
+
+                let deleteBtn = '';
+                if (state.isAdminLoggedIn) {
+                    deleteBtn = `<button onclick="deleteReservation('${item.id}')" class="text-red-600 hover:text-red-800 text-xs p-1.5 transition" title="Hapus Reservasi"><i class="fa-solid fa-trash"></i></button>`;
+                }
+
+                return `
+                    <tr class="hover:bg-slate-100/60 transition">
+                        <td class="p-3 text-xs text-slate-600">
+                            <span class="font-bold text-slate-800">${item.resDate}</span><br>
+                            <span class="text-amber-800 font-semibold">${item.resTime}</span>
+                        </td>
+                        <td class="p-3 font-bold text-slate-800 text-xs">${item.clientName}</td>
+                        <td class="p-3 text-xs">${phoneDisplay}</td>
+                        <td class="p-3 text-xs font-medium text-slate-700">${barberName}</td>
+                        <td class="p-3 text-xs text-slate-600">${item.servicesText}</td>
+                        <td class="p-3">${statusControl}</td>
+                        <td class="p-3 text-right flex items-center justify-end gap-1">
+                            ${deleteBtn}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update Status Reservasi ke Firebase (Hanya Admin)
+        function updateReservationStatus(id, newStatus) {
+            if (!state.isAdminLoggedIn || !window.FB_DB) return;
+            const itemRef = window.FB_Ref(window.FB_DB, 'reservations/' + id);
+            window.FB_Update(itemRef, { status: newStatus }).then(() => {
+                // Berhasil diperbarui secara live
+            }).catch(err => {
+                alert("Gagal mengubah status: " + err.message);
+            });
+        }
+
+        // Hapus Reservasi dari Firebase (Admin)
+        function deleteReservation(id) {
+            if (!state.isAdminLoggedIn || !window.FB_DB) return;
+            if (confirm("Apakah Anda yakin ingin menghapus data reservasi ini?")) {
+                const itemRef = window.FB_Ref(window.FB_DB, 'reservations/' + id);
+                window.FB_Remove(itemRef);
+            }
+        }
+
+        // FUNGSI UTAMA: MENGIRIM RESERVASI KE FIREBASE & WHATSAPP KASIR
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (state.resSelectedServices.length === 0) {
                 alert('Pilih minimal satu layanan!');
                 return;
             }
-
             const clientName = document.getElementById('resClientName').value;
             const clientPhone = document.getElementById('resClientPhone').value;
             const resDate = document.getElementById('resDate').value;
             const resTime = document.getElementById('resTime').value;
-
             const barberObj = BARBERS.find(b => b.id === state.resSelectedBarber);
             const barberName = barberObj ? barberObj.name : 'Bebas';
+            const selectedServicesObj = state.services.filter(s => state.resSelectedServices.includes(s.id));
+            const selectedServicesNames = selectedServicesObj.map(s => s.name).join(', ');
 
-            const selectedServices = state.services
-                .filter(s => state.resSelectedServices.includes(s.id))
-                .map(s => s.name)
-                .join(', ');
+            // Simpan ke Firebase Realtime Database
+            if (window.FB_DB) {
+                const resRef = window.FB_Ref(window.FB_DB, 'reservations');
+                const newResRef = window.FB_Push(resRef);
+                window.FB_Set(newResRef, {
+                    clientName: clientName,
+                    clientPhone: clientPhone,
+                    barberId: state.resSelectedBarber,
+                    barberName: barberName,
+                    servicesText: selectedServicesNames,
+                    resDate: resDate,
+                    resTime: resTime,
+                    status: 'Pending',
+                    createdAt: new Date().toISOString()
+                }).catch(err => {
+                    console.error("Firebase save error:", err);
+                });
+            }
 
             const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
                             `*Barber/Kapster:* ${barberName}\n` +
-                            `*Layanan:* ${selectedServices}\n` +
+                            `*Layanan:* ${selectedServicesNames}\n` +
                             `*Jadwal:* ${resDate} - Jam ${resTime}\n\n` +
                             `Mohon konfirmasi ketersediaan jadwalnya. Terima kasih!`;
-
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
+            
+            // Reset form & arahkan ke tab jadwal reservasi atau WhatsApp
+            document.getElementById('resClientName').value = '';
+            document.getElementById('resClientPhone').value = '';
+            state.resSelectedServices = [];
+            renderBookingServices();
+            
             window.open(urlWA, '_blank');
+            switchTab('schedule');
         }
 
         function checkoutPOS() {
@@ -1169,7 +1332,6 @@
                 alert('Transaksi Berhasil Diselesaikan!');
             }
         }
-
         function renderTransactionHistory() {
             const body = document.getElementById('transactionHistoryTable');
             if (!body) return;
@@ -1201,7 +1363,6 @@
                 `;
             }).join('');
         }
-
         function viewTransactionDetail(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -1261,7 +1422,6 @@
             `;
             openModal('detailTxModal');
         }
-
         function processRefund(txId) {
             const pwd = prompt('Masukkan kata sandi keamanan refund (CahyaBaruSolid):');
             if (pwd === null) return;
@@ -1281,7 +1441,6 @@
                 alert('Pengembalian dana (Refund) berhasil! Status transaksi kini diperbarui menjadi Refunded.');
             }
         }
-
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -1312,7 +1471,6 @@
             renderExpensesTable();
             renderAccounting();
         }
-
         function renderExpensesTable() {
             const body = document.getElementById('expensesTableBody');
             if (!body) return;
@@ -1331,7 +1489,6 @@
                 </tr>
             `).join('');
         }
-
         function renderAccounting() {
             const cashEl = document.getElementById('accCash');
             const qrisEl = document.getElementById('accQRIS');
@@ -1423,7 +1580,6 @@
                 </tr>
             `).join('');
         }
-
         function exportToExcel() {
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
@@ -1575,7 +1731,6 @@
             link.click();
             document.body.removeChild(link);
         }
-
         function confirmResetMonth() {
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
@@ -1597,3 +1752,4 @@
     </script>
 </body>
 </html>
+```[cite: 1]
