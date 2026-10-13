@@ -753,8 +753,23 @@
             }
 
             container.innerHTML = state.reservations.map((item, index) => {
-                const statusBadge = getStatusBadge(item.status || 'Pending');
+                const currentStatus = item.status || 'Menunggu';
                 const phoneCol = state.isAdminLoggedIn ? `<td class="p-3 font-mono text-xs text-slate-700">${item['no. whatsapp'] || item.phone || '-'}</td>` : '';
+
+                let statusColHTML = '';
+                if (state.isAdminLoggedIn) {
+                    statusColHTML = `
+                        <div class="flex items-center space-x-2">
+                            <select onchange="updateReservationStatus(${index}, this.value)" class="bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs font-semibold focus:outline-none focus:border-amber-600">
+                                <option value="Menunggu" ${currentStatus === 'Menunggu' ? 'selected' : ''}>Menunggu</option>
+                                <option value="Proses" ${currentStatus === 'Proses' ? 'selected' : ''}>Proses</option>
+                                <option value="Selesai" ${currentStatus === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            </select>
+                        </div>
+                    `;
+                } else {
+                    statusColHTML = getCustomerStatusBadge(currentStatus);
+                }
 
                 return `
                     <tr class="hover:bg-slate-100/60 transition">
@@ -763,30 +778,53 @@
                         <td class="p-3 text-slate-700">${item.barber || '-'}</td>
                         <td class="p-3 text-xs text-slate-600">${item.layanan || item.services || '-'}</td>
                         <td class="p-3 text-xs text-slate-600">${item.tanggal || item.date || '-'} - ${item.jam || item.time || '-'}</td>
-                        <td class="p-3">
-                            <div class="flex items-center space-x-2">
-                                ${statusBadge}
-                                ${state.isAdminLoggedIn ? `
-                                    <span class="text-[10px] text-slate-400 italic">(Admin View)</span>
-                                ` : ''}
-                            </div>
-                        </td>
+                        <td class="p-3">${statusColHTML}</td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function getStatusBadge(status) {
+        function getCustomerStatusBadge(status) {
             switch(status) {
-                case 'Dikonfirmasi':
-                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Dikonfirmasi</span>';
+                case 'Proses':
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Proses</span>';
                 case 'Selesai':
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">Selesai</span>';
-                case 'Dibatalkan':
-                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-800 border border-red-300">Dibatalkan</span>';
                 default:
-                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Pending</span>';
+                    return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
+        }
+
+        function updateReservationStatus(index, newStatus) {
+            if (!state.reservations[index]) return;
+            state.reservations[index].status = newStatus;
+
+            if (newStatus === 'Selesai') {
+                const res = state.reservations[index];
+                const barberName = res.barber || 'Fadil';
+                const foundBarber = BARBERS.find(b => b.name.toLowerCase() === barberName.toLowerCase());
+                if (foundBarber) {
+                    state.selectedBarber = foundBarber.id;
+                    renderPOSBarbers();
+                }
+
+                const serviceStr = (res.layanan || res.services || '').toLowerCase();
+                state.cart = [];
+                state.services.forEach(s => {
+                    if (serviceStr.includes(s.name.toLowerCase())) {
+                        state.cart.push({ ...s });
+                    }
+                });
+
+                if (state.cart.length === 0 && state.services.length > 0) {
+                    state.cart.push({ ...state.services[0] });
+                }
+
+                renderPOSCart();
+                switchTab('pos');
+                alert(`Status reservasi ${res.nama || 'Pelanggan'} diubah menjadi Selesai. Dialihkan ke Kasir POS untuk penyelesaian pembayaran.`);
+            }
+            renderScheduleTable();
         }
 
         function toggleMobileNav() {
@@ -1188,7 +1226,7 @@
                 services: selectedServices,
                 date: resDate,
                 time: resTime,
-                status: 'Pending',
+                status: 'Menunggu',
                 timestamp: new Date().toLocaleString('id-ID')
             };
 
