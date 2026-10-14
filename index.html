@@ -80,6 +80,7 @@
             </div>
         </div>
     </header>
+
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
         <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none">
             <div class="space-y-6">
@@ -91,17 +92,21 @@
                 <div>
                     <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Area Pelanggan</p>
                     <nav class="space-y-1">
-                        <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
-                            <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
-                            <span>Reservasi Online</span>
-                        </button>
                         <button onclick="switchTab('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-calendar-days w-5 text-amber-600"></i>
                             <span>Jadwal Reservasi</span>
                         </button>
+                        <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
+                            <span>Reservasi Online</span>
+                        </button>
                         <button onclick="switchTab('services')" id="nav-services" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-list-check w-5 text-amber-600"></i>
                             <span>Daftar Layanan</span>
+                        </button>
+                        <button onclick="switchTab('education')" id="nav-education" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-graduation-cap w-5 text-amber-600"></i>
+                            <span>Edukasi & Gaya</span>
                         </button>
                         <button onclick="switchTab('about')" id="nav-about" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-circle-info w-5 text-amber-600"></i>
@@ -133,85 +138,30 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.01</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.03</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
+
         <main class="flex-1 overflow-y-auto pr-1">
-            <!-- TAB 1: Booking Form -->
-            <section id="tab-booking" class="tab-content space-y-6">
-                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-200 gap-4">
-                        <div>
-                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
-                            </h2>
-                            <p class="text-sm text-slate-600 mt-1">Pilih layanan, kapster pilihan Anda, serta jadwal jam yang Anda inginkan.</p>
-                        </div>
-                    </div>
-                    <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nama Anda</label>
-                                <input type="text" id="resClientName" required placeholder="Masukkan nama lengkap" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
-                                <input type="tel" id="resClientPhone" required placeholder="Contoh: 08123456789" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Barber / Kapster</label>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="bookingBarberList"></div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Layanan</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="bookingServicesList"></div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Tanggal Reservasi</label>
-                                <input type="date" id="resDate" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Jam Reservasi</label>
-                                <select id="resTime" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
-                                    <option value="">-- Pilih Jam --</option>
-                                    <option value="10:00 WITA">10:00 WITA</option>
-                                    <option value="11:00 WITA">11:00 WITA</option>
-                                    <option value="13:00 WITA">13:00 WITA</option>
-                                    <option value="14:00 WITA">14:00 WITA</option>
-                                    <option value="15:00 WITA">15:00 WITA</option>
-                                    <option value="16:00 WITA">16:00 WITA</option>
-                                    <option value="17:00 WITA">17:00 WITA</option>
-                                    <option value="19:00 WITA">19:00 WITA</option>
-                                    <option value="20:00 WITA">20:00 WITA</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t border-slate-200 flex justify-end">
-                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>Kirim Reservasi via WhatsApp</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-            <!-- TAB: Jadwal Reservasi (Google Sheet) -->
-            <section id="tab-schedule" class="tab-content hidden space-y-6">
+            <!-- TAB 1: Jadwal Reservasi -->
+            <section id="tab-schedule" class="tab-content space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
                     <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-calendar-days text-amber-600"></i> Jadwal Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Refresh Data Agar Singkroning Jadwal Reservasi.</p>
+                            <p class="text-sm text-slate-600 mt-1">Cek ketersediaan jam & barber kesukaan Anda sebelum melakukan reservasi.</p>
                         </div>
                         <div class="flex items-center gap-2">
                             <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
                                 <i class="fa-solid fa-rotate"></i>
                                 <span>Refresh Data</span>
+                            </button>
+                            <button onclick="switchTab('booking')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-2xs">
+                                <i class="fa-solid fa-calendar-plus"></i>
+                                <span>Buat Reservasi Baru</span>
                             </button>
                         </div>
                     </div>
@@ -234,7 +184,69 @@
                     </div>
                 </div>
             </section>
-            <!-- TAB 2: Services List -->
+
+            <!-- TAB 2: Booking Form -->
+            <section id="tab-booking" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-200 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Pilih tanggal, jam (Shift 1 atau 2), lalu pilih barber yang bertugas.</p>
+                        </div>
+                    </div>
+                    <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nama Anda</label>
+                                <input type="text" id="resClientName" required placeholder="Masukkan nama lengkap" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
+                                <input type="tel" id="resClientPhone" required placeholder="Contoh: 08123456789" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">1. Pilih Tanggal Reservasi</label>
+                                <input type="date" id="resDate" required onchange="onBookingDateChange()" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">2. Pilih Jam Reservasi (Menentukan Shift)</label>
+                                <select id="resTime" required onchange="onBookingTimeChange()" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:border-amber-600 focus:outline-none">
+                                    <option value="">-- Pilih Tanggal Dulu --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider">3. Pilih Barber (Otomatis Sesuai Shift)</label>
+                                <span id="shiftInfoBadge" class="text-[11px] bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded font-semibold">Silakan Pilih Tanggal & Jam</span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="bookingBarberList">
+                                <p class="col-span-full text-xs text-slate-500 py-2 italic text-center">Pilih tanggal dan jam reservasi terlebih dahulu.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">4. Pilih Layanan</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="bookingServicesList"></div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-200 flex justify-end">
+                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>Kirim Reservasi via WhatsApp</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 3: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
                     <div class="pb-6 border-b border-slate-200">
@@ -246,7 +258,282 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-            <!-- TAB 3: Tentang Kami -->
+
+            <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan -->
+            <section id="tab-education" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
+                    <div class="pb-4 sm:pb-6 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-amber-600"></i> Edukasi & Panduan Gaya Rambut
+                        </h2>
+                        <p class="text-sm text-slate-600 mt-1">Bingung memilih model potongan? Temukan rekomendasi terbaik sesuai aktivitas dan kebutuhan Anda di Cahya Baru Barbershop.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- 1. Children Haircut -->
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
+                                <i class="fa-solid fa-child text-lg"></i>
+                                <h3 class="text-base text-slate-900">Children Haircut</h3>
+                            </div>
+                            
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold mb-2 uppercase tracking-wider">Rekomendasi Gaya:</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-800 font-medium">
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 1. Buzz cut</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 2. Fringe crop</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 3. Quiff</li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <p class="text-xs text-slate-500 font-semibold mb-3 uppercase tracking-wider">Detail Tampilan & Penjelasan Masing-Masing Gaya:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Buzz Cut</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Potongan tipis merata yang sangat ringkas, adem, dan mudah dirawat untuk anak aktif.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Buzz Cut" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Fringe Crop</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Poni depan rata dengan samping tipis, memberikan kesan lucu dan modern bagi anak-anak.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Fringe Crop" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Quiff</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Potongan rambut bagian atas sedikit bervolume ke atas, membuat tampilan anak makin ganteng.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Quiff" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. School Haircut -->
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
+                                <i class="fa-solid fa-school text-lg"></i>
+                                <h3 class="text-base text-slate-900">School Haircut</h3>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold mb-2 uppercase tracking-wider">Rekomendasi Gaya:</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-800 font-medium">
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 1. Fringe crop</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 2. Quiff</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 3. Side part</li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <p class="text-xs text-slate-500 font-semibold mb-3 uppercase tracking-wider">Detail Tampilan & Penjelasan Masing-Masing Gaya:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Fringe Crop</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Poni depan tertata rapi tidak melewati alis, sangat cocok untuk kerapian sekolah.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Fringe Crop" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Quiff</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Rambut disisir rapi ke atas tanpa kesan berlebihan, tetap mematuhi aturan sekolah.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Quiff" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Side Part</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Belahan rambut samping klasik yang terkenal paling aman dari razia dan tampak pelajar terpelajar.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Side Part" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Work Haircut -->
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
+                                <i class="fa-solid fa-briefcase text-lg"></i>
+                                <h3 class="text-base text-slate-900">Work Haircut</h3>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold mb-2 uppercase tracking-wider">Rekomendasi Gaya:</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-800 font-medium">
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 1. Comma hair</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 2. Side part</li>
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 3. Quiff</li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <p class="text-xs text-slate-500 font-semibold mb-3 uppercase tracking-wider">Detail Tampilan & Penjelasan Masing-Masing Gaya:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Comma Hair</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Poni melengkung ala koma yang memberikan sentuhan eksekutif muda yang modern.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Comma Hair" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Side Part</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Gaya belah samping elegan dengan pomade kilap, sangat cocok dipadukan dengan kemeja kantor.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Side Part" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Quiff</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Potongan profesional bervolume yang memancarkan kesan wibawa dan percaya diri.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Quiff" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Daily Haircut -->
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
+                                <i class="fa-solid fa-mug-hot text-lg"></i>
+                                <h3 class="text-base text-slate-900">Daily Haircut</h3>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold mb-2 uppercase tracking-wider">Rekomendasi Gaya:</p>
+                                <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs text-slate-800 font-medium">
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 1. Comma hair</li>
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 2. Side swept</li>
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 3. Curtain</li>
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 4. Quiff</li>
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 5. Buzz cut</li>
+                                    <li class="flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 6. Side part</li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <p class="text-xs text-slate-500 font-semibold mb-3 uppercase tracking-wider">Detail Tampilan & Penjelasan Masing-Masing Gaya:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Comma Hair</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Gaya santai ala Korea yang mudah dibentuk kembali kapan saja.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Comma Hair" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Side Swept</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Rambut dilempar menyamping secara natural, sangat cocok untuk aktivitas santai/nongkrong.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Side Swept" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Curtain</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Belah tengah bergaya tirai yang memberikan kesan santai, artsy, dan trendi.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Curtain" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Quiff</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Sentuhan ringan hair powder memberikan volume natural harian.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Quiff" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Buzz Cut</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Potongan super praktis tanpa perlu disisir, siap beraktivitas tanpa ribet.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Buzz Cut" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Side Part</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Versi belah samping santai tanpa pomade tebal untuk kenyamanan harian.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Side Part" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Natural Haircut -->
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
+                                <i class="fa-solid fa-leaf text-lg"></i>
+                                <h3 class="text-base text-slate-900">Natural Haircut</h3>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 font-semibold mb-2 uppercase tracking-wider">Rekomendasi Gaya:</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-800 font-medium">
+                                    <li class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200"><i class="fa-solid fa-check text-amber-600"></i> 1. Long trim</li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <p class="text-xs text-slate-500 font-semibold mb-3 uppercase tracking-wider">Detail Tampilan & Penjelasan Masing-Masing Gaya:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex flex-col justify-between space-y-3">
+                                        <div class="text-center space-y-1">
+                                            <p class="font-bold text-slate-800 text-xs sm:text-sm">Long Trim</p>
+                                            <p class="text-[11px] text-slate-600 leading-snug">Memotong bagian ujung yang bercabang dan merapikan batas bawah agar rambut jatuh bervolume secara alami.</p>
+                                        </div>
+                                        <div class="w-full h-44 sm:h-48 rounded-lg overflow-hidden border border-amber-300 bg-slate-200 shadow-2xs">
+                                            <img src="GayaRambut.jpeg" alt="Long Trim" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='GayaRambut.jpeg'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: Tentang Kami -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
                     <div class="pb-4 sm:pb-6 border-b border-slate-200">
@@ -255,9 +542,116 @@
                         </h2>
                         <p class="text-sm text-slate-600 mt-1">Style With Purpose • Pengalaman cukur modern & profesional.</p>
                     </div>
-                    <!-- Sejarah & Portofolio Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                        <!-- Sejarah -->
+
+                    <div class="space-y-6">
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold">
+                                <i class="fa-solid fa-users text-lg"></i>
+                                <h3 class="text-base text-slate-900">Tim Barber / Kapster</h3>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Fadil</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="Fadil.jpeg" alt="Fadil" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Adit</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="FotoBarber.jpeg" alt="Adit" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Wawan</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="Wawan.jpeg" alt="Wawan" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Nain</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="FotoBarber.jpeg" alt="Nain" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Reza</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="Reza.jpeg" alt="Reza" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
+                                    <div>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Mutawali</p>
+                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
+                                    </div>
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="Mutawali.jpeg" alt="Mutawali" class="w-full h-full object-cover">
+                                    </div>
+                                    <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
+                                        <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
+                            <div class="flex items-center gap-2 text-amber-700 font-bold">
+                                <i class="fa-solid fa-headset text-lg"></i>
+                                <h3 class="text-base text-slate-900">Kontak Kasir & Layanan</h3>
+                            </div>
+                            <div class="p-4 bg-slate-100 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
+                                        <img src="Bonarrr.jpeg" alt="Bonar (Kasir)" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm sm:text-base">Bonar</p>
+                                        <span class="text-xs text-amber-800 font-semibold bg-amber-100 border border-amber-300 px-2 py-0.5 rounded inline-block mt-0.5">Kasir & Admin</span>
+                                        <p class="text-xs font-mono font-semibold text-emerald-700 mt-1">0838********</p>
+                                        <a href="https://instagram.com/artha_simaremare" target="_blank" class="text-xs font-bold text-pink-600 hover:text-pink-700 hover:underline inline-flex items-center gap-1 mt-1.5 transition">
+                                            <i class="fa-brands fa-instagram"></i> @artha_simaremare
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="https://wa.me/6283853293150" target="_blank" class="w-full sm:w-auto text-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-2xs">
+                                    <i class="fa-brands fa-whatsapp text-base"></i> Kontak
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-2">
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                             <div class="flex items-center gap-2 text-amber-700 font-bold">
                                 <i class="fa-solid fa-clock-rotate-left text-lg"></i>
@@ -270,7 +664,6 @@
                                 Dengan perpaduan teknik potong rambut profesional dan pelayanan terbaik, kami selalu memastikan setiap pelanggan keluar dengan rasa percaya diri yang tinggi.
                             </p>
                         </div>
-                        <!-- Portofolio -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                             <div class="flex items-center gap-2 text-amber-700 font-bold">
                                 <i class="fa-solid fa-scissors text-lg"></i>
@@ -295,103 +688,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Tim Barber & Tim Kasir Grid -->
-                    <div class="space-y-6 pt-2">
-                        <!-- Tim Barber -->
-                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
-                            <div class="flex items-center gap-2 text-amber-700 font-bold">
-                                <i class="fa-solid fa-users text-lg"></i>
-                                <h3 class="text-base text-slate-900">Tim Barber / Kapster</h3>
-                            </div>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
-                                <!-- Fadil -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Fadil</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Fadil.jpeg" alt="Fadil" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <!-- Adit -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Adit</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="FotoBarber.jpeg" alt="Adit" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <!-- Wawan -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Wawan</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Wawan.jpeg" alt="Wawan" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <!-- Nain -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Nain</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="FotoBarber.jpeg" alt="Nain" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <!-- Reza -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Reza</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Reza.jpeg" alt="Reza" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <!-- Mutawali -->
-                                <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-3">
-                                    <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Mutawali</p>
-                                        <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
-                                    </div>
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Mutawali.jpeg" alt="Mutawali" class="w-full h-full object-cover">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Tim Kasir & Admin -->
-                        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
-                            <div class="flex items-center gap-2 text-amber-700 font-bold">
-                                <i class="fa-solid fa-headset text-lg"></i>
-                                <h3 class="text-base text-slate-900">Kontak Kasir & Layanan</h3>
-                            </div>
-                            <div class="p-4 bg-slate-100 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
-                                    <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Bonarrr.jpeg" alt="Bonar (Kasir)" class="w-full h-full object-cover">
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-slate-900 text-sm sm:text-base">Bonar</p>
-                                        <span class="text-xs text-amber-800 font-semibold bg-amber-100 border border-amber-300 px-2 py-0.5 rounded inline-block mt-0.5">Kasir & Admin</span>
-                                        <p class="text-xs font-mono font-semibold text-emerald-700 mt-1.5">0838********</p>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/6283853293150" target="_blank" class="w-full sm:w-auto text-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-2xs">
-                                    <i class="fa-brands fa-whatsapp text-base"></i> Kontak
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
-            <!-- TAB 4: POS Register & Menu Management -->
+
+            <!-- TAB 6: POS Register & Menu Management -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-6">
@@ -461,7 +761,8 @@
                     </div>
                 </div>
             </section>
-            <!-- TAB 5: Transaction History -->
+
+            <!-- TAB 7: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
                     <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -497,7 +798,8 @@
                     </div>
                 </div>
             </section>
-            <!-- TAB 6: Expenses -->
+
+            <!-- TAB 8: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
                     <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -559,7 +861,8 @@
                     </div>
                 </div>
             </section>
-            <!-- TAB 7: Accounting Reports -->
+
+            <!-- TAB 9: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 gap-4">
@@ -628,6 +931,7 @@
             </section>
         </main>
     </div>
+
     <!-- Modals -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
@@ -644,6 +948,7 @@
             </button>
         </div>
     </div>
+
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -679,6 +984,7 @@
             </form>
         </div>
     </div>
+
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -689,6 +995,7 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
+
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -718,12 +1025,15 @@
             </div>
         </div>
     </div>
+
     <div id="printableReceipt" class="hidden"></div>
+
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyAFN9lfQMnHHG_u5_f1OdQF_yECGsLrOmLNTtV9wxlhIOYg4rpn_i56ciny1jWIn8T/exec";
         const NOMOR_WA_KASIR = "6283853293150";
         const ADMIN_PASSWORD = "CahyaBaru2025";
         const REFUND_PASSWORD = "CahyaBaruSolid";
+
         const BARBERS = [
             { id: "fadil", name: "Fadil" },
             { id: "adit", name: "Adit" },
@@ -732,6 +1042,43 @@
             { id: "reza", name: "Reza" },
             { id: "mutawali", name: "Mutawali" }
         ];
+
+        // Definisi Shift Mingguan akurat sesuai foto jadwal
+        const SHIFT_SCHEDULE = {
+            "Senin": {
+                shift1: ["fadil", "nain"],
+                shift2: ["wawan", "adit"]
+            },
+            "Selasa": {
+                shift1: ["mutawali", "wawan"],
+                shift2: ["nain", "adit"]
+            },
+            "Rabu": {
+                shift1: ["nain", "adit"],
+                shift2: ["fadil", "wawan"]
+            },
+            "Kamis": {
+                shift1: ["mutawali", "adit"],
+                shift2: ["fadil", "wawan"]
+            },
+            "Jumat": {
+                shift1: ["mutawali", "wawan"],
+                shift2: ["fadil", "nain"]
+            },
+            "Sabtu": {
+                shift1: ["fadil"],
+                shift2: ["nain", "adit"]
+            },
+            "Minggu": {
+                shift1: ["wawan", "nain"],
+                shift2: ["adit", "fadil"]
+            }
+        };
+
+        // Jam Shift 1 (10.00 - 16.00) dan Shift 2 (16.00 - 22.00)
+        const HOURS_SHIFT_1 = ["10:00 WITA", "11:00 WITA", "12:00 WITA", "13:00 WITA", "14:00 WITA", "15:00 WITA"];
+        const HOURS_SHIFT_2 = ["16:00 WITA", "17:00 WITA", "18:00 WITA", "19:00 WITA", "20:00 WITA", "21:00 WITA"];
+
         const DEFAULT_SERVICES = [
             { id: "s1", category: "Haircut Opsional", name: "Reguler Haircut", price: 60000, desc: "Potong, keramas, styling" },
             { id: "s2", category: "Haircut Opsional", name: "Signature Haircut", price: 80000, desc: "Keramas, potong, hairmask, styling" },
@@ -744,11 +1091,12 @@
             { id: "s9", category: "Additional Treatment", name: "Home Servis", price: 100000, desc: "Layanan potong dipanggil ke rumah" },
             { id: "s10", category: "Additional Treatment", name: "Wedding Styling", price: 600000, desc: "Styling khusus pengantin/pesta" }
         ];
+
         let state = {
             isAdminLoggedIn: false,
-            activeTab: 'booking',
+            activeTab: 'schedule',
             selectedBarber: 'fadil',
-            resSelectedBarber: 'fadil',
+            resSelectedBarber: '',
             resSelectedServices: [],
             cart: [],
             posPaymentMethod: 'Cash',
@@ -761,9 +1109,15 @@
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
-        
+
         window.addEventListener('DOMContentLoaded', () => {
-            renderBookingBarbers();
+            const todayStr = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('resDate');
+            if (dateInput) {
+                dateInput.value = todayStr;
+            }
+            
+            onBookingDateChange();
             renderBookingServices();
             renderFullServices();
             renderPOSBarbers();
@@ -774,8 +1128,115 @@
             if (autoPrintCheckbox) {
                 autoPrintCheckbox.checked = state.autoPrint;
             }
-            switchTab('booking');
+            switchTab('schedule');
         });
+
+        function getDayNameFromDateStr(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            return days[d.getDay()];
+        }
+
+        // Langkah 1 & 2: Pilih Tanggal -> Munculkan pilihan Jam Shift 1 & Shift 2
+        function onBookingDateChange() {
+            const dateVal = document.getElementById('resDate').value;
+            const dayName = getDayNameFromDateStr(dateVal);
+            const timeSelect = document.getElementById('resTime');
+            const badge = document.getElementById('shiftInfoBadge');
+
+            if (!dayName || !SHIFT_SCHEDULE[dayName]) {
+                if (badge) badge.innerText = "Pilih Tanggal Dulu";
+                if (timeSelect) timeSelect.innerHTML = '<option value="">-- Pilih Tanggal Dulu --</option>';
+                renderEmptyBarbers("Pilih tanggal dan jam reservasi terlebih dahulu.");
+                return;
+            }
+
+            if (badge) badge.innerText = `Hari ${dayName} - Silakan Pilih Jam`;
+            
+            // Gabungkan jam Shift 1 & Shift 2 untuk pilihan pelanggan
+            let timeOptions = `<option value="">-- Pilih Jam Reservasi --</option>`;
+            timeOptions += `<optgroup label="Shift 1 (10:00 - 16:00 WITA)">`;
+            HOURS_SHIFT_1.forEach(h => { timeOptions += `<option value="${h}">${h}</option>`; });
+            timeOptions += `</optgroup>`;
+            timeOptions += `<optgroup label="Shift 2 (16:00 - 22:00 WITA)">`;
+            HOURS_SHIFT_2.forEach(h => { timeOptions += `<option value="${h}">${h}</option>`; });
+            timeOptions += `</optgroup>`;
+
+            if (timeSelect) timeSelect.innerHTML = timeOptions;
+            state.resSelectedBarber = '';
+            renderEmptyBarbers("Silakan pilih jam reservasi untuk melihat barber yang bertugas.");
+        }
+
+        // Langkah 3 & 4: Pilih Jam -> Sistem deteksi Shift -> Filter Barber yang bertugas di Shift tersebut
+        function onBookingTimeChange() {
+            const dateVal = document.getElementById('resDate').value;
+            const dayName = getDayNameFromDateStr(dateVal);
+            const timeVal = document.getElementById('resTime').value;
+            const badge = document.getElementById('shiftInfoBadge');
+
+            if (!dayName || !SHIFT_SCHEDULE[dayName] || !timeVal) {
+                renderEmptyBarbers("Pilih jam reservasi terlebih dahulu.");
+                if (badge) badge.innerText = `Hari ${dayName} - Pilih Jam`;
+                return;
+            }
+
+            const dayShift = SHIFT_SCHEDULE[dayName];
+            let activeBarberIds = [];
+            let currentShiftName = "";
+
+            // Tentukan apakah jam yang dipilih masuk Shift 1 atau Shift 2
+            if (HOURS_SHIFT_1.includes(timeVal)) {
+                activeBarberIds = dayShift.shift1;
+                currentShiftName = "Shift 1 (10:00 - 16:00)";
+            } else if (HOURS_SHIFT_2.includes(timeVal)) {
+                activeBarberIds = dayShift.shift2;
+                currentShiftName = "Shift 2 (16:00 - 22:00)";
+            }
+
+            if (badge) badge.innerText = `Hari ${dayName} | ${currentShiftName} (${activeBarberIds.length} Barber Aktif)`;
+
+            // Reset pilihan barber jika barber sebelumnya tidak bertugas di shift ini
+            if (!activeBarberIds.includes(state.resSelectedBarber)) {
+                state.resSelectedBarber = activeBarberIds[0] || '';
+            }
+
+            renderFilteredBarbers(activeBarberIds, currentShiftName);
+        }
+
+        function renderFilteredBarbers(activeIds, shiftName) {
+            const container = document.getElementById('bookingBarberList');
+            if (!container) return;
+
+            if (!activeIds || activeIds.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-xs text-slate-500 py-2 italic text-center">Tidak ada barber bertugas pada jam ini.</p>`;
+                return;
+            }
+
+            const filteredBarbers = BARBERS.filter(b => activeIds.includes(b.id));
+
+            container.innerHTML = filteredBarbers.map(b => {
+                const isSelected = state.resSelectedBarber === b.id;
+                return `
+                    <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-between space-y-1.5 ${isSelected ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
+                        <i class="fa-solid fa-user-scissors text-base mb-0.5"></i>
+                        <span class="text-xs font-bold">${b.name}</span>
+                        <span class="text-[9px] px-1.5 py-0.5 rounded border font-semibold bg-amber-100 text-amber-800 border-amber-300">${shiftName}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderEmptyBarbers(message) {
+            const container = document.getElementById('bookingBarberList');
+            if (!container) return;
+            container.innerHTML = `<p class="col-span-full text-xs text-slate-500 py-2 italic text-center">${message}</p>`;
+        }
+
+        function selectBookingBarber(id) {
+            state.resSelectedBarber = id;
+            onBookingTimeChange(); // Refresh tampilan tombol barber yang terpilih
+        }
 
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
@@ -880,6 +1341,7 @@
                 `;
             }).join('');
         }
+
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -890,6 +1352,7 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
+
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             
@@ -910,9 +1373,7 @@
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatePayload)
-            })
-            .then(() => console.log("Status baris ke-" + exactRowIndex + " berhasil diupdate ke Sheet"))
-            .catch(err => console.error("Gagal update status ke sheet:", err));
+            }).catch(err => console.error("Gagal update status ke sheet:", err));
 
             if (newStatus === 'Selesai') {
                 const barberName = res.barber || 'Fadil';
@@ -939,6 +1400,7 @@
             }
             renderScheduleTable();
         }
+
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -952,6 +1414,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -959,6 +1422,7 @@
             }
             openModal('addMenuModal');
         }
+
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -983,6 +1447,7 @@
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
+
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -997,6 +1462,7 @@
                 renderPOSServices();
             }
         }
+
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -1035,6 +1501,7 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif, serta printer sudah di-pairing.');
             }
         }
+
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1082,11 +1549,13 @@
                 alert("Gagal mencetak ke printer. Pastikan printer menyala dan terhubung kembali.");
             }
         }
+
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
+
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1097,10 +1566,12 @@
                 </button>
             `).join('');
         }
+
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
+
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1119,12 +1590,14 @@
                 </div>
             `).join('');
         }
+
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
+
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -1149,14 +1622,17 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
+
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
+
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
+
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -1170,6 +1646,7 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -1183,13 +1660,16 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function openPrinterModal() {
             openModal('printerModal');
         }
+
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
+
         function switchTab(tabId) {
             const adminTabs = ['pos', 'transactions', 'expenses', 'accounting'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
@@ -1217,6 +1697,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -1225,15 +1706,19 @@
             }
             return 'Rp ' + formattedNum;
         }
+
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
+
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
+
         function openLoginModal() {
             openModal('loginModal');
         }
+
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1248,26 +1733,15 @@
                 alert('Kata sandi admin salah!');
             }
         }
+
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('loginBtnNav').classList.remove('hidden');
             renderScheduleTable();
-            switchTab('booking');
+            switchTab('schedule');
         }
-        function renderBookingBarbers() {
-            const container = document.getElementById('bookingBarberList');
-            container.innerHTML = BARBERS.map(b => `
-                <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.resSelectedBarber === b.id ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
-                    <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
-                    <span class="text-xs">${b.name}</span>
-                </button>
-            `).join('');
-        }
-        function selectBookingBarber(id) {
-            state.resSelectedBarber = id;
-            renderBookingBarbers();
-        }
+
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             container.innerHTML = state.services.map(s => {
@@ -1284,6 +1758,7 @@
                 `;
             }).join('');
         }
+
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1292,6 +1767,7 @@
             }
             renderBookingServices();
         }
+
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             const categories = [...new Set(state.services.map(s => s.category))];
@@ -1312,23 +1788,29 @@
                 </div>
             `).join('');
         }
-        
+
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (state.resSelectedServices.length === 0) {
                 alert('Pilih minimal satu layanan!');
                 return;
             }
+            if (!state.resSelectedBarber) {
+                alert('Silakan pilih barber yang bertugas!');
+                return;
+            }
             const clientName = document.getElementById('resClientName').value;
             const clientPhone = document.getElementById('resClientPhone').value;
             const resDate = document.getElementById('resDate').value;
             const resTime = document.getElementById('resTime').value;
+
             const barberObj = BARBERS.find(b => b.id === state.resSelectedBarber);
             const barberName = barberObj ? barberObj.name : 'Bebas';
             const selectedServices = state.services
                 .filter(s => state.resSelectedServices.includes(s.id))
                 .map(s => s.name)
                 .join(', ');
+
             const reservationData = {
                 name: clientName,
                 phone: clientPhone,
@@ -1339,13 +1821,15 @@
                 status: 'Menunggu',
                 timestamp: new Date().toLocaleString('id-ID')
             };
+
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reservationData)
             }).catch(err => console.error("Sheet error:", err));
-            const pesanWA = `Halo CahyaBaru, saya ingin melakukan Reservasi:\n\n` +
+
+            const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
                             `*Barber/Kapster:* ${barberName}\n` +
@@ -1450,6 +1934,7 @@
                 `;
             }).join('');
         }
+
         function viewTransactionDetail(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -1510,6 +1995,7 @@
             `;
             openModal('detailTxModal');
         }
+
         function processRefund(txId) {
             const pwd = prompt('Masukkan kata sandi keamanan refund (CahyaBaruSolid):');
             if (pwd === null) return;
@@ -1585,6 +2071,7 @@
                 </tr>
             `).join('');
         }
+
         function renderAccounting() {
             const cashEl = document.getElementById('accCash');
             const qrisEl = document.getElementById('accQRIS');
@@ -1676,6 +2163,7 @@
                 </tr>
             `).join('');
         }
+
         function exportToExcel() {
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
@@ -1827,6 +2315,7 @@
             link.click();
             document.body.removeChild(link);
         }
+
         function confirmResetMonth() {
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
