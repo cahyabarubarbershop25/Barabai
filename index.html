@@ -150,7 +150,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-calendar-days text-amber-600"></i> Jadwal Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Cek ketersediaan jam & barber kesukaan Anda sebelum melakukan reservasi.</p>
+                            <p class="text-sm text-slate-600 mt-1">Cek ketersediaan jam & barber favorit Anda sebelum melakukan reservasi.</p>
                         </div>
                         <div class="flex items-center gap-2">
                             <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
@@ -190,7 +190,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Pilih tanggal, jam, dan kapster yang bertugas pada hari tersebut[cite: 1, 2].</p>
+                            <p class="text-sm text-slate-600 mt-1">Jadwal Shift 1 (10.00-16.00) & Jadwal Shift 2 (16.00-22.00).</p>
                         </div>
                     </div>
                     <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
@@ -229,8 +229,8 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Pilih Barber / Kapster Bertugas</label>
-                            <p class="text-[11px] text-slate-500 mb-3" id="barberNotice">Silakan pilih tanggal dan jam terlebih dahulu untuk melihat barber yang bertugas[cite: 2].</p>
+                            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Pilih Barber / Kapster</label>
+                            <p class="text-[11px] text-slate-500 mb-3" id="barberNotice">Silakan pilih tanggal dan jam terlebih dahulu untuk melihat nama barber.</p>
                             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="bookingBarberList"></div>
                         </div>
                         <div>
@@ -263,9 +263,9 @@
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
                     <div class="pb-4 sm:pb-6 border-b border-slate-200">
                         <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                            <i class="fa-solid fa-graduation-cap text-amber-600"></i> Edukasi & Panduan Gaya Rambut
+                            <i class="fa-solid fa-graduation-cap text-amber-600"></i> Edukasi & Gaya Rambut
                         </h2>
-                        <p class="text-sm text-slate-600 mt-1">Bingung memilih model potongan? Temukan rekomendasi terbaik sesuai aktivitas dan kebutuhan Anda di Cahya Baru Barbershop.</p>
+                        <p class="text-sm text-slate-600 mt-1">Temukan rekomendasi terbaik sesuai aktivitas dan kebutuhan Anda di CahyaBaru Barbershop.</p>
                     </div>
                     <div class="space-y-6">
                         <!-- 1. Children Haircut -->
@@ -694,7 +694,7 @@
                         <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 shadow-xs">
                             <div class="flex justify-between items-center mb-3">
                                 <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Pilih Layanan untuk Masuk Keranjang</p>
-                                <span class="text-[11px] text-slate-400 italic">Klik tombol hapus (🗑️) pada item untuk menghapus menu</span>
+                                <span class="text-[11px] text-slate-400 italic">Klik ikon (Sampah) pada item untuk menghapus menu</span>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="posServicesGrid"></div>
                         </div>
