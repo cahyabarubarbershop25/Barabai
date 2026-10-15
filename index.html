@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.03</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.05</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
@@ -739,20 +739,37 @@
             </section>
             <!-- TAB 7: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
-                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-200">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Klik salah satu transaksi untuk melihat detail, mencetak ulang struk, atau memproses refund.</p>
+                            <p class="text-sm text-slate-600 mt-1">Filter dan lihat detail riwayat transaksi penjualan.</p>
                         </div>
                         <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
                             <i class="fa-solid fa-rotate"></i>
                             <span>Refresh Data</span>
                         </button>
                     </div>
-                    <div class="mt-6 overflow-x-auto">
+                    <!-- Filter Tanggal -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterTxStartDate" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterTxEndDate" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button onclick="setTxFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Hari Ini</button>
+                            <button onclick="resetTxFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Semua</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
                             <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
@@ -775,20 +792,20 @@
             </section>
             <!-- TAB 8: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
-                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="pb-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-200">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-money-bill-transfer text-amber-600"></i> Pencatatan Pengeluaran Kas
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Catat biaya operasional harian barbershop.</p>
+                            <p class="text-sm text-slate-600 mt-1">Catat dan filter biaya operasional harian barbershop.</p>
                         </div>
                         <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
                             <i class="fa-solid fa-rotate"></i>
                             <span>Refresh Data</span>
                         </button>
                     </div>
-                    <form onsubmit="handleAddExpense(event)" class="mt-6 space-y-4 pb-6 border-b border-slate-200">
+                    <form onsubmit="handleAddExpense(event)" class="space-y-4 pb-6 border-b border-slate-200">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Keterangan Pengeluaran</label>
@@ -818,7 +835,24 @@
                             </button>
                         </div>
                     </form>
-                    <div class="mt-6 overflow-x-auto">
+                    <!-- Filter Pengeluaran -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterExpStartDate" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterExpEndDate" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button onclick="setExpFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Hari Ini</button>
+                            <button onclick="resetExpFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Semua</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
                             <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
                                 <tr>
@@ -837,13 +871,13 @@
             </section>
             <!-- TAB 9: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
-                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-200 gap-4">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-200 gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-chart-line text-amber-600"></i> Laporan Ringkasan Akuntansi
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih.</p>
+                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih berdasarkan rentang tanggal.</p>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
                             <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
@@ -856,11 +890,28 @@
                             </button>
                             <button onclick="confirmResetMonth()" class="bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                                 <i class="fa-solid fa-rotate"></i>
-                                <span>Reset Bulan Ini</span>
+                                <span>Reset Laporan</span>
                             </button>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+                    <!-- Filter Akuntansi -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterAccStartDate" onchange="renderAccounting()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterAccEndDate" onchange="renderAccounting()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button onclick="setAccFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Hari Ini</button>
+                            <button onclick="resetAccFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition">Semua</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
                             <p class="text-xs font-bold text-slate-500 uppercase">Total Pendapatan Cash</p>
                             <p id="accCash" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
@@ -882,7 +933,7 @@
                             <p id="accNetProfit" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
                         </div>
                     </div>
-                    <div class="mt-8">
+                    <div>
                         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Jurnal Mutasi Keuangan</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-sm text-slate-700">
@@ -920,6 +971,34 @@
             </button>
         </div>
     </div>
+    
+    <!-- Modal Kirim WhatsApp Review -->
+    <div id="waReviewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
+                    <span>Kirim Ulasan Google Maps</span>
+                </h3>
+                <button onclick="closeModal('waReviewModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-600">Masukkan nomor WhatsApp pelanggan untuk mengirimkan pesan permintaan ulasan bintang 5.</p>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Nomor WhatsApp Pelanggan</label>
+                <input type="tel" id="waCustomerInput" placeholder="Contoh: 083853293150" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+            </div>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeModal('waReviewModal')" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl transition text-xs">
+                    Batal
+                </button>
+                <button onclick="sendWAReviewDirect()" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow-sm flex items-center justify-center space-x-1.5">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>Kirim WA</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1007,39 +1086,15 @@
             { id: "reza", name: "Reza" },
             { id: "mutawali", name: "Mutawali" }
         ];
-
-        // Matriks Jadwal Shift Berdasarkan Foto (0: Minggu, 1: Senin, ..., 6: Sabtu)[cite: 2]
         const SHIFT_SCHEDULE = {
-            0: { // MINGGU[cite: 2]
-                shift1: ["wawan", "nain"],
-                shift2: ["adit", "fadil"]
-            },
-            1: { // SENIN[cite: 2]
-                shift1: ["fadil", "nain"],
-                shift2: ["wawan", "adit"]
-            },
-            2: { // SELASA[cite: 2]
-                shift1: ["mutawali", "wawan"],
-                shift2: ["nain", "adit"]
-            },
-            3: { // RABU[cite: 2]
-                shift1: ["nain", "adit"],
-                shift2: ["fadil", "wawan"]
-            },
-            4: { // KAMIS[cite: 2]
-                shift1: ["mutawali", "adit"],
-                shift2: ["fadil", "wawan"]
-            },
-            5: { // JUMAT[cite: 2]
-                shift1: ["mutawali", "wawan"],
-                shift2: ["fadil", "nain"]
-            },
-            6: { // SABTU[cite: 2]
-                shift1: ["fadil"],
-                shift2: ["nain", "adit"]
-            }
+            0: { shift1: ["wawan", "nain"], shift2: ["adit", "fadil"] },
+            1: { shift1: ["fadil", "nain"], shift2: ["wawan", "adit"] },
+            2: { shift1: ["mutawali", "wawan"], shift2: ["nain", "adit"] },
+            3: { shift1: ["nain", "adit"], shift2: ["fadil", "wawan"] },
+            4: { shift1: ["mutawali", "adit"], shift2: ["fadil", "wawan"] },
+            5: { shift1: ["mutawali", "wawan"], shift2: ["fadil", "nain"] },
+            6: { shift1: ["fadil"], shift2: ["nain", "adit"] }
         };
-
         const DEFAULT_SERVICES = [
             { id: "s1", category: "Haircut Opsional", name: "Reguler Haircut", price: 60000, desc: "Potong, keramas, styling" },
             { id: "s2", category: "Haircut Opsional", name: "Signature Haircut", price: 80000, desc: "Keramas, potong, hairmask, styling" },
@@ -1083,7 +1138,17 @@
             }
             switchTab('schedule');
         });
-
+        function parseStandardDate(dateStr) {
+            if (!dateStr) return '';
+            let clean = dateStr.split('T')[0];
+            if (clean.includes('/')) {
+                let parts = clean.split('/');
+                if (parts.length === 3) {
+                    return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+                }
+            }
+            return clean;
+        }
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
@@ -1094,40 +1159,29 @@
                 renderBookingBarbers([]);
                 return;
             }
-
             const dateObj = new Date(dateVal);
             const dayIndex = dateObj.getDay();
-
             const hourNum = parseInt(timeVal.split(':')[0], 10);
             const shiftKey = (hourNum >= 10 && hourNum < 16) ? 'shift1' : 'shift2';
             const shiftLabel = shiftKey === 'shift1' ? 'Shift 1 (10.00-16.00)' : 'Shift 2 (16.00-22.00)';
-
             const activeBarberIds = SHIFT_SCHEDULE[dayIndex][shiftKey];
-
             if (noticeEl) {
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
-
             const availableBarbers = BARBERS.filter(b => activeBarberIds.includes(b.id));
-
             if (!activeBarberIds.includes(state.resSelectedBarber)) {
                 state.resSelectedBarber = availableBarbers.length > 0 ? availableBarbers[0].id : '';
             }
-
             renderBookingBarbers(availableBarbers);
         }
-
         function renderBookingBarbers(listToRender) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
-
             const list = listToRender || [];
-
             if (list.length === 0) {
                 container.innerHTML = `<p class="col-span-full text-xs text-amber-700 italic">Silakan pilih tanggal & jam terlebih dahulu untuk memuat daftar barber.</p>`;
                 return;
             }
-
             container.innerHTML = list.map(b => `
                 <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.resSelectedBarber === b.id ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
                     <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
@@ -1135,12 +1189,10 @@
                 </button>
             `).join('');
         }
-
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
-
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
@@ -1727,15 +1779,18 @@
                 total: total,
                 status: 'Lunas'
             };
+
+            // Kirim data transaksi ke Google Sheet
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(transaction)
             }).catch(err => console.error("Sheet transaction error:", err));
+
             const localTx = {
                 id: transaction.id,
-                date: transaction.date,
+                date: new Date().toISOString().split('T')[0],
                 time: transaction.time,
                 barberName: transaction.barberName,
                 paymentMethod: transaction.paymentMethod,
@@ -1744,25 +1799,93 @@
                 status: 'Lunas'
             };
             state.transactions.unshift(localTx);
+
+            // Cetak struk otomatis jika aktif
             if (state.autoPrint) {
                 printReceipt(localTx);
             }
+
             clearCart();
             renderTransactionHistory();
             renderAccounting();
-            
-            if (!state.autoPrint) {
-                alert('Transaksi Berhasil Diselesaikan & Disinkronkan ke Sheet!');
+
+            // Tampilkan Modal Custom Input WhatsApp Pelanggan
+            const inputWA = document.getElementById('waCustomerInput');
+            if (inputWA) inputWA.value = '08';
+            openModal('waReviewModal');
+        }
+
+        function sendWAReviewDirect() {
+            const inputEl = document.getElementById('waCustomerInput');
+            let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
+
+            if (!customerPhoneWA || customerPhoneWA === '08' || customerPhoneWA === '') {
+                alert('Silakan masukkan nomor WhatsApp pelanggan terlebih dahulu!');
+                return;
             }
+
+            if (customerPhoneWA.startsWith('0')) {
+                customerPhoneWA = '62' + customerPhoneWA.slice(1);
+            }
+
+            const pesanRating = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di Cahya Baru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/Qb71k2dzQFuB4knV8\n\nDitunggu kedatangannya kembali! 🙏`;
+
+            const urlWACustomer = `https://wa.me/${customerPhoneWA}?text=${encodeURIComponent(pesanRating)}`;
+            
+            window.open(urlWACustomer, '_blank');
+            closeModal('waReviewModal');
+            closeModal('detailTxModal');
+        }
+
+        function setTxFilterToday() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('filterTxStartDate').value = today;
+            document.getElementById('filterTxEndDate').value = today;
+            renderTransactionHistory();
+        }
+        function resetTxFilter() {
+            document.getElementById('filterTxStartDate').value = '';
+            document.getElementById('filterTxEndDate').value = '';
+            renderTransactionHistory();
+        }
+        function setExpFilterToday() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('filterExpStartDate').value = today;
+            document.getElementById('filterExpEndDate').value = today;
+            renderExpensesTable();
+        }
+        function resetExpFilter() {
+            document.getElementById('filterExpStartDate').value = '';
+            document.getElementById('filterExpEndDate').value = '';
+            renderExpensesTable();
+        }
+        function setAccFilterToday() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('filterAccStartDate').value = today;
+            document.getElementById('filterAccEndDate').value = today;
+            renderAccounting();
+        }
+        function resetAccFilter() {
+            document.getElementById('filterAccStartDate').value = '';
+            document.getElementById('filterAccEndDate').value = '';
+            renderAccounting();
         }
         function renderTransactionHistory() {
             const body = document.getElementById('transactionHistoryTable');
             if (!body) return;
-            if (state.transactions.length === 0) {
-                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Belum ada riwayat transaksi.</td></tr>`;
+            const startDate = document.getElementById('filterTxStartDate').value;
+            const endDate = document.getElementById('filterTxEndDate').value;
+            let filtered = state.transactions.filter(t => {
+                let tDate = parseStandardDate(t.date);
+                if (startDate && tDate < startDate) return false;
+                if (endDate && tDate > endDate) return false;
+                return true;
+            });
+            if (filtered.length === 0) {
+                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
-            body.innerHTML = state.transactions.map(t => {
+            body.innerHTML = filtered.map(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 return `
                     <tr onclick="viewTransactionDetail('${t.id}')" class="hover:bg-slate-100/60 cursor-pointer transition">
@@ -1834,7 +1957,11 @@
             actions.innerHTML = `
                 <button onclick="reprintTransaction('${tx.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
                     <i class="fa-solid fa-print"></i>
-                    <span>Cetak Ulang Struk</span>
+                    <span>Cetak Ulang</span>
+                </button>
+                <button onclick="openModal('waReviewModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs" title="Kirim Ulang Link Ulasan Google Maps via WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Kirim Ulasan WA</span>
                 </button>
                 ${state.isAdminLoggedIn && tx.status === 'Lunas' ? `
                     <button id="refundBtn" onclick="processRefund('${tx.id}')" class="bg-red-100 text-red-800 hover:bg-red-200 border border-red-300 font-bold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
@@ -1842,7 +1969,7 @@
                         <span>Refund</span>
                     </button>
                 ` : ``}
-                <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition ml-auto">Tutup</button>
+                <button onclick="closeModal('detailTxModal')" class="bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold px-3 py-2 rounded-xl text-xs transition ml-auto">Tutup</button>
             `;
             openModal('detailTxModal');
         }
@@ -1881,7 +2008,7 @@
             const expense = {
                 type: 'expense',
                 id: 'BBPK-' + nextExpNum,
-                date: new Date().toLocaleDateString('id-ID'),
+                date: new Date().toISOString().split('T')[0],
                 desc: desc,
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
@@ -1902,11 +2029,19 @@
         function renderExpensesTable() {
             const body = document.getElementById('expensesTableBody');
             if (!body) return;
-            if (state.expenses.length === 0) {
-                body.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Belum ada catatan pengeluaran.</td></tr>`;
+            const startDate = document.getElementById('filterExpStartDate').value;
+            const endDate = document.getElementById('filterExpEndDate').value;
+            let filtered = state.expenses.filter(e => {
+                let eDate = parseStandardDate(e.date);
+                if (startDate && eDate < startDate) return false;
+                if (endDate && eDate > endDate) return false;
+                return true;
+            });
+            if (filtered.length === 0) {
+                body.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Tidak ada data pengeluaran pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
-            body.innerHTML = state.expenses.map(e => `
+            body.innerHTML = filtered.map(e => `
                 <tr class="hover:bg-slate-100/60">
                     <td class="p-3 text-xs text-slate-500">${e.date}</td>
                     <td class="p-3 font-medium text-slate-800">${e.desc}</td>
@@ -1925,9 +2060,23 @@
             const netEl = document.getElementById('accNetProfit');
             const ledgerBody = document.getElementById('accountingLedgerBody');
             if (!cashEl || !qrisEl || !revEl || !expEl || !netEl || !ledgerBody) return;
+            const startDate = document.getElementById('filterAccStartDate').value;
+            const endDate = document.getElementById('filterAccEndDate').value;
+            let filteredTx = state.transactions.filter(t => {
+                let tDate = parseStandardDate(t.date);
+                if (startDate && tDate < startDate) return false;
+                if (endDate && tDate > endDate) return false;
+                return true;
+            });
+            let filteredExp = state.expenses.filter(e => {
+                let eDate = parseStandardDate(e.date);
+                if (startDate && eDate < startDate) return false;
+                if (endDate && eDate > endDate) return false;
+                return true;
+            });
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
-            state.transactions.forEach(t => {
+            filteredTx.forEach(t => {
                 if (t.status === 'Lunas') {
                     if ((t.paymentMethod || 'Cash') === 'Cash') {
                         totalCashRevenue += t.total;
@@ -1938,7 +2087,7 @@
             });
             let totalCashExpense = 0;
             let totalQRISExpense = 0;
-            state.expenses.forEach(e => {
+            filteredExp.forEach(e => {
                 if ((e.paymentMethod || 'Cash') === 'Cash') {
                     totalCashExpense += e.amount;
                 } else {
@@ -1956,7 +2105,7 @@
             expEl.innerText = formatRp(totalExpenses);
             netEl.innerText = formatRp(netProfit);
             let ledgerItems = [];
-            state.transactions.forEach(t => {
+            filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
                 if (t.status === 'Lunas') {
@@ -1979,7 +2128,7 @@
                     });
                 }
             });
-            state.expenses.forEach(e => {
+            filteredExp.forEach(e => {
                 ledgerItems.push({
                     date: e.date,
                     code: e.id,
@@ -1990,7 +2139,7 @@
                 });
             });
             if (ledgerItems.length === 0) {
-                ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal.</td></tr>`;
+                ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
             ledgerBody.innerHTML = ledgerItems.map(item => `
@@ -2009,9 +2158,23 @@
             `).join('');
         }
         function exportToExcel() {
+            const startDate = document.getElementById('filterAccStartDate').value;
+            const endDate = document.getElementById('filterAccEndDate').value;
+            let filteredTx = state.transactions.filter(t => {
+                let tDate = parseStandardDate(t.date);
+                if (startDate && tDate < startDate) return false;
+                if (endDate && tDate > endDate) return false;
+                return true;
+            });
+            let filteredExp = state.expenses.filter(e => {
+                let eDate = parseStandardDate(e.date);
+                if (startDate && eDate < startDate) return false;
+                if (endDate && eDate > endDate) return false;
+                return true;
+            });
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
-            state.transactions.forEach(t => {
+            filteredTx.forEach(t => {
                 if (t.status === 'Lunas') {
                     if ((t.paymentMethod || 'Cash') === 'Cash') totalCashRevenue += t.total;
                     else totalQRISRevenue += t.total;
@@ -2019,7 +2182,7 @@
             });
             let totalCashExpense = 0;
             let totalQRISExpense = 0;
-            state.expenses.forEach(e => {
+            filteredExp.forEach(e => {
                 if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += e.amount;
                 else totalQRISExpense += e.amount;
             });
@@ -2028,118 +2191,233 @@
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
-            const dateFormatted = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            let excelTemplate = `
-            <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-            <head>
-                <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
-                <style>
-                    .num-accounting { mso-number-format: "\\"Rp\\"\\ \\#\\,\\#\\#0\\;\\(\\"Rp\\"\\ \\#\\,\\#\\#0\\)\\;\\\"-\\\""; }
-                    .text-cell { mso-number-format: "\\@"; }
-                    th { font-weight: bold; background-color: #f1f5f9; border: 0.5pt solid #cbd5e1; }
-                    td { border: 0.5pt solid #cbd5e1; }
-                </style>
-            </head>
-            <body>
-                <h2>LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</h2>
-                <p><b>Periode / Tanggal Export:</b> ${dateFormatted}</p>
-                <br/>
-                <h3>RINGKASAN KEUANGAN</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 250px;">Keterangan</th>
-                            <th style="width: 180px;">Nominal (Rp)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total Pendapatan Cash (Bersih)</td>
-                            <td class="num-accounting" align="right">${netCash}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Pendapatan QRIS (Bersih)</td>
-                            <td class="num-accounting" align="right">${netQRIS}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Omset Penjualan</td>
-                            <td class="num-accounting" align="right">${totalRevenue}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Pengeluaran Kas</td>
-                            <td class="num-accounting" align="right">${totalExpenses}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Laba Bersih</b></td>
-                            <td class="num-accounting" align="right"><b>${netProfit}</b></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br/><br/>
-                <h3>JURNAL MUTASI KEUANGAN</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 150px;">Tanggal & Jam</th>
-                            <th style="width: 120px;">Kode Transaksi</th>
-                            <th style="width: 300px;">Deskripsi (Barber & Layanan / Keterangan)</th>
-                            <th style="width: 120px;">Metode Pembayaran</th>
-                            <th style="width: 110px;">Jenis Mutasi</th>
-                            <th style="width: 180px;">Nominal (Rp)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-            state.transactions.forEach(t => {
+            const dateFormatted = startDate || endDate ? `Periode ${startDate || 'Awal'} s.d ${endDate || 'Sekarang'}` : 'Semua Waktu';
+            let barberStats = {};
+            BARBERS.forEach(b => {
+                barberStats[b.name] = {};
+                state.services.forEach(s => {
+                    barberStats[b.name][s.name] = { count: 0, total: 0 };
+                });
+            });
+            filteredTx.forEach(t => {
+                if (t.status === 'Lunas') {
+                    const bName = t.barberName;
+                    const itemsList = Array.isArray(t.items) ? t.items : [{ name: String(t.items), price: t.total }];
+                    
+                    itemsList.forEach(item => {
+                        const sName = item.name || item;
+                        const foundS = state.services.find(s => s.name.toLowerCase() === sName.toLowerCase());
+                        const price = item.price || (foundS ? foundS.price : 0);
+                        if (barberStats[bName] && barberStats[bName][sName]) {
+                            barberStats[bName][sName].count += 1;
+                            barberStats[bName][sName].total += price;
+                        }
+                    });
+                }
+            });
+            let excelTemplate = `<?xml version="1.0" encoding="UTF-8"?>
+            <?mso-application progid="Excel.Sheet"?>
+            <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+             xmlns:o="urn:schemas-microsoft-com:office:office"
+             xmlns:x="urn:schemas-microsoft-com:office:excel"
+             xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+             xmlns:html="http://www.w3.org/TR/REC-html40">
+             <Styles>
+              <Style ss:ID="TitleStyle">
+               <Font ss:Bold="1" ss:Size="14" ss:Color="#000000"/>
+              </Style>
+              <Style ss:ID="SectionHeaderStyle">
+               <Font ss:Bold="1" ss:Size="11" ss:Color="#FFFFFF"/>
+               <Interior ss:Color="#D97706" ss:Pattern="Solid"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="HeaderStyle">
+               <Font ss:Bold="1" ss:Color="#000000"/>
+               <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="CellStyle">
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="NumberStyle">
+               <Alignment ss:Horizontal="Right"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="CurrencyStyle">
+               <NumberFormat ss:Format="\&quot;Rp\&quot;\ #\,\#\#0"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="TotalRowStyle">
+               <Font ss:Bold="1"/>
+               <Interior ss:Color="#FEF08A" ss:Pattern="Solid"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="TotalCurrencyStyle">
+               <Font ss:Bold="1"/>
+               <Interior ss:Color="#FEF08A" ss:Pattern="Solid"/>
+               <NumberFormat ss:Format="\&quot;Rp\&quot;\ #\,\#\#0"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+               </Borders>
+              </Style>
+             </Styles>
+             <Worksheet ss:Name="Laporan Keuangan">
+              <Table>
+               <!-- HEADER JUDUL -->
+               <Row><Cell ss:StyleID="TitleStyle"><Data ss:Type="String">LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</Data></Cell></Row>
+               <Row><Cell><Data ss:Type="String">Filter Periode: ${dateFormatted}</Data></Cell></Row>
+               <Row></Row>
+               <!-- 1. RINGKASAN KEUANGAN -->
+               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">1. RINGKASAN KEUANGAN</Data></Cell></Row>
+               <Row>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Keterangan</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
+               </Row>
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pendapatan Cash (Bersih)</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${netCash}</Data></Cell>
+               </Row>
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pendapatan QRIS (Bersih)</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${netQRIS}</Data></Cell>
+               </Row>
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Omset Penjualan</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${totalRevenue}</Data></Cell>
+               </Row>
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pengeluaran Kas</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${totalExpenses}</Data></Cell>
+               </Row>
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Laba Bersih</Data></Cell>
+                <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${netProfit}</Data></Cell>
+               </Row>
+               <Row></Row>
+               <Row></Row>
+               <!-- 2. JURNAL MUTASI KEUANGAN -->
+               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">2. JURNAL MUTASI KEUANGAN</Data></Cell></Row>
+               <Row>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tanggal &amp; Jam</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Kode Transaksi</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi (Barber &amp; Layanan / Keterangan)</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Metode Pembayaran</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jenis Mutasi</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
+               </Row>`;
+            filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
                 if (t.status === 'Lunas') {
                     excelTemplate += `
-                        <tr>
-                            <td class="text-cell">${t.date} ${t.time}</td>
-                            <td class="text-cell">${t.id}</td>
-                            <td class="text-cell">${descStr}</td>
-                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
-                            <td class="text-cell">Pemasukan</td>
-                            <td class="num-accounting" align="right">${t.total}</td>
-                        </tr>
-                    `;
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.date} ${t.time}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Pemasukan</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${t.total}</Data></Cell>
+               </Row>`;
                 } else if (t.status === 'Refunded') {
                     excelTemplate += `
-                        <tr>
-                            <td class="text-cell">${t.date} ${t.time}</td>
-                            <td class="text-cell">${t.id}</td>
-                            <td class="text-cell">${descStr} (Refund)</td>
-                            <td class="text-cell">${t.paymentMethod || 'Cash'}</td>
-                            <td class="text-cell">Refund</td>
-                            <td class="num-accounting" align="right">${-t.total}</td>
-                        </tr>
-                    `;
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.date} ${t.time}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr} (Refund)</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Refund</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-t.total}</Data></Cell>
+               </Row>`;
                 }
             });
-            state.expenses.forEach(e => {
+            filteredExp.forEach(e => {
                 excelTemplate += `
-                    <tr>
-                        <td class="text-cell">${e.date}</td>
-                        <td class="text-cell">${e.id}</td>
-                        <td class="text-cell">${e.desc}</td>
-                        <td class="text-cell">${e.paymentMethod || 'Cash'}</td>
-                        <td class="text-cell">Pengeluaran</td>
-                        <td class="num-accounting" align="right">${-e.amount}</td>
-                    </tr>
-                `;
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.date}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.id}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.desc}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Pengeluaran</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-e.amount}</Data></Cell>
+               </Row>`;
+            });
+            // 3. REKAP PENDAPATAN PERBARBER DAN LAYANAN
+            excelTemplate += `
+               <Row></Row>
+               <Row></Row>
+               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">3. REKAP PENDAPATAN PERBARBER DAN LAYANAN</Data></Cell></Row>
+               <Row>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nama Barber</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Layanan / Treatment</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jumlah Kepala (Qty)</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Nominal (Rp)</Data></Cell>
+               </Row>`;
+            BARBERS.forEach(b => {
+                const bName = b.name;
+                let totalQtyBarber = 0;
+                let totalNominalBarber = 0;
+                state.services.forEach(s => {
+                    const stat = barberStats[bName][s.name] || { count: 0, total: 0 };
+                    totalQtyBarber += stat.count;
+                    totalNominalBarber += stat.total;
+                    excelTemplate += `
+               <Row>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${bName}</Data></Cell>
+                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${s.name}</Data></Cell>
+                <Cell ss:StyleID="NumberStyle"><Data ss:Type="Number">${stat.count}</Data></Cell>
+                <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${stat.total}</Data></Cell>
+               </Row>`;
+                });
+                excelTemplate += `
+               <Row>
+                <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="String">TOTAL ${bName.toUpperCase()}</Data></Cell>
+                <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="String">-</Data></Cell>
+                <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="Number">${totalQtyBarber}</Data></Cell>
+                <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${totalNominalBarber}</Data></Cell>
+               </Row>`;
             });
             excelTemplate += `
-                    </tbody>
-                </table>
-            </body>
-            </html>
-            `;
+              </Table>
+             </Worksheet>
+            </Workbook>`;
             const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.setAttribute("href", url);
-            link.setAttribute("download", `Laporan_Keuangan_CahyaBaru_${new Date().toISOString().slice(0,10)}.xls`);
+            link.setAttribute("download", `Laporan_Keuangan_CahyaBaru_${startDate || 'all'}_to_${endDate || 'all'}.xls`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
