@@ -998,7 +998,6 @@
             </div>
         </div>
     </div>
-
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1779,15 +1778,12 @@
                 total: total,
                 status: 'Lunas'
             };
-
-            // Kirim data transaksi ke Google Sheet
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(transaction)
             }).catch(err => console.error("Sheet transaction error:", err));
-
             const localTx = {
                 id: transaction.id,
                 date: new Date().toISOString().split('T')[0],
@@ -1799,44 +1795,33 @@
                 status: 'Lunas'
             };
             state.transactions.unshift(localTx);
-
-            // Cetak struk otomatis jika aktif
             if (state.autoPrint) {
                 printReceipt(localTx);
             }
-
             clearCart();
             renderTransactionHistory();
             renderAccounting();
-
-            // Tampilkan Modal Custom Input WhatsApp Pelanggan
             const inputWA = document.getElementById('waCustomerInput');
             if (inputWA) inputWA.value = '08';
             openModal('waReviewModal');
         }
-
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
-
             if (!customerPhoneWA || customerPhoneWA === '08' || customerPhoneWA === '') {
                 alert('Silakan masukkan nomor WhatsApp pelanggan terlebih dahulu!');
                 return;
             }
-
             if (customerPhoneWA.startsWith('0')) {
                 customerPhoneWA = '62' + customerPhoneWA.slice(1);
             }
-
             const pesanRating = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di Cahya Baru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/Qb71k2dzQFuB4knV8\n\nDitunggu kedatangannya kembali! 🙏`;
-
             const urlWACustomer = `https://wa.me/${customerPhoneWA}?text=${encodeURIComponent(pesanRating)}`;
             
             window.open(urlWACustomer, '_blank');
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
-
         function setTxFilterToday() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('filterTxStartDate').value = today;
@@ -2192,6 +2177,7 @@
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
             const dateFormatted = startDate || endDate ? `Periode ${startDate || 'Awal'} s.d ${endDate || 'Sekarang'}` : 'Semua Waktu';
+            
             let barberStats = {};
             BARBERS.forEach(b => {
                 barberStats[b.name] = {};
@@ -2215,6 +2201,7 @@
                     });
                 }
             });
+
             let excelTemplate = `<?xml version="1.0" encoding="UTF-8"?>
             <?mso-application progid="Excel.Sheet"?>
             <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -2224,113 +2211,161 @@
              xmlns:html="http://www.w3.org/TR/REC-html40">
              <Styles>
               <Style ss:ID="TitleStyle">
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
                <Font ss:Bold="1" ss:Size="14" ss:Color="#000000"/>
               </Style>
+              <Style ss:ID="SubTitleStyle">
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+               <Font ss:Italic="1" ss:Size="10" ss:Color="#475569"/>
+              </Style>
               <Style ss:ID="SectionHeaderStyle">
+               <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
                <Font ss:Bold="1" ss:Size="11" ss:Color="#FFFFFF"/>
                <Interior ss:Color="#D97706" ss:Pattern="Solid"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#B45309"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#B45309"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#B45309"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#B45309"/>
                </Borders>
               </Style>
               <Style ss:ID="HeaderStyle">
-               <Font ss:Bold="1" ss:Color="#000000"/>
-               <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+               <Font ss:Bold="1" ss:Color="#0F172A"/>
+               <Interior ss:Color="#E2E8F0" ss:Pattern="Solid"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
                </Borders>
               </Style>
               <Style ss:ID="CellStyle">
+               <Alignment ss:Vertical="Center"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="CenterCellStyle">
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
                </Borders>
               </Style>
               <Style ss:ID="NumberStyle">
-               <Alignment ss:Horizontal="Right"/>
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
                </Borders>
               </Style>
               <Style ss:ID="CurrencyStyle">
+               <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
                <NumberFormat ss:Format="\&quot;Rp\&quot;\ #\,\#\#0"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
                </Borders>
               </Style>
               <Style ss:ID="TotalRowStyle">
+               <Alignment ss:Vertical="Center"/>
                <Font ss:Bold="1"/>
                <Interior ss:Color="#FEF08A" ss:Pattern="Solid"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+               </Borders>
+              </Style>
+              <Style ss:ID="TotalNumberStyle">
+               <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+               <Font ss:Bold="1"/>
+               <Interior ss:Color="#FEF08A" ss:Pattern="Solid"/>
+               <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
                </Borders>
               </Style>
               <Style ss:ID="TotalCurrencyStyle">
+               <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
                <Font ss:Bold="1"/>
                <Interior ss:Color="#FEF08A" ss:Pattern="Solid"/>
                <NumberFormat ss:Format="\&quot;Rp\&quot;\ #\,\#\#0"/>
                <Borders>
-                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#FDE047"/>
                </Borders>
               </Style>
              </Styles>
              <Worksheet ss:Name="Laporan Keuangan">
               <Table>
+               <!-- PENGATURAN LEBAR KOLOM (COLUMN WIDTH) -->
+               <Column ss:Width="130"/>
+               <Column ss:Width="110"/>
+               <Column ss:Width="230"/>
+               <Column ss:Width="130"/>
+               <Column ss:Width="100"/>
+               <Column ss:Width="120"/>
+
                <!-- HEADER JUDUL -->
-               <Row><Cell ss:StyleID="TitleStyle"><Data ss:Type="String">LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</Data></Cell></Row>
-               <Row><Cell><Data ss:Type="String">Filter Periode: ${dateFormatted}</Data></Cell></Row>
-               <Row></Row>
+               <Row ss:Height="24">
+                <Cell ss:MergeAcross="5" ss:StyleID="TitleStyle"><Data ss:Type="String">LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</Data></Cell>
+               </Row>
+               <Row ss:Height="18">
+                <Cell ss:MergeAcross="5" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Filter Periode: ${dateFormatted}</Data></Cell>
+               </Row>
+               <Row ss:Height="10"></Row>
+
                <!-- 1. RINGKASAN KEUANGAN -->
-               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">1. RINGKASAN KEUANGAN</Data></Cell></Row>
-               <Row>
+               <Row ss:Height="22">
+                <Cell ss:MergeAcross="1" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 1. RINGKASAN KEUANGAN</Data></Cell>
+               </Row>
+               <Row ss:Height="20">
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Keterangan</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
                </Row>
-               <Row>
+               <Row ss:Height="19">
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pendapatan Cash (Bersih)</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${netCash}</Data></Cell>
                </Row>
-               <Row>
+               <Row ss:Height="19">
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pendapatan QRIS (Bersih)</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${netQRIS}</Data></Cell>
                </Row>
-               <Row>
+               <Row ss:Height="19">
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Omset Penjualan</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${totalRevenue}</Data></Cell>
                </Row>
-               <Row>
+               <Row ss:Height="19">
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Total Pengeluaran Kas</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${totalExpenses}</Data></Cell>
                </Row>
-               <Row>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Laba Bersih</Data></Cell>
+               <Row ss:Height="20">
+                <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="String">Laba Bersih</Data></Cell>
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${netProfit}</Data></Cell>
                </Row>
-               <Row></Row>
-               <Row></Row>
+               <Row ss:Height="15"></Row>
+
                <!-- 2. JURNAL MUTASI KEUANGAN -->
-               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">2. JURNAL MUTASI KEUANGAN</Data></Cell></Row>
-               <Row>
+               <Row ss:Height="22">
+                <Cell ss:MergeAcross="5" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 2. JURNAL MUTASI KEUANGAN</Data></Cell>
+               </Row>
+               <Row ss:Height="20">
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tanggal &amp; Jam</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Kode Transaksi</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi (Barber &amp; Layanan / Keterangan)</Data></Cell>
@@ -2338,53 +2373,63 @@
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jenis Mutasi</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
                </Row>`;
+
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
+                let cleanDate = String(t.date || '').split('T')[0];
+                let cleanTime = String(t.time || '').split('T')[0];
+                let dateDisplay = `${cleanDate} ${cleanTime}`.trim();
+
                 if (t.status === 'Lunas') {
                     excelTemplate += `
-               <Row>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.date} ${t.time}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
+               <Row ss:Height="19">
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${dateDisplay}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Pemasukan</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">Pemasukan</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${t.total}</Data></Cell>
                </Row>`;
                 } else if (t.status === 'Refunded') {
                     excelTemplate += `
-               <Row>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.date} ${t.time}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
+               <Row ss:Height="19">
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${dateDisplay}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr} (Refund)</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Refund</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">Refund</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-t.total}</Data></Cell>
                </Row>`;
                 }
             });
+
             filteredExp.forEach(e => {
+                let cleanDate = String(e.date || '').split('T')[0];
                 excelTemplate += `
-               <Row>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.date}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.id}</Data></Cell>
+               <Row ss:Height="19">
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${cleanDate}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${e.id}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.desc}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${e.paymentMethod || 'Cash'}</Data></Cell>
-                <Cell ss:StyleID="CellStyle"><Data ss:Type="String">Pengeluaran</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${e.paymentMethod || 'Cash'}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">Pengeluaran</Data></Cell>
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-e.amount}</Data></Cell>
                </Row>`;
             });
+
             // 3. REKAP PENDAPATAN PERBARBER DAN LAYANAN
             excelTemplate += `
-               <Row></Row>
-               <Row></Row>
-               <Row><Cell ss:StyleID="SectionHeaderStyle"><Data ss:Type="String">3. REKAP PENDAPATAN PERBARBER DAN LAYANAN</Data></Cell></Row>
-               <Row>
+               <Row ss:Height="15"></Row>
+               <Row ss:Height="22">
+                <Cell ss:MergeAcross="3" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 3. REKAP PENDAPATAN PERBARBER DAN LAYANAN</Data></Cell>
+               </Row>
+               <Row ss:Height="20">
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nama Barber</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Layanan / Treatment</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jumlah Kepala (Qty)</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Nominal (Rp)</Data></Cell>
                </Row>`;
+
             BARBERS.forEach(b => {
                 const bName = b.name;
                 let totalQtyBarber = 0;
@@ -2394,7 +2439,7 @@
                     totalQtyBarber += stat.count;
                     totalNominalBarber += stat.total;
                     excelTemplate += `
-               <Row>
+               <Row ss:Height="19">
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${bName}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${s.name}</Data></Cell>
                 <Cell ss:StyleID="NumberStyle"><Data ss:Type="Number">${stat.count}</Data></Cell>
@@ -2402,17 +2447,19 @@
                </Row>`;
                 });
                 excelTemplate += `
-               <Row>
+               <Row ss:Height="20">
                 <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="String">TOTAL ${bName.toUpperCase()}</Data></Cell>
                 <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="String">-</Data></Cell>
-                <Cell ss:StyleID="TotalRowStyle"><Data ss:Type="Number">${totalQtyBarber}</Data></Cell>
+                <Cell ss:StyleID="TotalNumberStyle"><Data ss:Type="Number">${totalQtyBarber}</Data></Cell>
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${totalNominalBarber}</Data></Cell>
                </Row>`;
             });
+
             excelTemplate += `
               </Table>
              </Worksheet>
             </Workbook>`;
+
             const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
