@@ -933,6 +933,18 @@
                             <p id="accNetProfit" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
                         </div>
                     </div>
+
+                    <!-- KARTU REKAP JUMLAH CUKUR PER BARBER -->
+                    <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-scissors text-amber-600"></i> Jumlah Cukur / Kepala per Barber
+                            </p>
+                            <span class="text-[11px] text-slate-400 font-medium italic">Filter Sesuai Tanggal</span>
+                        </div>
+                        <div id="barberCountSummary" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-1"></div>
+                    </div>
+
                     <div>
                         <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Jurnal Mutasi Keuangan</h3>
                         <div class="overflow-x-auto">
@@ -1139,10 +1151,13 @@
         });
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
-            let clean = dateStr.split('T')[0];
+            let clean = String(dateStr).split('T')[0].trim();
             if (clean.includes('/')) {
                 let parts = clean.split('/');
                 if (parts.length === 3) {
+                    if (parts[0].length === 4) {
+                        return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+                    }
                     return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
                 }
             }
@@ -2044,23 +2059,36 @@
             const expEl = document.getElementById('accExpenses');
             const netEl = document.getElementById('accNetProfit');
             const ledgerBody = document.getElementById('accountingLedgerBody');
+            const barberSummaryEl = document.getElementById('barberCountSummary');
+            
             if (!cashEl || !qrisEl || !revEl || !expEl || !netEl || !ledgerBody) return;
+            
             const startDate = document.getElementById('filterAccStartDate').value;
             const endDate = document.getElementById('filterAccEndDate').value;
+            
             let filteredTx = state.transactions.filter(t => {
                 let tDate = parseStandardDate(t.date);
                 if (startDate && tDate < startDate) return false;
                 if (endDate && tDate > endDate) return false;
                 return true;
             });
+            
             let filteredExp = state.expenses.filter(e => {
                 let eDate = parseStandardDate(e.date);
                 if (startDate && eDate < startDate) return false;
                 if (endDate && eDate > endDate) return false;
                 return true;
             });
+
+            // Hitung Jumlah Cukur per Barber
+            let barberCounts = {};
+            BARBERS.forEach(b => {
+                barberCounts[b.name] = 0;
+            });
+            
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
+            
             filteredTx.forEach(t => {
                 if (t.status === 'Lunas') {
                     if ((t.paymentMethod || 'Cash') === 'Cash') {
@@ -2068,8 +2096,29 @@
                     } else {
                         totalQRISRevenue += t.total;
                     }
+
+                    // Akumulasi kepala/cukur
+                    let rawBarber = t.barberName || '';
+                    let foundB = BARBERS.find(b => b.name.toLowerCase() === rawBarber.toLowerCase());
+                    let barberNameKey = foundB ? foundB.name : rawBarber;
+
+                    if (barberCounts.hasOwnProperty(barberNameKey)) {
+                        barberCounts[barberNameKey] += 1;
+                    }
                 }
             });
+
+            // Render Tampilan Jumlah Cukur per Barber
+            if (barberSummaryEl) {
+                barberSummaryEl.innerHTML = BARBERS.map(b => `
+                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center shadow-2xs">
+                        <p class="text-xs font-bold text-slate-700">${b.name}</p>
+                        <p class="text-xl font-extrabold text-amber-600 mt-1">${barberCounts[b.name] || 0}</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Kepala / Cukur</p>
+                    </div>
+                `).join('');
+            }
+
             let totalCashExpense = 0;
             let totalQRISExpense = 0;
             filteredExp.forEach(e => {
@@ -2079,16 +2128,19 @@
                     totalQRISExpense += e.amount;
                 }
             });
+
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
+
             cashEl.innerText = formatRp(netCash);
             qrisEl.innerText = formatRp(netQRIS);
             revEl.innerText = formatRp(totalRevenue);
             expEl.innerText = formatRp(totalExpenses);
             netEl.innerText = formatRp(netProfit);
+
             let ledgerItems = [];
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
@@ -2123,10 +2175,12 @@
                     amount: -e.amount
                 });
             });
+
             if (ledgerItems.length === 0) {
                 ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
+
             ledgerBody.innerHTML = ledgerItems.map(item => `
                 <tr class="hover:bg-slate-100/60">
                     <td class="p-3 text-xs text-slate-500">${item.date}</td>
@@ -2201,7 +2255,6 @@
                     });
                 }
             });
-
             let excelTemplate = `<?xml version="1.0" encoding="UTF-8"?>
             <?mso-application progid="Excel.Sheet"?>
             <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -2321,7 +2374,6 @@
                <Column ss:Width="130"/>
                <Column ss:Width="100"/>
                <Column ss:Width="120"/>
-
                <!-- HEADER JUDUL -->
                <Row ss:Height="24">
                 <Cell ss:MergeAcross="5" ss:StyleID="TitleStyle"><Data ss:Type="String">LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</Data></Cell>
@@ -2330,7 +2382,6 @@
                 <Cell ss:MergeAcross="5" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Filter Periode: ${dateFormatted}</Data></Cell>
                </Row>
                <Row ss:Height="10"></Row>
-
                <!-- 1. RINGKASAN KEUANGAN -->
                <Row ss:Height="22">
                 <Cell ss:MergeAcross="1" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 1. RINGKASAN KEUANGAN</Data></Cell>
@@ -2360,7 +2411,6 @@
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${netProfit}</Data></Cell>
                </Row>
                <Row ss:Height="15"></Row>
-
                <!-- 2. JURNAL MUTASI KEUANGAN -->
                <Row ss:Height="22">
                 <Cell ss:MergeAcross="5" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 2. JURNAL MUTASI KEUANGAN</Data></Cell>
@@ -2373,14 +2423,12 @@
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jenis Mutasi</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
                </Row>`;
-
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
                 let cleanDate = String(t.date || '').split('T')[0];
                 let cleanTime = String(t.time || '').split('T')[0];
                 let dateDisplay = `${cleanDate} ${cleanTime}`.trim();
-
                 if (t.status === 'Lunas') {
                     excelTemplate += `
                <Row ss:Height="19">
@@ -2403,7 +2451,6 @@
                </Row>`;
                 }
             });
-
             filteredExp.forEach(e => {
                 let cleanDate = String(e.date || '').split('T')[0];
                 excelTemplate += `
@@ -2416,7 +2463,6 @@
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-e.amount}</Data></Cell>
                </Row>`;
             });
-
             // 3. REKAP PENDAPATAN PERBARBER DAN LAYANAN
             excelTemplate += `
                <Row ss:Height="15"></Row>
@@ -2429,7 +2475,6 @@
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jumlah Kepala (Qty)</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Nominal (Rp)</Data></Cell>
                </Row>`;
-
             BARBERS.forEach(b => {
                 const bName = b.name;
                 let totalQtyBarber = 0;
@@ -2454,12 +2499,10 @@
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${totalNominalBarber}</Data></Cell>
                </Row>`;
             });
-
             excelTemplate += `
               </Table>
              </Worksheet>
             </Workbook>`;
-
             const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
