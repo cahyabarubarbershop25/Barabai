@@ -2386,7 +2386,7 @@
              <Worksheet ss:Name="Laporan Keuangan">
               <Table>
                <!-- PENGATURAN LEBAR KOLOM (COLUMN WIDTH) -->
-               <Column ss:Width="130"/>
+               <Column ss:Width="110"/>
                <Column ss:Width="110"/>
                <Column ss:Width="230"/>
                <Column ss:Width="130"/>
@@ -2434,23 +2434,24 @@
                 <Cell ss:MergeAcross="5" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 2. JURNAL MUTASI KEUANGAN</Data></Cell>
                </Row>
                <Row ss:Height="20">
-                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tanggal &amp; Jam</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tanggal</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Kode Transaksi</Data></Cell>
-                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi (Barber &amp; Layanan / Keterangan)</Data></Cell>
-                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Metode Pembayaran</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi (Barber &amp; Layanan)</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Metode</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jenis Mutasi</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
                </Row>`;
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
-                let cleanDate = String(t.date || '').split('T')[0];
-                let cleanTime = String(t.time || '').split('T')[0];
-                let dateDisplay = `${cleanDate} ${cleanTime}`.trim();
+                
+                // Murni mengambil tanggal saja tanpa jam
+                let cleanDate = parseStandardDate(t.date);
+
                 if (t.status === 'Lunas') {
                     excelTemplate += `
                <Row ss:Height="19">
-                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${dateDisplay}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${cleanDate}</Data></Cell>
                 <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr}</Data></Cell>
                 <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
@@ -2460,7 +2461,7 @@
                 } else if (t.status === 'Refunded') {
                     excelTemplate += `
                <Row ss:Height="19">
-                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${dateDisplay}</Data></Cell>
+                <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${cleanDate}</Data></Cell>
                 <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.id}</Data></Cell>
                 <Cell ss:StyleID="CellStyle"><Data ss:Type="String">${descStr} (Refund)</Data></Cell>
                 <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${t.paymentMethod || 'Cash'}</Data></Cell>
@@ -2470,7 +2471,7 @@
                 }
             });
             filteredExp.forEach(e => {
-                let cleanDate = String(e.date || '').split('T')[0];
+                let cleanDate = parseStandardDate(e.date);
                 excelTemplate += `
                <Row ss:Height="19">
                 <Cell ss:StyleID="CenterCellStyle"><Data ss:Type="String">${cleanDate}</Data></Cell>
