@@ -192,9 +192,9 @@
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-200 gap-4">
                         <div>
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
+                                <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan & Bayar DP
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Jadwal Shift 1 (10.00-16.00) & Jadwal Shift 2 (16.00-22.00).</p>
+                            <p class="text-sm text-slate-600 mt-1">Lakukan pembayaran DP (Down Payment) QRIS minimal Rp 20.000 untuk konfirmasi jadwal Anda.</p>
                         </div>
                     </div>
                     <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
@@ -241,15 +241,52 @@
                             <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Pilih Layanan</label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="bookingServicesList"></div>
                         </div>
-                        <div class="pt-4 border-t border-slate-200 flex justify-end">
-                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                                <span>Kirim Reservasi via WhatsApp</span>
-                            </button>
+
+                        <!-- KOTAK PEMBAYARAN DP QRIS & UPLOAD BUKTI -->
+                        <div class="bg-white p-5 rounded-2xl border border-amber-300 space-y-4 shadow-2xs">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-qrcode text-amber-600 text-xl"></i>
+                                    <span class="font-bold text-slate-900 text-sm">Pembayaran DP (Down Payment)</span>
+                                </div>
+                                <span class="bg-amber-100 text-amber-900 font-bold text-xs px-3 py-1 rounded-full border border-amber-300">Min. DP: Rp 20.000</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                                <div class="text-center bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col items-center justify-center space-y-2">
+                                    <div class="w-36 h-36 bg-white p-2 rounded-lg border border-slate-300 shadow-xs flex items-center justify-center">
+                                        <img src="https://placehold.co/150x150/ffffff/d97706?text=QRIS+CahyaBaru" alt="QRIS CahyaBaru" class="w-full h-full object-contain">
+                                    </div>
+                                    <p class="text-[11px] font-semibold text-slate-600">Scan QRIS untuk Bayar DP</p>
+                                </div>
+                                <div class="md:col-span-2 space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Nominal DP yang Dibayarkan (Rp)</label>
+                                        <input type="number" id="resDpAmount" required min="20000" placeholder="Contoh: 20000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:border-amber-600 focus:outline-none">
+                                        <p class="text-[11px] text-slate-500 mt-1">Minimal transfer DP sebesar Rp 20.000 untuk mengamankan jam reservasi Anda.</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Upload Bukti Transfer DP</label>
+                                        <input type="file" id="resDpProof" accept="image/*" required onchange="previewDpProof(event)" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-700 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200 cursor-pointer">
+                                    </div>
+                                    <div id="dpProofPreviewContainer" class="hidden">
+                        <p class="text-[11px] font-bold text-slate-600 mb-1">Pratinjau Bukti Transfer:</p>
+                        <div class="w-24 h-24 rounded-lg overflow-hidden border border-amber-300 bg-slate-100 shadow-xs relative">
+                            <img id="dpProofImg" src="" alt="Bukti DP" class="w-full h-full object-cover">
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end">
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-sm flex items-center space-x-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>Kirim Reservasi & Bukti DP via WhatsApp</span>
+            </button>
+        </div>
+    </form>
+</div>
+</section>
             <!-- TAB 3: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -908,7 +945,7 @@
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Pilih Barber / Karyawan</label>
                                 <select id="kasbonBarberSelect" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                                     <option value="">-- Pilih Barber --</option>
-                                    <option value="Bonar">Bonar</option>
+                                    <option value="Fadil">Bonar</option>
                                     <option value="Fadil">Fadil</option>
                                     <option value="Adit">Adit</option>
                                     <option value="Wawan">Wawan</option>
@@ -926,6 +963,21 @@
                                 <input type="text" id="kasbonDesc" required placeholder="Contoh: Kasbon Keperluan Pribadi" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Sumber Kasbon Dari Metode</label>
+                            <div class="grid grid-cols-2 gap-3 max-w-sm">
+                                <button type="button" onclick="setKasbonPaymentMethod('Cash')" id="kasbonCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                    <span>CASH (Tunai)</span>
+                                </button>
+                                <button type="button" onclick="setKasbonPaymentMethod('QRIS')" id="kasbonQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                    <span>QRIS (Digital)</span>
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="flex justify-end pt-2">
                             <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm shadow-xs">
                                 Simpan Kasbon Baru
@@ -959,6 +1011,7 @@
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Barber</label>
                                 <select id="filterKasbonBarber" onchange="renderKasbonTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-amber-600">
                                     <option value="">Semua Barber</option>
+                                    <option value="Fadil">Bonar</option>
                                     <option value="Fadil">Fadil</option>
                                     <option value="Adit">Adit</option>
                                     <option value="Wawan">Wawan</option>
@@ -983,6 +1036,7 @@
                                     <th class="p-3">Tanggal</th>
                                     <th class="p-3">Kasir</th>
                                     <th class="p-3">Barber</th>
+                                    <th class="p-3">Sumber Dana</th>
                                     <th class="p-3">Keterangan</th>
                                     <th class="p-3 text-right">Nominal Pinjaman</th>
                                     <th class="p-3 text-center">Status</th>
@@ -990,7 +1044,7 @@
                                 </tr>
                             </thead>
                             <tbody id="kasbonTableBody" class="divide-y divide-slate-200">
-                                <tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>
+                                <tr><td colspan="9" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1250,9 +1304,11 @@
             selectedBarber: 'fadil',
             resSelectedBarber: '',
             resSelectedServices: [],
+            resDpImageBase64: '',
             cart: [],
             posPaymentMethod: 'Cash',
             expPaymentMethod: 'Cash',
+            kasbonPaymentMethod: 'Cash',
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
@@ -1263,8 +1319,37 @@
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
         
+        function switchTab(tabId) {
+            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
+            if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
+                openLoginModal();
+                return;
+            }
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const activeEl = document.getElementById(`tab-${tabId}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+            document.querySelectorAll('[id^="nav-"]').forEach(btn => {
+                btn.classList.remove('bg-amber-100', 'text-amber-900', 'font-bold');
+                btn.classList.add('text-slate-700');
+            });
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-amber-100', 'text-amber-900', 'font-bold');
+            }
+            const sidebar = document.getElementById('sidebarNav');
+            const backdrop = document.getElementById('mobileBackdrop');
+            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+            }
+            if (backdrop && !backdrop.classList.contains('hidden')) {
+                backdrop.classList.add('hidden');
+            }
+        }
+
         function formatRp(val) {
             const num = Number(val || 0);
+            if (isNaN(num)) return 'Rp 0';
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
             if (num < 0) {
                 return '(Rp ' + formattedNum + ')';
@@ -1286,6 +1371,28 @@
             openModal('loginModal');
         }
 
+        function renderFullServices() {
+            const container = document.getElementById('fullServicesDisplay');
+            if (!container) return;
+            const categories = [...new Set((state.services || []).map(s => s.category))];
+            container.innerHTML = categories.map(cat => `
+                <div class="space-y-3">
+                    <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wider border-b border-slate-200 pb-2">${cat}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${state.services.filter(s => s.category === cat).map(s => `
+                            <div class="p-4 bg-white border border-slate-300 rounded-xl flex justify-between items-start shadow-2xs">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-sm">${s.name}</h4>
+                                    <p class="text-xs text-slate-500 mt-1">${s.desc}</p>
+                                </div>
+                                <span class="font-bold text-amber-800 text-sm bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-lg">${formatRp(s.price)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             renderBookingServices();
             renderFullServices();
@@ -1299,6 +1406,7 @@
             }
             switchTab('schedule');
         });
+
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
@@ -1313,9 +1421,30 @@
             }
             return clean;
         }
+
+        function previewDpProof(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                state.resDpImageBase64 = e.target.result;
+                const container = document.getElementById('dpProofPreviewContainer');
+                const imgEl = document.getElementById('dpProofImg');
+                if (container && imgEl) {
+                    imgEl.src = e.target.result;
+                    container.classList.remove('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
         function updateAvailableBarbers() {
-            const dateVal = document.getElementById('resDate').value;
-            const timeVal = document.getElementById('resTime').value;
+            const dateEl = document.getElementById('resDate');
+            const timeEl = document.getElementById('resTime');
+            if (!dateEl || !timeEl) return;
+
+            const dateVal = dateEl.value;
+            const timeVal = timeEl.value;
             const noticeEl = document.getElementById('barberNotice');
             
             if (!dateVal || !timeVal) {
@@ -1328,7 +1457,8 @@
             const hourNum = parseInt(timeVal.split(':')[0], 10);
             const shiftKey = (hourNum >= 10 && hourNum < 16) ? 'shift1' : 'shift2';
             const shiftLabel = shiftKey === 'shift1' ? 'Shift 1 (10.00-16.00)' : 'Shift 2 (16.00-22.00)';
-            const activeBarberIds = SHIFT_SCHEDULE[dayIndex][shiftKey];
+            
+            const activeBarberIds = (SHIFT_SCHEDULE[dayIndex] && SHIFT_SCHEDULE[dayIndex][shiftKey]) ? SHIFT_SCHEDULE[dayIndex][shiftKey] : [];
             if (noticeEl) {
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
@@ -1338,6 +1468,7 @@
             }
             renderBookingBarbers(availableBarbers);
         }
+
         function renderBookingBarbers(listToRender) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
@@ -1353,10 +1484,12 @@
                 </button>
             `).join('');
         }
+
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
+
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
@@ -1365,7 +1498,8 @@
             if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
             if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
             if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
-            if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
+            if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
+            
             fetch(GOOGLE_SHEET_WEB_APP_URL)
                 .then(res => res.json())
                 .then(data => {
@@ -1377,6 +1511,7 @@
                             const layananStr = String(t.layanan || t.items || '');
                             layananStr.split(',').forEach(lName => {
                                 const cleanName = lName.trim();
+                                if (!cleanName) return;
                                 const foundS = state.services.find(s => s.name.toLowerCase() === cleanName.toLowerCase());
                                 itemsArr.push({ name: cleanName, price: foundS ? foundS.price : 0 });
                             });
@@ -1411,6 +1546,7 @@
                             date: String(k.tanggal || k.date || '').split('T')[0],
                             cashierName: String(k.kasir || k.cashierName || 'Bonar'),
                             barberName: String(k.barber || k.barberName || '-'),
+                            paymentMethod: String(k.metode || k.paymentMethod || 'Cash'),
                             desc: String(k.keterangan || k.desc || '-'),
                             amount: Number(k.jumlah || k.amount || 0),
                             status: String(k.status || 'Belum Lunas')
@@ -1429,7 +1565,7 @@
                     if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi atau URL Web App.</td></tr>`;
                     if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat transaksi.</td></tr>`;
                     if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat pengeluaran.</td></tr>`;
-                    if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat data kasbon.</td></tr>`;
+                    if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat data kasbon.</td></tr>`;
                 });
         }
         function renderScheduleTable() {
@@ -1445,7 +1581,21 @@
             }
             container.innerHTML = state.reservations.map((item, index) => {
                 const currentStatus = item.status || 'Menunggu';
-                const phoneCol = state.isAdminLoggedIn ? `<td class="p-3 font-mono text-xs text-slate-700">${item['no. whatsapp'] || item.phone || '-'}</td>` : '';
+                
+                // Ambil nilai secara presisi sesuai properti dari GAS
+                const clientName = item.nama || item.name || item['nama pelanggan'] || '-';
+                const clientPhone = item['no. whatsapp'] || item.phone || item.whatsapp || '-';
+                const barberName = item.barber || item.kapster || '-';
+                const serviceName = item.layanan || item.services || '-';
+                
+                // Format Tanggal dan Jam secara bersih
+                let rawDate = item.tanggal || item.date || '';
+                let cleanDate = parseStandardDate(rawDate);
+                let rawTime = item.jam || item.time || '';
+                let dateTimeStr = (cleanDate || rawDate) ? `${cleanDate} - ${rawTime}` : '-';
+                if (!cleanDate && !rawTime) dateTimeStr = '-';
+
+                const phoneCol = state.isAdminLoggedIn ? `<td class="p-3 font-mono text-xs text-slate-700">${clientPhone}</td>` : '';
                 let statusColHTML = '';
                 if (state.isAdminLoggedIn) {
                     statusColHTML = `
@@ -1462,11 +1612,11 @@
                 }
                 return `
                     <tr class="hover:bg-slate-100/60 transition">
-                        <td class="p-3 font-medium text-slate-900">${item.nama || item.name || '-'}</td>
+                        <td class="p-3 font-medium text-slate-900">${clientName}</td>
                         ${phoneCol}
-                        <td class="p-3 text-slate-700">${item.barber || '-'}</td>
-                        <td class="p-3 text-xs text-slate-600">${item.layanan || item.services || '-'}</td>
-                        <td class="p-3 text-xs text-slate-600">${String(item.tanggal || item.date || '').split('T')[0]} - ${item.jam || item.time || '-'}</td>
+                        <td class="p-3 text-slate-700">${barberName}</td>
+                        <td class="p-3 text-xs text-slate-600">${serviceName}</td>
+                        <td class="p-3 text-xs text-slate-600">${dateTimeStr}</td>
                         <td class="p-3">${statusColHTML}</td>
                     </tr>
                 `;
@@ -1768,38 +1918,18 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-        function openPrinterModal() {
-            openModal('printerModal');
-        }
-        function toggleAutoPrint(el) {
-            state.autoPrint = el.checked;
-            localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
-        }
-        function switchTab(tabId) {
-            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
-            if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
-                openLoginModal();
-                return;
-            }
-            state.activeTab = tabId;
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            const activeEl = document.getElementById(`tab-${tabId}`);
-            if (activeEl) activeEl.classList.remove('hidden');
-            document.querySelectorAll('[id^="nav-"]').forEach(btn => {
-                btn.classList.remove('bg-amber-100', 'text-amber-900', 'font-bold');
-                btn.classList.add('text-slate-700');
-            });
-            const activeBtn = document.getElementById(`nav-${tabId}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-amber-100', 'text-amber-900', 'font-bold');
-            }
-            const sidebar = document.getElementById('sidebarNav');
-            const backdrop = document.getElementById('mobileBackdrop');
-            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.add('-translate-x-full');
-            }
-            if (backdrop && !backdrop.classList.contains('hidden')) {
-                backdrop.classList.add('hidden');
+
+        function setKasbonPaymentMethod(method) {
+            state.kasbonPaymentMethod = method;
+            const btnCash = document.getElementById('kasbonCash');
+            const btnQRIS = document.getElementById('kasbonQRIS');
+            if (!btnCash || !btnQRIS) return;
+            if (method === 'Cash') {
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
+            } else {
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
         function handleAddKasbon(e) {
@@ -1828,6 +1958,7 @@
                 date: new Date().toISOString().split('T')[0],
                 cashierName: cashierName,
                 barberName: barberName,
+                paymentMethod: state.kasbonPaymentMethod,
                 desc: desc,
                 amount: amount,
                 status: 'Belum Lunas'
@@ -1846,7 +1977,8 @@
             document.getElementById('kasbonDesc').value = '';
 
             renderKasbonTable();
-            alert(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat oleh ${cashierName}!`);
+            renderAccounting();
+            alert(`Kasbon sebesar ${formatRp(amount)} (${state.kasbonPaymentMethod}) untuk ${barberName} berhasil dicatat oleh ${cashierName}!`);
         }
 
         function setKasbonFilterToday() {
@@ -1906,7 +2038,7 @@
             });
 
             if (filtered.length === 0) {
-                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada catatan kasbon pada filter tersebut.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400">Tidak ada catatan kasbon pada filter tersebut.</td></tr>`;
                 return;
             }
 
@@ -1916,6 +2048,9 @@
                     <td class="p-3 text-xs text-slate-500">${k.date}</td>
                     <td class="p-3 text-xs font-medium text-slate-700">${k.cashierName || 'Bonar'}</td>
                     <td class="p-3 font-bold text-slate-800">${k.barberName}</td>
+                    <td class="p-3">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${ (k.paymentMethod || 'Cash') === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${k.paymentMethod || 'Cash'}</span>
+                    </td>
                     <td class="p-3 text-xs text-slate-600">${k.desc}</td>
                     <td class="p-3 font-bold text-red-700 text-right">${formatRp(k.amount)}</td>
                     <td class="p-3 text-center">
@@ -1924,7 +2059,7 @@
                     <td class="p-3 text-center">
                         ${k.status === 'Belum Lunas' && state.isAdminLoggedIn ? `
                             <button onclick="payKasbon('${k.id}')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 px-2.5 py-1 rounded-lg text-xs font-semibold transition">
-                                Pelunasan / Potong Gaji
+                                Pelunasan
                             </button>
                         ` : `<span class="text-xs text-slate-400">-</span>`}
                     </td>
@@ -1953,6 +2088,7 @@
                 }).catch(err => console.error("Gagal update kasbon ke sheet:", err));
 
                 renderKasbonTable();
+                renderAccounting();
                 alert(`Kasbon ${k.barberName} berhasil ditandai LUNAS!`);
             }
         }
@@ -2002,26 +2138,7 @@
             }
             renderBookingServices();
         }
-        function renderFullServices() {
-            const container = document.getElementById('fullServicesDisplay');
-            const categories = [...new Set(state.services.map(s => s.category))];
-            container.innerHTML = categories.map(cat => `
-                <div class="space-y-3">
-                    <h3 class="text-sm font-bold text-amber-800 uppercase tracking-wider border-b border-slate-200 pb-2">${cat}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${state.services.filter(s => s.category === cat).map(s => `
-                            <div class="p-4 bg-white border border-slate-300 rounded-xl flex justify-between items-start shadow-2xs">
-                                <div>
-                                    <h4 class="font-bold text-slate-800 text-sm">${s.name}</h4>
-                                    <p class="text-xs text-slate-500 mt-1">${s.desc}</p>
-                                </div>
-                                <span class="font-bold text-amber-800 text-sm bg-amber-100 border border-amber-300 px-2.5 py-1 rounded-lg">${formatRp(s.price)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
+
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
@@ -2030,6 +2147,15 @@
             }
             if (state.resSelectedServices.length === 0) {
                 alert('Pilih minimal satu layanan!');
+                return;
+            }
+            const dpAmount = Number(document.getElementById('resDpAmount').value || 0);
+            if (dpAmount < 20000) {
+                alert('Nominal DP minimal adalah Rp 20.000!');
+                return;
+            }
+            if (!state.resDpImageBase64) {
+                alert('Silakan upload bukti transfer DP terlebih dahulu!');
                 return;
             }
             const clientName = document.getElementById('resClientName').value;
@@ -2042,7 +2168,11 @@
                 .filter(s => state.resSelectedServices.includes(s.id))
                 .map(s => s.name)
                 .join(', ');
+
+            // Mengirimkan data reservasi sesuai urutan kolom Google Sheet:
+            // [NAMA, NO. WHATSAPP, BARBER, LAYANAN, TANGGAL, JAM, STATUS, TIMESTAMP]
             const reservationData = {
+                type: 'reservation',
                 name: clientName,
                 phone: clientPhone,
                 barber: barberName,
@@ -2058,16 +2188,36 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reservationData)
             }).catch(err => console.error("Sheet error:", err));
-            const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
+
+            const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi & konfirmasi DP:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
                             `*Barber/Kapster:* ${barberName}\n` +
                             `*Layanan:* ${selectedServices}\n` +
-                            `*Jadwal:* ${resDate} - Jam ${resTime}\n\n` +
-                            `Mohon konfirmasi ketersediaan jadwalnya. Terima kasih!`;
+                            `*Jadwal:* ${resDate} - Jam ${resTime}\n` +
+                            `*Nominal DP:* ${formatRp(dpAmount)}\n\n` +
+                            `Mohon konfirmasi jadwalnya. Berikut terlampir bukti transfer DP saya. Terima kasih!`;
+
+            const fileInput = document.getElementById('resDpProof');
+            const proofFile = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+            if (navigator.share && proofFile && navigator.canShare && navigator.canShare({ files: [proofFile] })) {
+                try {
+                    navigator.share({
+                        title: 'Reservasi Cahya Baru Barbershop',
+                        text: pesanWA,
+                        files: [proofFile]
+                    });
+                    return;
+                } catch (shareErr) {
+                    console.log('User membatalkan share atau error share:', shareErr);
+                }
+            }
+
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
+
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -2388,6 +2538,13 @@
                 if (endDate && eDate > endDate) return false;
                 return true;
             });
+
+            let filteredKasbon = state.kasbon.filter(k => {
+                let kDate = parseStandardDate(k.date);
+                if (startDate && kDate < startDate) return false;
+                if (endDate && kDate > endDate) return false;
+                return true;
+            });
             
             let barberCounts = {};
             let barberTotalRevenue = {};
@@ -2420,6 +2577,37 @@
                     grandTotalRevenue += t.total;
                 }
             });
+
+            // Pengeluaran Kas Operasional
+            let totalCashExpense = 0;
+            let totalQRISExpense = 0;
+            filteredExp.forEach(e => {
+                if ((e.paymentMethod || 'Cash') === 'Cash') {
+                    totalCashExpense += e.amount;
+                } else {
+                    totalQRISExpense += e.amount;
+                }
+            });
+
+            // Potongan Kasbon yang "Belum Lunas" mengurangi kas/pendapatan aktif
+            let totalCashKasbon = 0;
+            let totalQRISKasbon = 0;
+            filteredKasbon.forEach(k => {
+                if (k.status === 'Belum Lunas') {
+                    if ((k.paymentMethod || 'Cash') === 'Cash') {
+                        totalCashKasbon += k.amount;
+                    } else {
+                        totalQRISKasbon += k.amount;
+                    }
+                }
+            });
+
+            const netCash = totalCashRevenue - totalCashExpense - totalCashKasbon;
+            const netQRIS = totalQRISRevenue - totalQRISExpense - totalQRISKasbon;
+            const totalRevenue = netCash + netQRIS;
+            const totalExpenses = totalCashExpense + totalQRISExpense;
+            const netProfit = totalRevenue;
+
             if (barberSummaryEl) {
                 let barberCardsHTML = BARBERS.map(b => `
                     <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center shadow-2xs space-y-1">
@@ -2444,25 +2632,13 @@
                 `;
                 barberSummaryEl.innerHTML = `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 w-full">${barberCardsHTML}</div>` + grandTotalCardHTML;
             }
-            let totalCashExpense = 0;
-            let totalQRISExpense = 0;
-            filteredExp.forEach(e => {
-                if ((e.paymentMethod || 'Cash') === 'Cash') {
-                    totalCashExpense += e.amount;
-                } else {
-                    totalQRISExpense += e.amount;
-                }
-            });
-            const netCash = totalCashRevenue - totalCashExpense;
-            const netQRIS = totalQRISRevenue - totalQRISExpense;
-            const totalRevenue = totalCashRevenue + totalQRISRevenue;
-            const totalExpenses = totalCashExpense + totalQRISExpense;
-            const netProfit = totalRevenue - totalExpenses;
+
             cashEl.innerText = formatRp(netCash);
             qrisEl.innerText = formatRp(netQRIS);
             revEl.innerText = formatRp(totalRevenue);
             expEl.innerText = formatRp(totalExpenses);
             netEl.innerText = formatRp(netProfit);
+
             let ledgerItems = [];
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
@@ -2487,6 +2663,7 @@
                     });
                 }
             });
+
             filteredExp.forEach(e => {
                 ledgerItems.push({
                     date: e.date,
@@ -2497,10 +2674,25 @@
                     amount: -e.amount
                 });
             });
+
+            filteredKasbon.forEach(k => {
+                if (k.status === 'Belum Lunas') {
+                    ledgerItems.push({
+                        date: k.date,
+                        code: k.id,
+                        desc: `Kasbon: ${k.barberName} (${k.desc})`,
+                        method: k.paymentMethod || 'Cash',
+                        type: 'Kasbon Aktif',
+                        amount: -k.amount
+                    });
+                }
+            });
+
             if (ledgerItems.length === 0) {
                 ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
+
             ledgerBody.innerHTML = ledgerItems.map(item => `
                 <tr class="hover:bg-slate-100/60">
                     <td class="p-3 text-xs text-slate-500">${item.date}</td>
