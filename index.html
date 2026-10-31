@@ -80,9 +80,8 @@
             </div>
         </div>
     </header>
-
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
-        <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none overflow-y-auto">
+        <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none">
             <div class="space-y-6">
                 <div class="flex justify-between items-center lg:hidden pb-4 border-b border-slate-300">
                     <span class="font-bold text-slate-900">Menu Navigasi</span>
@@ -97,7 +96,7 @@
                             <span>Jadwal Reservasi</span>
                         </button>
                         <button onclick="switchTab('booking')" id="nav-booking" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
-                            <i class="fa-solid fa-calendar-plus w-5 text-amber-600"></i>
+                            <i class="fa-solid fa-calendar-check w-5 text-amber-600"></i>
                             <span>Reservasi Online</span>
                         </button>
                         <button onclick="switchTab('services')" id="nav-services" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
@@ -130,11 +129,6 @@
                             <i class="fa-solid fa-money-bill-transfer w-5 text-amber-600"></i>
                             <span>Pengeluaran Kas</span>
                         </button>
-                        <!-- TAB KASBON PEGAWAI DI BAWAH PENGELUARAN -->
-                        <button onclick="switchTab('kasbon')" id="nav-kasbon" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
-                            <i class="fa-solid fa-hand-holding-dollar w-5 text-amber-600"></i>
-                            <span>Catatan Kasbon</span>
-                        </button>
                         <button onclick="switchTab('accounting')" id="nav-accounting" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-chart-line w-5 text-amber-600"></i>
                             <span>Laporan Akuntansi</span>
@@ -142,12 +136,11 @@
                     </nav>
                 </div>
             </div>
-            <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2 mt-4">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.06</p>
+            <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.05</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
-
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Jadwal Reservasi -->
             <section id="tab-schedule" class="tab-content space-y-6">
@@ -189,7 +182,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 2: Booking Form -->
             <section id="tab-booking" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -254,7 +246,6 @@
                     </form>
                 </div>
             </section>
-
             <!-- TAB 3: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -267,7 +258,6 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-
             <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan -->
             <section id="tab-education" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -325,7 +315,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 2. School Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -373,7 +362,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 3. Work Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -421,7 +409,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 4. Daily Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -499,7 +486,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 5. Natural Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -530,7 +516,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 5: Tentang Kami -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -682,7 +667,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 6: POS Register & Menu Management -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -753,7 +737,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 7: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -807,7 +790,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 8: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -887,92 +869,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- TAB 8.5: CATATAN KASBON (BARU) DI BAWAH TAB PENGELUARAN -->
-            <section id="tab-kasbon" class="tab-content hidden space-y-6">
-                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-200">
-                        <div>
-                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <i class="fa-solid fa-hand-holding-dollar text-amber-600"></i> Catatan Kasbon Pegawai
-                            </h2>
-                            <p class="text-sm text-slate-600 mt-1">Pinjaman kasbon mengurangi Kas, dan Pelunasan kasbon mengembalikan Kas barbershop.</p>
-                        </div>
-                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
-                            <i class="fa-solid fa-rotate"></i>
-                            <span>Refresh Data</span>
-                        </button>
-                    </div>
-
-                    <!-- Summary Card Kasbon Per Pegawai -->
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="kasbonSummaryGrid"></div>
-
-                    <!-- Form Tambah Pinjaman Kasbon Baru -->
-                    <form onsubmit="handleAddKasbon(event)" class="space-y-4 pb-6 border-b border-slate-200 bg-white p-4 rounded-xl border border-slate-300">
-                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
-                            <i class="fa-solid fa-plus-circle text-amber-600"></i> Input Pinjaman Kasbon Baru (Mengurangi Kas)
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Nama Pegawai / Barber</label>
-                                <select id="kasbonEmployee" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                                    <option value="">-- Pilih Pegawai --</option>
-                                    <option value="Fadil">Fadil</option>
-                                    <option value="Adit">Adit</option>
-                                    <option value="Wawan">Wawan</option>
-                                    <option value="Nain">Nain</option>
-                                    <option value="Reza">Reza</option>
-                                    <option value="Mutawali">Mutawali</option>
-                                    <option value="Bonar">Bonar (Kasir)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah Pinjam Kasbon (Rp)</label>
-                                <input type="number" id="kasbonAmount" required placeholder="100000" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Sumber Kas Diambil</label>
-                                <select id="kasbonSourceMethod" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                                    <option value="Cash">Cash (Kas Tunai)</option>
-                                    <option value="QRIS">QRIS (Rekening/Digital)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Alasan / Catatan</label>
-                            <input type="text" id="kasbonNote" placeholder="Contoh: Keperluan mendadak / DP Gaji" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                        </div>
-                        <div class="flex justify-end pt-2">
-                            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm shadow-xs flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-down-long"></i>
-                                <span>Simpan Kasbon (Kas Berkurang)</span>
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- Table Riwayat Kasbon -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-700">
-                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
-                                <tr>
-                                    <th class="p-3">ID Kasbon</th>
-                                    <th class="p-3">Tanggal</th>
-                                    <th class="p-3">Nama Pegawai</th>
-                                    <th class="p-3">Catatan / Alasan</th>
-                                    <th class="p-3 text-right">Pinjaman</th>
-                                    <th class="p-3 text-right">Sisa Kasbon</th>
-                                    <th class="p-3 text-center">Status</th>
-                                    <th class="p-3 text-right">Aksi Pelunasan</th>
-                                </tr>
-                            </thead>
-                            <tbody id="kasbonTableBody" class="divide-y divide-slate-200">
-                                <tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
             <!-- TAB 9: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -981,7 +877,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-chart-line text-amber-600"></i> Laporan Ringkasan Akuntansi
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, Kasbon, dan Laba Bersih berdasarkan rentang tanggal.</p>
+                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih berdasarkan rentang tanggal.</p>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
                             <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
@@ -1055,7 +951,7 @@
                                     <tr>
                                         <th class="p-3">Tanggal</th>
                                         <th class="p-3">Kode</th>
-                                        <th class="p-3">Deskripsi</th>
+                                        <th class="p-3">Deskripsi (Barber - Layanan)</th>
                                         <th class="p-3">Metode</th>
                                         <th class="p-3">Tipe</th>
                                         <th class="p-3 text-right">Nominal</th>
@@ -1069,45 +965,7 @@
             </section>
         </main>
     </div>
-
     <!-- Modals -->
-    <!-- Modal Bayar Kasbon -->
-    <div id="payKasbonModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-                <h3 class="font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-hand-holding-dollar text-emerald-600"></i>
-                    <span>Pelunasan Kasbon (Kas Bertambah)</span>
-                </h3>
-                <button onclick="closeModal('payKasbonModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="text-xs text-slate-600 space-y-1 bg-white p-3 rounded-xl border border-slate-200">
-                <p>Pegawai: <span id="payKasbonName" class="font-bold text-slate-800"></span></p>
-                <p>Sisa Kasbon: <span id="payKasbonRemaining" class="font-bold text-red-600"></span></p>
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Jumlah Pembayaran (Rp)</label>
-                <input type="number" id="payKasbonAmount" placeholder="Masukkan nominal" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Metode Pengembalian ke Kas</label>
-                <select id="payKasbonMethod" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                    <option value="Cash">Cash (Kas Tunai)</option>
-                    <option value="QRIS">QRIS (Digital/Transfer)</option>
-                </select>
-            </div>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('payKasbonModal')" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl transition text-xs">
-                    Batal
-                </button>
-                <button onclick="submitPayKasbon()" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow-sm flex items-center justify-center space-x-1">
-                    <i class="fa-solid fa-arrow-up-long"></i>
-                    <span>Bayar Kasbon</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1124,6 +982,7 @@
         </div>
     </div>
     
+    <!-- Modal Kirim WhatsApp Review -->
     <div id="waReviewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1149,7 +1008,6 @@
             </div>
         </div>
     </div>
-
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1185,7 +1043,6 @@
             </form>
         </div>
     </div>
-
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1196,7 +1053,6 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
-
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1225,9 +1081,7 @@
             </div>
         </div>
     </div>
-    
     <div id="printableReceipt" class="hidden"></div>
-
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0sCEzvFgJc2g8f5Ewkam7fn4lZCPLhC3lxZH_9TJxjkQzgOQD7iZtfGkwm3hy9H1Y/exec";
         const NOMOR_WA_KASIR = "6283853293150";
@@ -1262,7 +1116,6 @@
             { id: "s9", category: "Additional Treatment", name: "Home Servis", price: 100000, desc: "Layanan potong dipanggil ke rumah" },
             { id: "s10", category: "Additional Treatment", name: "Wedding Styling", price: 600000, desc: "Styling khusus pengantin/pesta" }
         ];
-
         let state = {
             isAdminLoggedIn: false,
             activeTab: 'schedule',
@@ -1276,11 +1129,8 @@
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
             expenses: [],
-            reservations: [],
-            kasbon: [], // State Data Kasbon
-            activePayKasbonId: null
+            reservations: []
         };
-
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
         
@@ -1297,7 +1147,6 @@
             }
             switchTab('schedule');
         });
-
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
@@ -1312,7 +1161,6 @@
             }
             return clean;
         }
-
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
@@ -1338,7 +1186,6 @@
             }
             renderBookingBarbers(availableBarbers);
         }
-
         function renderBookingBarbers(listToRender) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
@@ -1354,23 +1201,17 @@
                 </button>
             `).join('');
         }
-
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
-
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
             const expContainer = document.getElementById('expensesTableBody');
-            const kasbonContainer = document.getElementById('kasbonTableBody');
-
             if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
             if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
             if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
-            if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
-
             fetch(GOOGLE_SHEET_WEB_APP_URL)
                 .then(res => res.json())
                 .then(data => {
@@ -1399,7 +1240,6 @@
                     } else {
                         state.transactions = [];
                     }
-
                     if (data.expenses && data.expenses.length > 0) {
                         state.expenses = data.expenses.map(e => ({
                             id: String(e['id pengeluaran'] || e.id || 'BBPK-101'),
@@ -1411,38 +1251,18 @@
                     } else {
                         state.expenses = [];
                     }
-
-                    // Processing Data Kasbon dari Sheet "Kasbon"
-                    if (data.kasbon && data.kasbon.length > 0) {
-                        state.kasbon = data.kasbon.map(k => ({
-                            id: String(k['id kasbon'] || k.id || 'KB-101'),
-                            date: String(k.tanggal || k.date || '').split('T')[0],
-                            employee: String(k.pegawai || k.employee || '-'),
-                            note: String(k.catatan || k.note || '-'),
-                            method: String(k.metode || k.method || 'Cash'),
-                            amount: Number(k.jumlah || k.amount || 0),
-                            paid: Number(k.terbayar || k.paid || 0),
-                            status: String(k.status || 'Belum Lunas')
-                        }));
-                    } else {
-                        state.kasbon = [];
-                    }
-
                     renderScheduleTable();
                     renderTransactionHistory();
                     renderExpensesTable();
-                    renderKasbonTable();
                     renderAccounting();
                 })
                 .catch(err => {
                     console.error("Gagal mengambil data sheet:", err);
-                    if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi/URL Web App.</td></tr>`;
+                    if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal. Periksa koneksi atau URL Web App.</td></tr>`;
                     if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat transaksi.</td></tr>`;
                     if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat pengeluaran.</td></tr>`;
-                    if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat data kasbon.</td></tr>`;
                 });
         }
-
         function renderScheduleTable() {
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
@@ -1483,7 +1303,6 @@
                 `;
             }).join('');
         }
-
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -1494,7 +1313,6 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
-
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             const res = state.reservations[index];
@@ -1538,7 +1356,6 @@
             }
             renderScheduleTable();
         }
-
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1552,7 +1369,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -1560,7 +1376,6 @@
             }
             openModal('addMenuModal');
         }
-
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -1585,7 +1400,6 @@
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
-
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -1600,7 +1414,6 @@
                 renderPOSServices();
             }
         }
-
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -1638,7 +1451,6 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif, serta printer sudah di-pairing.');
             }
         }
-
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1686,13 +1498,11 @@
                 alert("Gagal mencetak ke printer. Pastikan printer menyala dan terhubung kembali.");
             }
         }
-
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
-
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1703,12 +1513,10 @@
                 </button>
             `).join('');
         }
-
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
-
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1727,14 +1535,12 @@
                 </div>
             `).join('');
         }
-
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
-
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -1759,17 +1565,14 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
-
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
-
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
-
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -1783,7 +1586,6 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -1797,18 +1599,15 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function openPrinterModal() {
             openModal('printerModal');
         }
-
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
-
         function switchTab(tabId) {
-            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
+            const adminTabs = ['pos', 'transactions', 'expenses', 'accounting'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
@@ -1834,7 +1633,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -1843,19 +1641,15 @@
             }
             return 'Rp ' + formattedNum;
         }
-
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
-
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
-
         function openLoginModal() {
             openModal('loginModal');
         }
-
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1870,7 +1664,6 @@
                 alert('Kata sandi admin salah!');
             }
         }
-
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
@@ -1878,7 +1671,6 @@
             renderScheduleTable();
             switchTab('schedule');
         }
-
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             container.innerHTML = state.services.map(s => {
@@ -1895,7 +1687,6 @@
                 `;
             }).join('');
         }
-
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1904,7 +1695,6 @@
             }
             renderBookingServices();
         }
-
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             const categories = [...new Set(state.services.map(s => s.category))];
@@ -1925,7 +1715,6 @@
                 </div>
             `).join('');
         }
-
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
@@ -1972,7 +1761,6 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
-
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -2030,7 +1818,6 @@
             if (inputWA) inputWA.value = '08';
             openModal('waReviewModal');
         }
-
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
@@ -2048,7 +1835,6 @@
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
-
         function setTxFilterToday() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('filterTxStartDate').value = today;
@@ -2082,7 +1868,6 @@
             document.getElementById('filterAccEndDate').value = '';
             renderAccounting();
         }
-
         function renderTransactionHistory() {
             const body = document.getElementById('transactionHistoryTable');
             if (!body) return;
@@ -2122,7 +1907,6 @@
                 `;
             }).join('');
         }
-
         function viewTransactionDetail(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -2187,7 +1971,6 @@
             `;
             openModal('detailTxModal');
         }
-
         function processRefund(txId) {
             const pwd = prompt('Masukkan kata sandi keamanan refund (CahyaBaruSolid):');
             if (pwd === null) return;
@@ -2204,7 +1987,6 @@
                 alert('Pengembalian dana (Refund) berhasil!');
             }
         }
-
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -2242,7 +2024,6 @@
             renderAccounting();
             alert('Pengeluaran berhasil dicatat & disinkronkan ke Sheet!');
         }
-
         function renderExpensesTable() {
             const body = document.getElementById('expensesTableBody');
             if (!body) return;
@@ -2269,292 +2050,6 @@
                 </tr>
             `).join('');
         }
-
-        /* LOGIKA MODUL KASBON PEGAWAI */
-        function handleAddKasbon(e) {
-            e.preventDefault();
-            const employee = document.getElementById('kasbonEmployee').value;
-            const amount = Number(document.getElementById('kasbonAmount').value);
-            const method = document.getElementById('kasbonSourceMethod').value;
-            const note = document.getElementById('kasbonNote').value || 'Kasbon Pegawai';
-
-            if (!employee || !amount || amount <= 0) {
-                alert('Pilih pegawai dan masukkan nominal pinjaman kasbon!');
-                return;
-            }
-
-            let nextNum = 101;
-            if (state.expenses.length > 0) {
-                const maxNum = state.expenses.reduce((max, ex) => {
-                    if (ex.id && ex.id.startsWith('BBPK-')) {
-                        const num = parseInt(ex.id.replace('BBPK-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
-
-            // Catat Pinjaman Kasbon langsung ke Sheet Pengeluaran
-            const expenseItem = {
-                type: 'expense',
-                id: 'BBPK-' + nextNum,
-                date: new Date().toISOString().split('T')[0],
-                desc: `[Kasbon] ${employee} - ${note}`,
-                paymentMethod: method,
-                amount: amount
-            };
-
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(expenseItem)
-            }).catch(err => console.error("Kasbon sheet error:", err));
-
-            // Cukup masukkan ke state.kasbon saja, agar tidak double tercatat sebagai pengeluaran manual di state.expenses
-            state.kasbon.unshift({
-                id: expenseItem.id,
-                date: expenseItem.date,
-                employee: employee,
-                note: note,
-                method: method,
-                amount: amount,
-                paid: 0,
-                status: 'Belum Lunas'
-            });
-
-            document.getElementById('kasbonEmployee').value = '';
-            document.getElementById('kasbonAmount').value = '';
-            document.getElementById('kasbonNote').value = '';
-
-            renderExpensesTable();
-            renderKasbonTable();
-            renderAccounting();
-            alert(`Kasbon sebesar ${formatRp(amount)} untuk ${employee} berhasil dicatat!`);
-        }
-
-        function openPayKasbonModal(kasbonId) {
-            const k = state.kasbon.find(x => x.id === kasbonId);
-            if (!k) return;
-            state.activePayKasbonId = kasbonId;
-            const remaining = k.amount - (k.paid || 0);
-
-            document.getElementById('payKasbonName').innerText = k.employee;
-            document.getElementById('payKasbonRemaining').innerText = formatRp(remaining);
-            document.getElementById('payKasbonAmount').value = remaining;
-
-            openModal('payKasbonModal');
-        }
-
-        function submitPayKasbon() {
-            const kasbonId = state.activePayKasbonId;
-            const kIndex = state.kasbon.findIndex(x => x.id === kasbonId);
-            if (kIndex === -1) return;
-
-            const payAmount = Number(document.getElementById('payKasbonAmount').value);
-            const method = document.getElementById('payKasbonMethod').value;
-            if (!payAmount || payAmount <= 0) {
-                alert('Masukkan nominal pelunasan yang valid!');
-                return;
-            }
-
-            const k = state.kasbon[kIndex];
-            const remaining = k.amount - (k.paid || 0);
-
-            if (payAmount > remaining) {
-                alert(`Nominal pelunasan melebihi sisa kasbon (${formatRp(remaining)})!`);
-                return;
-            }
-
-            const newPaid = (k.paid || 0) + payAmount;
-            const newSisaKasbon = k.amount - newPaid;
-            const newStatus = newSisaKasbon <= 0 ? 'Lunas' : 'Dicicil';
-
-            state.kasbon[kIndex].paid = newPaid;
-            state.kasbon[kIndex].status = newStatus;
-
-            // Update ke Sheet Kasbon (Sisa Kasbon menjadi 0 / sisa baru)
-            const updatePayload = {
-                type: 'pay_kasbon',
-                id: k.id,
-                sisaKasbon: newSisaKasbon,
-                status: newStatus,
-                newPaid: newPaid
-            };
-
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatePayload)
-            }).catch(err => console.error("Pay kasbon sync error:", err));
-
-            let nextNum = 101;
-            if (state.expenses.length > 0) {
-                const maxNum = state.expenses.reduce((max, ex) => {
-                    if (ex.id && ex.id.startsWith('BBPK-')) {
-                        const num = parseInt(ex.id.replace('BBPK-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
-
-            // Pelunasan dikirim sebagai pengeluaran bernilai negatif (-payAmount) untuk menambah kas kembali
-            const refundExpenseItem = {
-                type: 'expense',
-                id: 'BBPK-' + nextNum,
-                date: new Date().toISOString().split('T')[0],
-                desc: `[Pelunasan Kasbon] ${k.employee} - ${k.id}`,
-                paymentMethod: method,
-                amount: -payAmount
-            };
-
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(refundExpenseItem)
-            }).catch(err => console.error("Pay kasbon expense error:", err));
-
-            state.expenses.unshift(refundExpenseItem);
-
-            closeModal('payKasbonModal');
-            renderExpensesTable();
-            renderKasbonTable();
-            renderAccounting();
-            alert(`Pelunasan Kasbon sebesar ${formatRp(payAmount)} berhasil! Sisa Kasbon di Spreadsheet berubah menjadi ${formatRp(newSisaKasbon)}.`);
-        }
-
-        function submitPayKasbon() {
-            const kasbonId = state.activePayKasbonId;
-            const kIndex = state.kasbon.findIndex(x => x.id === kasbonId);
-            if (kIndex === -1) return;
-
-            const payAmount = Number(document.getElementById('payKasbonAmount').value);
-            const method = document.getElementById('payKasbonMethod').value;
-            if (!payAmount || payAmount <= 0) {
-                alert('Masukkan nominal pelunasan yang valid!');
-                return;
-            }
-
-            const k = state.kasbon[kIndex];
-            const remaining = k.amount - (k.paid || 0);
-
-            if (payAmount > remaining) {
-                alert(`Nominal pelunasan melebihi sisa kasbon (${formatRp(remaining)})!`);
-                return;
-            }
-
-            const newPaid = (k.paid || 0) + payAmount;
-            const newStatus = newPaid >= k.amount ? 'Lunas' : 'Dicicil';
-
-            state.kasbon[kIndex].paid = newPaid;
-            state.kasbon[kIndex].status = newStatus;
-
-            let nextNum = 101;
-            if (state.expenses.length > 0) {
-                const maxNum = state.expenses.reduce((max, ex) => {
-                    if (ex.id && ex.id.startsWith('BBPK-')) {
-                        const num = parseInt(ex.id.replace('BBPK-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
-
-            // Pelunasan dikirim sebagai pengeluaran bernilai negatif (-payAmount) untuk menambah kas kembali
-            const refundExpenseItem = {
-                type: 'expense',
-                id: 'BBPK-' + nextNum,
-                date: new Date().toISOString().split('T')[0],
-                desc: `[Pelunasan Kasbon] ${k.employee} - ${k.id}`,
-                paymentMethod: method,
-                amount: -payAmount
-            };
-
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(refundExpenseItem)
-            }).catch(err => console.error("Pay kasbon error:", err));
-
-            state.expenses.unshift(refundExpenseItem);
-
-            closeModal('payKasbonModal');
-            renderExpensesTable();
-            renderKasbonTable();
-            renderAccounting();
-            alert(`Pelunasan Kasbon sebesar ${formatRp(payAmount)} berhasil dicatat! Kas bertambah kembali.`);
-        }
-
-        function renderKasbonTable() {
-            const body = document.getElementById('kasbonTableBody');
-            const summaryGrid = document.getElementById('kasbonSummaryGrid');
-            if (!body) return;
-
-            // Compute Total Kasbon per Pegawai
-            let employeeKasbonMap = {};
-            const allEmployees = ['Fadil', 'Adit', 'Wawan', 'Nain', 'Reza', 'Mutawali', 'Bonar'];
-            allEmployees.forEach(emp => employeeKasbonMap[emp] = 0);
-
-            state.kasbon.forEach(k => {
-                const sisa = k.amount - (k.paid || 0);
-                if (employeeKasbonMap.hasOwnProperty(k.employee)) {
-                    employeeKasbonMap[k.employee] += sisa;
-                } else {
-                    employeeKasbonMap[k.employee] = sisa;
-                }
-            });
-
-            if (summaryGrid) {
-                summaryGrid.innerHTML = allEmployees.map(emp => `
-                    <div class="bg-white border border-slate-200 p-3 rounded-xl text-center shadow-2xs">
-                        <p class="text-xs font-bold text-slate-700">${emp}</p>
-                        <p class="text-sm font-extrabold ${employeeKasbonMap[emp] > 0 ? 'text-red-600' : 'text-emerald-600'} mt-1">${formatRp(employeeKasbonMap[emp])}</p>
-                        <p class="text-[10px] text-slate-400">Sisa Kasbon</p>
-                    </div>
-                `).join('');
-            }
-
-            if (!state.kasbon || state.kasbon.length === 0) {
-                body.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Belum ada riwayat catatan kasbon.</td></tr>`;
-                return;
-            }
-
-            body.innerHTML = state.kasbon.map(k => {
-                const sisa = k.amount - (k.paid || 0);
-                let badgeClass = 'bg-red-100 text-red-800 border-red-300';
-                if (k.status === 'Lunas') badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-                else if (k.status === 'Dicicil') badgeClass = 'bg-blue-100 text-blue-800 border-blue-300';
-
-                return `
-                    <tr class="hover:bg-slate-100/60">
-                        <td class="p-3 font-mono text-xs text-amber-800 font-semibold">${k.id}</td>
-                        <td class="p-3 text-xs text-slate-500">${k.date}</td>
-                        <td class="p-3 font-bold text-slate-800">${k.employee}</td>
-                        <td class="p-3 text-xs text-slate-600">${k.note} (${k.method})</td>
-                        <td class="p-3 font-semibold text-slate-800 text-right">${formatRp(k.amount)}</td>
-                        <td class="p-3 font-bold text-red-600 text-right">${formatRp(sisa)}</td>
-                        <td class="p-3 text-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeClass}">${k.status}</span>
-                        </td>
-                        <td class="p-3 text-right">
-                            ${sisa > 0 ? `
-                                <button onclick="openPayKasbonModal('${k.id}')" class="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border border-emerald-300 font-bold px-3 py-1 rounded-lg text-xs transition">
-                                    <i class="fa-solid fa-hand-holding-dollar mr-1"></i> Bayar
-                                </button>
-                            ` : `<span class="text-xs text-slate-400 italic">Lunas</span>`}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
         function renderAccounting() {
             const cashEl = document.getElementById('accCash');
             const qrisEl = document.getElementById('accQRIS');
@@ -2583,18 +2078,12 @@
                 return true;
             });
 
-            let filteredKasbon = state.kasbon.filter(k => {
-                let kDate = parseStandardDate(k.date);
-                if (startDate && kDate < startDate) return false;
-                if (endDate && kDate > endDate) return false;
-                return true;
-            });
-
             // Hitung Jumlah Cukur & Total Pendapatan per Barber
             let barberCounts = {};
             let barberTotalRevenue = {};
             let grandTotalCount = 0;
             let grandTotalRevenue = 0;
+
             BARBERS.forEach(b => {
                 barberCounts[b.name] = 0;
                 barberTotalRevenue[b.name] = 0;
@@ -2610,6 +2099,7 @@
                     } else {
                         totalQRISRevenue += t.total;
                     }
+                    // Akumulasi kepala/cukur dan nominal pendapatan barber
                     let rawBarber = t.barberName || '';
                     let foundB = BARBERS.find(b => b.name.toLowerCase() === rawBarber.toLowerCase());
                     let barberNameKey = foundB ? foundB.name : rawBarber;
@@ -2623,6 +2113,7 @@
                 }
             });
 
+            // Render Tampilan Kartu Rekap per Barber + Total Keseluruhan di Bawah
             if (barberSummaryEl) {
                 let barberCardsHTML = BARBERS.map(b => `
                     <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl text-center shadow-2xs space-y-1">
@@ -2633,6 +2124,7 @@
                     </div>
                 `).join('');
 
+                // Kotak Total Pendapatan Kepala di Bagian Bawah
                 let grandTotalCardHTML = `
                     <div class="col-span-full bg-amber-50 border-2 border-amber-300 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-2 shadow-2xs mt-2">
                         <div class="flex items-center space-x-2 text-amber-900 font-bold text-sm">
@@ -2646,6 +2138,7 @@
                         </div>
                     </div>
                 `;
+
                 barberSummaryEl.innerHTML = `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 w-full">${barberCardsHTML}</div>` + grandTotalCardHTML;
             }
 
@@ -2658,32 +2151,16 @@
                     totalQRISExpense += e.amount;
                 }
             });
-
-            // Perhitungan Dampak Kasbon terhadap Kas:
-            // Pinjam Kasbon -> mengurangi Kas
-            // Pelunasan Kasbon -> menambah Kas
-            filteredKasbon.forEach(k => {
-                if (k.method === 'Cash') {
-                    totalCashExpense += k.amount; // Kasbon baru keluar dari Cash
-                    totalCashRevenue += (k.paid || 0); // Pengembalian Kasbon masuk ke Cash
-                } else {
-                    totalQRISExpense += k.amount;
-                    totalQRISRevenue += (k.paid || 0);
-                }
-            });
-
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
             const totalExpenses = totalCashExpense + totalQRISExpense;
             const netProfit = totalRevenue - totalExpenses;
-
             cashEl.innerText = formatRp(netCash);
             qrisEl.innerText = formatRp(netQRIS);
             revEl.innerText = formatRp(totalRevenue);
             expEl.innerText = formatRp(totalExpenses);
             netEl.innerText = formatRp(netProfit);
-
             let ledgerItems = [];
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
@@ -2708,7 +2185,6 @@
                     });
                 }
             });
-
             filteredExp.forEach(e => {
                 ledgerItems.push({
                     date: e.date,
@@ -2719,33 +2195,10 @@
                     amount: -e.amount
                 });
             });
-
-            filteredKasbon.forEach(k => {
-                ledgerItems.push({
-                    date: k.date,
-                    code: k.id,
-                    desc: `Kasbon Pegawai (${k.employee}) - ${k.note}`,
-                    method: k.method || 'Cash',
-                    type: 'Pinjam Kasbon',
-                    amount: -k.amount
-                });
-                if (k.paid && k.paid > 0) {
-                    ledgerItems.push({
-                        date: k.date,
-                        code: k.id + '-PAY',
-                        desc: `Pelunasan Kasbon (${k.employee})`,
-                        method: k.method || 'Cash',
-                        type: 'Pelunasan Kasbon',
-                        amount: k.paid
-                    });
-                }
-            });
-
             if (ledgerItems.length === 0) {
                 ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada rentang tanggal tersebut.</td></tr>`;
                 return;
             }
-
             ledgerBody.innerHTML = ledgerItems.map(item => `
                 <tr class="hover:bg-slate-100/60">
                     <td class="p-3 text-xs text-slate-500">${item.date}</td>
@@ -2755,13 +2208,12 @@
                         <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.method === 'Cash' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-cyan-100 text-cyan-800 border border-cyan-300'}">${item.method}</span>
                     </td>
                     <td class="p-3">
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.amount >= 0 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${item.type}</span>
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${item.type === 'Pemasukan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-red-100 text-red-800 border border-red-300'}">${item.type}</span>
                     </td>
                     <td class="p-3 font-bold text-right ${item.amount >= 0 ? 'text-emerald-700' : 'text-red-700'}">${formatRp(item.amount)}</td>
                 </tr>
             `).join('');
         }
-
         function exportToExcel() {
             const startDate = document.getElementById('filterAccStartDate').value;
             const endDate = document.getElementById('filterAccEndDate').value;
@@ -2777,7 +2229,6 @@
                 if (endDate && eDate > endDate) return false;
                 return true;
             });
-
             let totalCashRevenue = 0;
             let totalQRISRevenue = 0;
             filteredTx.forEach(t => {
@@ -2786,14 +2237,12 @@
                     else totalQRISRevenue += t.total;
                 }
             });
-
             let totalCashExpense = 0;
             let totalQRISExpense = 0;
             filteredExp.forEach(e => {
                 if ((e.paymentMethod || 'Cash') === 'Cash') totalCashExpense += e.amount;
                 else totalQRISExpense += e.amount;
             });
-
             const netCash = totalCashRevenue - totalCashExpense;
             const netQRIS = totalQRISRevenue - totalQRISExpense;
             const totalRevenue = totalCashRevenue + totalQRISRevenue;
@@ -2808,7 +2257,6 @@
                     barberStats[b.name][s.name] = { count: 0, total: 0 };
                 });
             });
-
             filteredTx.forEach(t => {
                 if (t.status === 'Lunas') {
                     const bName = t.barberName;
@@ -2825,7 +2273,6 @@
                     });
                 }
             });
-
             let excelTemplate = `<?xml version="1.0" encoding="UTF-8"?>
             <?mso-application progid="Excel.Sheet"?>
             <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -2882,7 +2329,7 @@
                 <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
                </Borders>
               </Style>
-              <Style ss:ID="NumberStyle">
+              <Style ss:ID="NumberStyle">   
                <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
                <Borders>
                 <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
@@ -2938,12 +2385,14 @@
              </Styles>
              <Worksheet ss:Name="Laporan Keuangan">
               <Table>
+               <!-- PENGATURAN LEBAR KOLOM (COLUMN WIDTH) -->
                <Column ss:Width="110"/>
                <Column ss:Width="110"/>
                <Column ss:Width="230"/>
                <Column ss:Width="130"/>
                <Column ss:Width="100"/>
                <Column ss:Width="120"/>
+               <!-- HEADER JUDUL -->
                <Row ss:Height="24">
                 <Cell ss:MergeAcross="5" ss:StyleID="TitleStyle"><Data ss:Type="String">LAPORAN KEUANGAN CAHYA BARU BARBERSHOP</Data></Cell>
                </Row>
@@ -2951,6 +2400,7 @@
                 <Cell ss:MergeAcross="5" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Filter Periode: ${dateFormatted}</Data></Cell>
                </Row>
                <Row ss:Height="10"></Row>
+               <!-- 1. RINGKASAN KEUANGAN -->
                <Row ss:Height="22">
                 <Cell ss:MergeAcross="1" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 1. RINGKASAN KEUANGAN</Data></Cell>
                </Row>
@@ -2979,22 +2429,25 @@
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${netProfit}</Data></Cell>
                </Row>
                <Row ss:Height="15"></Row>
+               <!-- 2. JURNAL MUTASI KEUANGAN -->
                <Row ss:Height="22">
                 <Cell ss:MergeAcross="5" ss:StyleID="SectionHeaderStyle"><Data ss:Type="String"> 2. JURNAL MUTASI KEUANGAN</Data></Cell>
                </Row>
                <Row ss:Height="20">
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Tanggal</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Kode Transaksi</Data></Cell>
-                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi</Data></Cell>
+                <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Deskripsi (Barber &amp; Layanan)</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Metode</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jenis Mutasi</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Nominal (Rp)</Data></Cell>
                </Row>`;
-
             filteredTx.forEach(t => {
                 const serviceNames = Array.isArray(t.items) ? t.items.map(i => i.name || i).join(', ') : t.items;
                 const descStr = `${t.barberName} - ${serviceNames}`;
+                
+                // Murni mengambil tanggal saja tanpa jam
                 let cleanDate = parseStandardDate(t.date);
+
                 if (t.status === 'Lunas') {
                     excelTemplate += `
                <Row ss:Height="19">
@@ -3017,7 +2470,6 @@
                </Row>`;
                 }
             });
-
             filteredExp.forEach(e => {
                 let cleanDate = parseStandardDate(e.date);
                 excelTemplate += `
@@ -3030,7 +2482,7 @@
                 <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">${-e.amount}</Data></Cell>
                </Row>`;
             });
-
+            // 3. REKAP PENDAPATAN PERBARBER DAN LAYANAN
             excelTemplate += `
                <Row ss:Height="15"></Row>
                <Row ss:Height="22">
@@ -3042,7 +2494,6 @@
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Jumlah Kepala (Qty)</Data></Cell>
                 <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Nominal (Rp)</Data></Cell>
                </Row>`;
-
             BARBERS.forEach(b => {
                 const bName = b.name;
                 let totalQtyBarber = 0;
@@ -3067,7 +2518,6 @@
                 <Cell ss:StyleID="TotalCurrencyStyle"><Data ss:Type="Number">${totalNominalBarber}</Data></Cell>
                </Row>`;
             });
-
             excelTemplate += `
               </Table>
              </Worksheet>
@@ -3081,7 +2531,6 @@
             link.click();
             document.body.removeChild(link);
         }
-
         function confirmResetMonth() {
             const pwd = prompt('Masukkan kata sandi reset akhir bulan:');
             if (pwd === null) return;
@@ -3089,10 +2538,8 @@
                 if (confirm('Apakah Anda yakin ingin mereset seluruh data transaksi dan pengeluaran?')) {
                     state.transactions = [];
                     state.expenses = [];
-                    state.kasbon = [];
                     renderTransactionHistory();
                     renderExpensesTable();
-                    renderKasbonTable();
                     renderAccounting();
                     alert('Tampilan laporan berhasil direset!');
                 }
