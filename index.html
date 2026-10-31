@@ -80,7 +80,6 @@
             </div>
         </div>
     </header>
-
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
         <aside id="sidebarNav" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-100 border-r border-slate-300 p-4 transform -translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto lg:w-60 lg:bg-transparent lg:border-none lg:p-0 flex flex-col justify-between shadow-lg lg:shadow-none">
             <div class="space-y-6">
@@ -130,6 +129,10 @@
                             <i class="fa-solid fa-money-bill-transfer w-5 text-amber-600"></i>
                             <span>Pengeluaran Kas</span>
                         </button>
+                        <button onclick="switchTab('kasbon')" id="nav-kasbon" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-hand-holding-dollar w-5 text-amber-600"></i>
+                            <span>Catatan Kasbon</span>
+                        </button>
                         <button onclick="switchTab('accounting')" id="nav-accounting" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
                             <i class="fa-solid fa-chart-line w-5 text-amber-600"></i>
                             <span>Laporan Akuntansi</span>
@@ -142,7 +145,6 @@
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
-
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Jadwal Reservasi -->
             <section id="tab-schedule" class="tab-content space-y-6">
@@ -184,7 +186,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 2: Booking Form -->
             <section id="tab-booking" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -249,7 +250,6 @@
                     </form>
                 </div>
             </section>
-
             <!-- TAB 3: Services List -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -262,7 +262,6 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-
             <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan -->
             <section id="tab-education" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -320,7 +319,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 2. School Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -368,7 +366,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 3. Work Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -416,7 +413,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 4. Daily Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -494,7 +490,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 5. Natural Haircut -->
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                             <div class="flex items-center gap-2 text-amber-700 font-bold border-b border-slate-100 pb-2">
@@ -525,7 +520,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 5: Tentang Kami -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -677,7 +671,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 6: POS Register & Menu Management -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -748,7 +741,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 7: Transaction History -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -764,9 +756,17 @@
                             <span>Refresh Data</span>
                         </button>
                     </div>
-                    <!-- Filter Tanggal -->
-                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
-                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <!-- Filter Transaksi -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <select id="filterTxMethod" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                                    <option value="ALL">Semua Metode (CASH & QRIS)</option>
+                                    <option value="Cash">Hanya CASH</option>
+                                    <option value="QRIS">Hanya QRIS</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
                                 <input type="date" id="filterTxStartDate" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
@@ -776,9 +776,9 @@
                                 <input type="date" id="filterTxEndDate" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button type="button" onclick="setTxFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
-                            <button type="button" onclick="resetTxFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setTxFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetTxFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -802,7 +802,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 8: Expenses -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -849,8 +848,16 @@
                         </div>
                     </form>
                     <!-- Filter Pengeluaran -->
-                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
-                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <select id="filterExpMethod" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                                    <option value="ALL">Semua Metode (CASH & QRIS)</option>
+                                    <option value="Cash">Hanya CASH</option>
+                                    <option value="QRIS">Hanya QRIS</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
                                 <input type="date" id="filterExpStartDate" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
@@ -860,9 +867,9 @@
                                 <input type="date" id="filterExpEndDate" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button type="button" onclick="setExpFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
-                            <button type="button" onclick="resetExpFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setExpFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetExpFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -882,7 +889,111 @@
                     </div>
                 </div>
             </section>
-
+            <!-- TAB KASBON -->
+            <section id="tab-kasbon" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-200">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-hand-holding-dollar text-amber-600"></i> Pencatatan Kasbon Karyawan
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Catat pinjaman kasbon. Nominal dicatat pada sheet expenses dan mempengaruhi kas.</p>
+                        </div>
+                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Refresh Data</span>
+                        </button>
+                    </div>
+                    <!-- Form Tambah Kasbon -->
+                    <form onsubmit="handleAddKasbon(event)" class="space-y-4 pb-6 border-b border-slate-200">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Pilih Barber / Karyawan</label>
+                                <select id="kasbonBarberName" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+                                    <option value="">-- Pilih Barber --</option>
+                                    <option value="Fadil">Fadil</option>
+                                    <option value="Adit">Adit</option>
+                                    <option value="Wawan">Wawan</option>
+                                    <option value="Nain">Nain</option>
+                                    <option value="Reza">Reza</option>
+                                    <option value="Mutawali">Mutawali</option>
+                                    <option value="Bonar">Bonar (Kasir)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah Kasbon (Rp)</label>
+                                <input type="number" id="kasbonAmount" required placeholder="100000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Catatan / Keperluan</label>
+                                <input type="text" id="kasbonNote" placeholder="Contoh: Keperluan Mendesak" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Metode Penarikan Kasbon</label>
+                            <div class="grid grid-cols-2 gap-3 max-w-sm">
+                                <button type="button" onclick="setKasbonPaymentMethod('Cash')" id="kasbonCash" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                    <span>CASH (Tunai)</span>
+                                </button>
+                                <button type="button" onclick="setKasbonPaymentMethod('QRIS')" id="kasbonQRIS" class="py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600">
+                                    <i class="fa-solid fa-qrcode"></i>
+                                    <span>QRIS (Digital)</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex justify-end pt-2">
+                            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm shadow-xs">
+                                Simpan Kasbon Baru
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Filter Kasbon -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <select id="filterKasbonMethod" onchange="renderKasbonTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                                    <option value="ALL">Semua Metode (CASH & QRIS)</option>
+                                    <option value="Cash">Hanya CASH</option>
+                                    <option value="QRIS">Hanya QRIS</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterKasbonStartDate" onchange="renderKasbonTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterKasbonEndDate" onchange="renderKasbonTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setKasbonFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetKasbonFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        </div>
+                    </div>
+                    <!-- Tabel Kasbon -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
+                                <tr>
+                                    <th class="p-3">ID Kasbon</th>
+                                    <th class="p-3">Tanggal</th>
+                                    <th class="p-3">Peminjam / Barber</th>
+                                    <th class="p-3">Metode</th>
+                                    <th class="p-3">Catatan</th>
+                                    <th class="p-3 text-right">Nominal Sisa</th>
+                                    <th class="p-3 text-center">Aksi / Pelunasan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kasbonTableBody" class="divide-y divide-slate-200">
+                                <tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
             <!-- TAB 9: Accounting Reports -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -891,7 +1002,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-chart-line text-amber-600"></i> Laporan Ringkasan Akuntansi
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Rincian Cash & QRIS, Pengeluaran, dan Laba Bersih berdasarkan rentang tanggal.</p>
+                            <p class="text-sm text-slate-600 mt-1">Laporan Omset, Saldo Cash & QRIS Bersih (setelah dikurangi pengeluaran/kasbon), dan Laba.</p>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
                             <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
@@ -909,8 +1020,16 @@
                         </div>
                     </div>
                     <!-- Filter Akuntansi -->
-                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4">
-                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <select id="filterAccMethod" onchange="renderAccounting()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                                    <option value="ALL">Semua Metode (CASH & QRIS)</option>
+                                    <option value="Cash">Hanya CASH</option>
+                                    <option value="QRIS">Hanya QRIS</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
                                 <input type="date" id="filterAccStartDate" onchange="renderAccounting()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
@@ -920,19 +1039,21 @@
                                 <input type="date" id="filterAccEndDate" onchange="renderAccounting()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button type="button" onclick="setAccFilterToday()" class="flex-1 sm:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
-                            <button type="button" onclick="resetAccFilter()" class="flex-1 sm:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setAccFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetAccFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
-                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pendapatan Cash</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase">Saldo Cash Bersih</p>
                             <p id="accCash" class="text-xl font-bold text-amber-700 mt-2">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Pendapatan Cash - Pengeluaran Cash</p>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
-                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pendapatan QRIS</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase">Saldo QRIS Bersih</p>
                             <p id="accQRIS" class="text-xl font-bold text-cyan-700 mt-2">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Pendapatan QRIS - Pengeluaran QRIS</p>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
                             <p class="text-xs font-bold text-slate-500 uppercase">Total Omset Penjualan</p>
@@ -953,7 +1074,7 @@
                             <p class="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-solid fa-scissors text-amber-600"></i> Jumlah Cukur / Kepala & Total Pendapatan per Barber
                             </p>
-                            <span class="text-[11px] text-slate-400 font-medium italic">Filter Sesuai Tanggal</span>
+                            <span class="text-[11px] text-slate-400 font-medium italic">Filter Sesuai Tanggal & Metode</span>
                         </div>
                         <div id="barberCountSummary" class="space-y-3 pt-1"></div>
                     </div>
@@ -979,7 +1100,6 @@
             </section>
         </main>
     </div>
-
     <!-- Modals -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
@@ -1023,7 +1143,6 @@
             </div>
         </div>
     </div>
-
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1059,7 +1178,6 @@
             </form>
         </div>
     </div>
-
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1070,7 +1188,6 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
-
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-slate-200">
@@ -1100,7 +1217,6 @@
         </div>
     </div>
     <div id="printableReceipt" class="hidden"></div>
-
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0sCEzvFgJc2g8f5Ewkam7fn4lZCPLhC3lxZH_9TJxjkQzgOQD7iZtfGkwm3hy9H1Y/exec";
         const NOMOR_WA_KASIR = "6283853293150";
@@ -1144,6 +1260,7 @@
             cart: [],
             posPaymentMethod: 'Cash',
             expPaymentMethod: 'Cash',
+            kasbonPaymentMethod: 'Cash',
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
@@ -1158,17 +1275,20 @@
             const filterTxEnd = document.getElementById('filterTxEndDate');
             const filterExpStart = document.getElementById('filterExpStartDate');
             const filterExpEnd = document.getElementById('filterExpEndDate');
+            const filterKasbonStart = document.getElementById('filterKasbonStartDate');
+            const filterKasbonEnd = document.getElementById('filterKasbonEndDate');
             const filterAccStart = document.getElementById('filterAccStartDate');
             const filterAccEnd = document.getElementById('filterAccEndDate');
             
-            // Set default filter kosong agar semua tanggal data langsung muncul tanpa tersaring tanggal sistem
             if (filterTxStart) filterTxStart.value = '';
             if (filterTxEnd) filterTxEnd.value = '';
             if (filterExpStart) filterExpStart.value = '';
             if (filterExpEnd) filterExpEnd.value = '';
+            if (filterKasbonStart) filterKasbonStart.value = '';
+            if (filterKasbonEnd) filterKasbonEnd.value = '';
             if (filterAccStart) filterAccStart.value = '';
             if (filterAccEnd) filterAccEnd.value = '';
-
+            
             renderBookingServices();
             renderFullServices();
             renderPOSBarbers();
@@ -1181,7 +1301,6 @@
             }
             switchTab('schedule');
         });
-
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
@@ -1204,7 +1323,6 @@
             }
             return clean;
         }
-
         function isDateInRange(dateStr, startStr, endStr) {
             if (!dateStr) return false;
             let normalized = parseStandardDate(dateStr);
@@ -1223,7 +1341,6 @@
             }
             return true;
         }
-
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
@@ -1249,7 +1366,6 @@
             }
             renderBookingBarbers(availableBarbers);
         }
-
         function renderBookingBarbers(listToRender) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
@@ -1265,20 +1381,20 @@
                 </button>
             `).join('');
         }
-
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
-
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
             const expContainer = document.getElementById('expensesTableBody');
+            const kasbonContainer = document.getElementById('kasbonTableBody');
             
             if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
             if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
             if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
+            if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
             
             fetch(GOOGLE_SHEET_WEB_APP_URL)
                 .then(res => res.json())
@@ -1308,7 +1424,6 @@
                     } else {
                         state.transactions = [];
                     }
-
                     if (data.expenses && data.expenses.length > 0) {
                         state.expenses = data.expenses.map(e => ({
                             id: String(e['id pengeluaran'] || e.id || 'BBPK-101'),
@@ -1320,10 +1435,10 @@
                     } else {
                         state.expenses = [];
                     }
-
                     renderScheduleTable();
                     renderTransactionHistory();
                     renderExpensesTable();
+                    renderKasbonTable();
                     renderAccounting();
                 })
                 .catch(err => {
@@ -1331,9 +1446,9 @@
                     if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal.</td></tr>`;
                     if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat transaksi.</td></tr>`;
                     if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat pengeluaran.</td></tr>`;
+                    if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat kasbon.</td></tr>`;
                 });
         }
-
         function renderScheduleTable() {
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
@@ -1374,7 +1489,6 @@
                 `;
             }).join('');
         }
-
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -1385,7 +1499,6 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
-
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             const res = state.reservations[index];
@@ -1404,7 +1517,6 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatePayload)
             }).catch(err => console.error("Gagal update status ke sheet:", err));
-
             if (newStatus === 'Selesai') {
                 const barberName = res.barber || 'Fadil';
                 const foundBarber = BARBERS.find(b => b.name.toLowerCase() === barberName.toLowerCase());
@@ -1430,7 +1542,6 @@
             }
             renderScheduleTable();
         }
-
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1444,7 +1555,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -1452,7 +1562,6 @@
             }
             openModal('addMenuModal');
         }
-
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -1477,7 +1586,6 @@
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
-
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -1492,7 +1600,6 @@
                 renderPOSServices();
             }
         }
-
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -1530,7 +1637,6 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
             }
         }
-
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1578,13 +1684,11 @@
                 alert("Gagal mencetak ke printer.");
             }
         }
-
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
-
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1595,12 +1699,10 @@
                 </button>
             `).join('');
         }
-
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
-
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1619,14 +1721,12 @@
                 </div>
             `).join('');
         }
-
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
-
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -1651,56 +1751,62 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
-
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
-
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
-
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
             const btnQRIS = document.getElementById('pmQRIS');
             if (!btnCash || !btnQRIS) return;
             if (method === 'Cash') {
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
                 btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             } else {
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
             const btnQRIS = document.getElementById('expQRIS');
             if (!btnCash || !btnQRIS) return;
             if (method === 'Cash') {
-                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
                 btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             } else {
-                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
+        function setKasbonPaymentMethod(method) {
+            state.kasbonPaymentMethod = method;
+            const btnCash = document.getElementById('kasbonCash');
+            const btnQRIS = document.getElementById('kasbonQRIS');
+            if (!btnCash || !btnQRIS) return;
+            if (method === 'Cash') {
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
+            } else {
+                btnQRIS.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-amber-100 border-amber-600 text-amber-900 shadow-2xs";
+                btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
+            }
+        }
         function openPrinterModal() {
             openModal('printerModal');
         }
-
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
-
         function switchTab(tabId) {
-            const adminTabs = ['pos', 'transactions', 'expenses', 'accounting'];
+            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
@@ -1726,7 +1832,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -1735,19 +1840,15 @@
             }
             return 'Rp ' + formattedNum;
         }
-
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
-
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
-
         function openLoginModal() {
             openModal('loginModal');
         }
-
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1762,7 +1863,6 @@
                 alert('Kata sandi admin salah!');
             }
         }
-
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
@@ -1770,9 +1870,9 @@
             renderScheduleTable();
             switchTab('schedule');
         }
-
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
+            if (!container) return;
             container.innerHTML = state.services.map(s => {
                 const isSelected = state.resSelectedServices.includes(s.id);
                 return `
@@ -1787,7 +1887,6 @@
                 `;
             }).join('');
         }
-
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1796,9 +1895,9 @@
             }
             renderBookingServices();
         }
-
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
+            if (!container) return;
             const categories = [...new Set(state.services.map(s => s.category))];
             container.innerHTML = categories.map(cat => `
                 <div class="space-y-3">
@@ -1817,7 +1916,6 @@
                 </div>
             `).join('');
         }
-
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
@@ -1854,7 +1952,6 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reservationData)
             }).catch(err => console.error("Sheet error:", err));
-
             const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
@@ -1865,7 +1962,6 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
-
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -1902,7 +1998,6 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(transaction)
             }).catch(err => console.error("Sheet transaction error:", err));
-
             const localTx = {
                 id: transaction.id,
                 date: new Date().toISOString().split('T')[0],
@@ -1924,7 +2019,6 @@
             if (inputWA) inputWA.value = '08';
             openModal('waReviewModal');
         }
-
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
@@ -1942,73 +2036,70 @@
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
-
         function getLatestDate(arrayData) {
             let nowIso = new Date().toISOString().split('T')[0];
             if (!arrayData || arrayData.length === 0) return nowIso;
             
-            // Cari tanggal valid paling baru dari data
             let validDates = arrayData
                 .map(item => parseStandardDate(item.date))
                 .filter(d => d && d.length === 10 && !isNaN(new Date(d).getTime()));
                 
             if (validDates.length === 0) return nowIso;
             
-            // Urutkan dari yang terbaru ke terlama
             validDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
             return validDates[0];
         }
-
         function setTxFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterTxStartDate').value = targetDate;
             document.getElementById('filterTxEndDate').value = targetDate;
             renderTransactionHistory();
         }
-
         function resetTxFilter() {
-            document.getElementById('filterTxStartDate').value = '';
-            document.getElementById('filterTxEndDate').value = '';
+            if (document.getElementById('filterTxStartDate')) document.getElementById('filterTxStartDate').value = '';
+            if (document.getElementById('filterTxEndDate')) document.getElementById('filterTxEndDate').value = '';
+            if (document.getElementById('filterTxMethod')) document.getElementById('filterTxMethod').value = 'ALL';
             renderTransactionHistory();
         }
-
         function setExpFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterExpStartDate').value = targetDate;
             document.getElementById('filterExpEndDate').value = targetDate;
             renderExpensesTable();
         }
-
         function resetExpFilter() {
-            document.getElementById('filterExpStartDate').value = '';
-            document.getElementById('filterExpEndDate').value = '';
+            if (document.getElementById('filterExpStartDate')) document.getElementById('filterExpStartDate').value = '';
+            if (document.getElementById('filterExpEndDate')) document.getElementById('filterExpEndDate').value = '';
+            if (document.getElementById('filterExpMethod')) document.getElementById('filterExpMethod').value = 'ALL';
             renderExpensesTable();
         }
-
         function setAccFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterAccStartDate').value = targetDate;
             document.getElementById('filterAccEndDate').value = targetDate;
             renderAccounting();
         }
-
         function resetAccFilter() {
-            document.getElementById('filterAccStartDate').value = '';
-            document.getElementById('filterAccEndDate').value = '';
+            if (document.getElementById('filterAccStartDate')) document.getElementById('filterAccStartDate').value = '';
+            if (document.getElementById('filterAccEndDate')) document.getElementById('filterAccEndDate').value = '';
+            if (document.getElementById('filterAccMethod')) document.getElementById('filterAccMethod').value = 'ALL';
             renderAccounting();
         }
-
         function renderTransactionHistory() {
             const container = document.getElementById('transactionHistoryTable');
             const startVal = document.getElementById('filterTxStartDate')?.value || '';
             const endVal = document.getElementById('filterTxEndDate')?.value || '';
+            const methodVal = document.getElementById('filterTxMethod')?.value || 'ALL';
             
             if (!container) return;
             
-            const filteredTx = state.transactions.filter(t => isDateInRange(t.date, startVal, endVal));
+            const filteredTx = state.transactions.filter(t => {
+                if (methodVal !== 'ALL' && t.paymentMethod !== methodVal) return false;
+                return isDateInRange(t.date, startVal, endVal);
+            });
             
             if (filteredTx.length === 0) {
-                container.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi pada rentang tanggal tersebut.</td></tr>`;
+                container.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi pada filter tersebut.</td></tr>`;
                 return;
             }
             
@@ -2038,7 +2129,6 @@
                 </tr>
             `).join('');
         }
-
         function showDetailTx(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -2087,7 +2177,6 @@
                     </div>
                 `;
             }
-
             if (actionsContainer) {
                 actionsContainer.innerHTML = `
                     <button onclick="sendWAReviewDirect()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center space-x-1 shadow-2xs">
@@ -2109,7 +2198,6 @@
             
             openModal('detailTxModal');
         }
-
         function handleRefundTransaction(txId) {
             const pwd = prompt('Masukkan Kata Sandi Otorisasi Refund Admin:');
             if (pwd !== REFUND_PASSWORD && pwd !== ADMIN_PASSWORD) {
@@ -2125,7 +2213,6 @@
             renderAccounting();
             alert(`Transaksi ${txId} berhasil dibatalkan/refund.`);
         }
-
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -2135,7 +2222,6 @@
                 alert('Isi keterangan dan jumlah pengeluaran dengan benar!');
                 return;
             }
-
             let nextNum = 101;
             if (state.expenses.length > 0) {
                 const maxNum = state.expenses.reduce((max, exp) => {
@@ -2147,7 +2233,6 @@
                 }, 100);
                 nextNum = maxNum + 1;
             }
-
             const newExp = {
                 type: 'expense',
                 id: 'BBPK-' + nextNum,
@@ -2156,14 +2241,12 @@
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
             };
-
             fetch(GOOGLE_SHEET_WEB_APP_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newExp)
             }).catch(err => console.error("Sheet expense error:", err));
-
             const localExp = {
                 id: newExp.id,
                 date: new Date().toISOString().split('T')[0],
@@ -2171,7 +2254,6 @@
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
             };
-
             state.expenses.unshift(localExp);
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
@@ -2180,18 +2262,21 @@
             renderAccounting();
             alert('Pengeluaran berhasil dicatat!');
         }
-
         function renderExpensesTable() {
             const container = document.getElementById('expensesTableBody');
             const startVal = document.getElementById('filterExpStartDate')?.value || '';
             const endVal = document.getElementById('filterExpEndDate')?.value || '';
+            const methodVal = document.getElementById('filterExpMethod')?.value || 'ALL';
             
             if (!container) return;
             
-            const filteredExp = state.expenses.filter(e => isDateInRange(e.date, startVal, endVal));
+            const filteredExp = state.expenses.filter(e => {
+                if (methodVal !== 'ALL' && e.paymentMethod !== methodVal) return false;
+                return isDateInRange(e.date, startVal, endVal);
+            });
             
             if (filteredExp.length === 0) {
-                container.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Tidak ada pengeluaran pada rentang tanggal tersebut.</td></tr>`;
+                container.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Tidak ada pengeluaran pada filter tersebut.</td></tr>`;
                 return;
             }
             
@@ -2208,43 +2293,209 @@
                 </tr>
             `).join('');
         }
-
+        function handleAddKasbon(e) {
+            e.preventDefault();
+            const barberName = document.getElementById('kasbonBarberName').value;
+            const amount = Number(document.getElementById('kasbonAmount').value);
+            const note = document.getElementById('kasbonNote').value || 'Tanpa Catatan';
+            
+            if (!barberName || isNaN(amount) || amount <= 0) {
+                alert('Pilih barber dan isi jumlah nominal kasbon dengan benar!');
+                return;
+            }
+            let nextNum = 101;
+            if (state.expenses.length > 0) {
+                const maxNum = state.expenses.reduce((max, exp) => {
+                    if (exp.id && exp.id.startsWith('BBKB-')) {
+                        const num = parseInt(exp.id.replace('BBKB-', ''), 10);
+                        return !isNaN(num) && num > max ? num : max;
+                    }
+                    return max;
+                }, 100);
+                nextNum = maxNum + 1;
+            }
+            const kasbonId = 'BBKB-' + nextNum;
+            const fullDesc = `[KASBON] ${barberName}: ${note}`;
+            
+            const newKasbonPayload = {
+                type: 'expense',
+                id: kasbonId,
+                date: new Date().toLocaleDateString('id-ID'),
+                desc: fullDesc,
+                paymentMethod: state.kasbonPaymentMethod,
+                amount: amount
+            };
+            
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newKasbonPayload)
+            }).catch(err => console.error("Sheet kasbon error:", err));
+            
+            const localKasbonExp = {
+                id: kasbonId,
+                date: new Date().toISOString().split('T')[0],
+                desc: fullDesc,
+                paymentMethod: state.kasbonPaymentMethod,
+                amount: amount
+            };
+            state.expenses.unshift(localKasbonExp);
+            
+            document.getElementById('kasbonBarberName').value = '';
+            document.getElementById('kasbonAmount').value = '';
+            document.getElementById('kasbonNote').value = '';
+            
+            renderExpensesTable();
+            renderKasbonTable();
+            renderAccounting();
+            alert(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat!`);
+        }
+        function renderKasbonTable() {
+            const container = document.getElementById('kasbonTableBody');
+            const startVal = document.getElementById('filterKasbonStartDate')?.value || '';
+            const endVal = document.getElementById('filterKasbonEndDate')?.value || '';
+            const methodVal = document.getElementById('filterKasbonMethod')?.value || 'ALL';
+            
+            if (!container) return;
+            
+            const kasbonList = state.expenses.filter(e => {
+                const isKasbon = (e.id && e.id.startsWith('BBKB-')) || (e.desc && e.desc.includes('[KASBON]'));
+                if (!isKasbon) return false;
+                if (methodVal !== 'ALL' && e.paymentMethod !== methodVal) return false;
+                return isDateInRange(e.date, startVal, endVal);
+            });
+            
+            if (kasbonList.length === 0) {
+                container.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Tidak ada data kasbon ditemukan.</td></tr>`;
+                return;
+            }
+            
+            container.innerHTML = kasbonList.map(k => {
+                let displayBarber = '-';
+                let displayNote = k.desc;
+                if (k.desc.includes('[KASBON]')) {
+                    const clean = k.desc.replace('[KASBON]', '').trim();
+                    const parts = clean.split(':');
+                    displayBarber = parts[0] ? parts[0].trim() : '-';
+                    displayNote = parts[1] ? parts[1].trim() : '-';
+                }
+                const isLunas = k.amount <= 0;
+                return `
+                    <tr class="hover:bg-slate-100/60 transition ${isLunas ? 'bg-slate-100/50 line-through text-slate-400' : ''}">
+                        <td class="p-3 font-mono font-semibold text-xs text-amber-900">${k.id}</td>
+                        <td class="p-3 text-xs text-slate-600">${k.date}</td>
+                        <td class="p-3 font-medium text-slate-800">${displayBarber}</td>
+                        <td class="p-3">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${k.paymentMethod === 'QRIS' ? 'bg-cyan-100 text-cyan-800 border border-cyan-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
+                                ${k.paymentMethod}
+                            </span>
+                        </td>
+                        <td class="p-3 text-xs text-slate-600">${displayNote}</td>
+                        <td class="p-3 font-bold text-right ${isLunas ? 'text-emerald-600' : 'text-red-600'}">${formatRp(k.amount)}</td>
+                        <td class="p-3 text-center">
+                            ${isLunas ? '<span class="text-[10px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">LUNAS (0)</span>' : `
+                                <button onclick="payOffKasbon('${k.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-2xs">
+                                    <i class="fa-solid fa-check"></i> Pelunasan / Set 0
+                                </button>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        function payOffKasbon(kasbonId) {
+            const kasbonItem = state.expenses.find(e => e.id === kasbonId);
+            if (!kasbonItem) return;
+            
+            if (confirm(`Konfirmasi pelunasan kasbon ${kasbonId}? Nominal di sheet expenses akan diubah menjadi 0.`)) {
+                kasbonItem.amount = 0;
+                
+                const updatePayload = {
+                    type: "update_expense_amount",
+                    id: kasbonId,
+                    amount: 0
+                };
+                fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatePayload)
+                }).catch(err => console.error("Sheet update error:", err));
+                
+                renderExpensesTable();
+                renderKasbonTable();
+                renderAccounting();
+                alert(`Kasbon ${kasbonId} berhasil dilunasi (Nominal berubah menjadi Rp 0).`);
+            }
+        }
+        function setKasbonFilterToday() {
+            let targetDate = getLatestDate(state.expenses);
+            document.getElementById('filterKasbonStartDate').value = targetDate;
+            document.getElementById('filterKasbonEndDate').value = targetDate;
+            renderKasbonTable();
+        }
+        function resetKasbonFilter() {
+            document.getElementById('filterKasbonStartDate').value = '';
+            document.getElementById('filterKasbonEndDate').value = '';
+            document.getElementById('filterKasbonMethod').value = 'ALL';
+            renderKasbonTable();
+        }
         function renderAccounting() {
             const startVal = document.getElementById('filterAccStartDate')?.value || '';
             const endVal = document.getElementById('filterAccEndDate')?.value || '';
+            const methodVal = document.getElementById('filterAccMethod')?.value || 'ALL';
             
-            const filteredTx = state.transactions.filter(t => t.status !== 'Dibatalkan' && isDateInRange(t.date, startVal, endVal));
-            const filteredExp = state.expenses.filter(e => isDateInRange(e.date, startVal, endVal));
+            const filteredTx = state.transactions.filter(t => {
+                if (t.status === 'Dibatalkan') return false;
+                if (methodVal !== 'ALL' && t.paymentMethod !== methodVal) return false;
+                return isDateInRange(t.date, startVal, endVal);
+            });
+
+            const filteredExp = state.expenses.filter(e => {
+                if (methodVal !== 'ALL' && e.paymentMethod !== methodVal) return false;
+                return isDateInRange(e.date, startVal, endVal);
+            });
             
-            let totalCash = 0;
-            let totalQRIS = 0;
+            let totalCashIn = 0;
+            let totalQRISIn = 0;
+            let totalCashOut = 0;
+            let totalQRISOut = 0;
             
             filteredTx.forEach(t => {
                 if (t.paymentMethod === 'Cash') {
-                    totalCash += t.total;
+                    totalCashIn += t.total;
                 } else if (t.paymentMethod === 'QRIS') {
-                    totalQRIS += t.total;
+                    totalQRISIn += t.total;
                 }
             });
 
-            const totalRevenue = totalCash + totalQRIS;
+            filteredExp.forEach(e => {
+                if (e.paymentMethod === 'Cash') {
+                    totalCashOut += e.amount;
+                } else if (e.paymentMethod === 'QRIS') {
+                    totalQRISOut += e.amount;
+                }
+            });
+
+            const netCash = totalCashIn - totalCashOut;
+            const netQRIS = totalQRISIn - totalQRISOut;
+            const totalRevenue = totalCashIn + totalQRISIn;
             const totalExpenses = filteredExp.reduce((sum, e) => sum + e.amount, 0);
             const netProfit = totalRevenue - totalExpenses;
 
-            document.getElementById('accCash').innerText = formatRp(totalCash);
-            document.getElementById('accQRIS').innerText = formatRp(totalQRIS);
+            document.getElementById('accCash').innerText = formatRp(netCash);
+            document.getElementById('accQRIS').innerText = formatRp(netQRIS);
             document.getElementById('accRevenue').innerText = formatRp(totalRevenue);
             document.getElementById('accExpenses').innerText = formatRp(totalExpenses);
             document.getElementById('accNetProfit').innerText = formatRp(netProfit);
 
-            // Rekap Barber
             const barberSummaryContainer = document.getElementById('barberCountSummary');
             if (barberSummaryContainer) {
                 let summaryMap = {};
                 BARBERS.forEach(b => {
                     summaryMap[b.name] = { count: 0, revenue: 0 };
                 });
-
                 filteredTx.forEach(t => {
                     const bName = t.barberName;
                     if (!summaryMap[bName]) {
@@ -2253,10 +2504,8 @@
                     summaryMap[bName].count += 1;
                     summaryMap[bName].revenue += t.total;
                 });
-
                 let totalAllKepala = 0;
                 let totalAllRevenue = 0;
-
                 const barberCardsHTML = BARBERS.map(b => {
                     const stat = summaryMap[b.name] || { count: 0, revenue: 0 };
                     totalAllKepala += stat.count;
@@ -2272,7 +2521,6 @@
                         </div>
                     `;
                 }).join('');
-
                 barberSummaryContainer.innerHTML = `
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                         ${barberCardsHTML}
@@ -2286,8 +2534,6 @@
                     </div>
                 `;
             }
-
-            // Jurnal Mutasi Keuangan
             const ledgerBody = document.getElementById('accountingLedgerBody');
             if (ledgerBody) {
                 let ledgerItems = [];
@@ -2303,7 +2549,6 @@
                         isExp: false
                     });
                 });
-
                 filteredExp.forEach(e => {
                     ledgerItems.push({
                         date: e.date,
@@ -2315,14 +2560,11 @@
                         isExp: true
                     });
                 });
-
                 ledgerItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
                 if (ledgerItems.length === 0) {
-                    ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada rentang tanggal tersebut.</td></tr>`;
+                    ledgerBody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada transaksi di jurnal pada filter tersebut.</td></tr>`;
                     return;
                 }
-
                 ledgerBody.innerHTML = ledgerItems.map(item => `
                     <tr class="hover:bg-slate-100/60 transition">
                         <td class="p-3 text-xs text-slate-600">${item.date}</td>
@@ -2343,7 +2585,6 @@
                 `).join('');
             }
         }
-
         function exportToExcel() {
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "ID Transaksi,Tanggal,Jam,Barber,Metode Pembayaran,Layanan,Total (Rp),Status\n";
@@ -2352,7 +2593,6 @@
                 const itemsStr = t.items.map(i => i.name).join('; ');
                 csvContent += `"${t.id}","${t.date}","${t.time}","${t.barberName}","${t.paymentMethod}","${itemsStr}","${t.total}","${t.status}"\n`;
             });
-
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -2361,7 +2601,6 @@
             link.click();
             document.body.removeChild(link);
         }
-
         function confirmResetMonth() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -2372,6 +2611,7 @@
                 state.expenses = [];
                 renderTransactionHistory();
                 renderExpensesTable();
+                renderKasbonTable();
                 renderAccounting();
                 alert('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
             }
