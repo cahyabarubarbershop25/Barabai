@@ -648,23 +648,23 @@
                         <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                             <div class="flex items-center gap-2 text-amber-700 font-bold">
                                 <i class="fa-solid fa-scissors text-lg"></i>
-                                <h3 class="text-base text-slate-900">Portofolio & Spesialisasi</h3>
+                                <h3 class="text-base text-slate-900">Alasan Memilih CahyaBaru</h3>
                             </div>
                             <p class="text-xs text-slate-600">
-                                Beberapa gaya potong dan perawatan rambut andalan dari tim profesional kami:
+                                Kelebihan dari tim profesional kami:
                             </p>
                             <div class="grid grid-cols-2 gap-2 text-xs font-semibold pt-1">
                                 <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2 text-slate-800">
-                                    <i class="fa-solid fa-check text-amber-600"></i> Fade & Taper Cut
+                                    <i class="fa-solid fa-check text-amber-600"></i> 100+ Jaringan
                                 </div>
                                 <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2 text-slate-800">
-                                    <i class="fa-solid fa-check text-amber-600"></i> Side Part Classic
+                                    <i class="fa-solid fa-check text-amber-600"></i> 10.000+ Langganan
                                 </div>
                                 <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2 text-slate-800">
-                                    <i class="fa-solid fa-check text-amber-600"></i> Two Block Style
+                                    <i class="fa-solid fa-check text-amber-600"></i> Barber Profesional
                                 </div>
                                 <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-200 flex items-center gap-2 text-slate-800">
-                                    <i class="fa-solid fa-check text-amber-600"></i> Premium Hair Color
+                                    <i class="fa-solid fa-check text-amber-600"></i> Konsultasi Gratis
                                 </div>
                             </div>
                         </div>
@@ -760,7 +760,7 @@
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                             <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Metode</label>
                                 <select id="filterTxMethod" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                                     <option value="ALL">Semua Metode (CASH & QRIS)</option>
                                     <option value="Cash">Hanya CASH</option>
@@ -851,7 +851,7 @@
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                             <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Metode</label>
                                 <select id="filterExpMethod" onchange="renderExpensesTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                                     <option value="ALL">Semua Metode (CASH & QRIS)</option>
                                     <option value="Cash">Hanya CASH</option>
@@ -952,7 +952,7 @@
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                             <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Metode</label>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Metode</label>
                                 <select id="filterKasbonMethod" onchange="renderKasbonTable()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                                     <option value="ALL">Semua Metode (CASH & QRIS)</option>
                                     <option value="Cash">Hanya CASH</option>
@@ -1328,15 +1328,15 @@
             let normalized = parseStandardDate(dateStr);
             if (!normalized) return false;
             
-            let itemTime = new Date(normalized).setHours(0,0,0,0);
+            let itemTime = new Date(normalized + 'T00:00:00').setHours(0,0,0,0);
             if (isNaN(itemTime)) return true;
             
             if (startStr) {
-                let startTime = new Date(startStr).setHours(0,0,0,0);
+                let startTime = new Date(startStr + 'T00:00:00').setHours(0,0,0,0);
                 if (!isNaN(startTime) && itemTime < startTime) return false;
             }
             if (endStr) {
-                let endTime = new Date(endStr).setHours(0,0,0,0);
+                let endTime = new Date(endStr + 'T00:00:00').setHours(0,0,0,0);
                 if (!isNaN(endTime) && itemTime > endTime) return false;
             }
             return true;
@@ -1412,7 +1412,7 @@
                             });
                             return {
                                 id: String(t['id transaksi'] || t.id || 'BB-101'),
-                                date: String(t.tanggal || t.date || '').split('T')[0],
+                                date: parseStandardDate(t.tanggal || t.date || ''),
                                 time: String(t.jam || t.time || ''),
                                 barberName: String(t.barber || t.barbername || '-'),
                                 paymentMethod: String(t.metode || t.paymentmethod || 'Cash'),
@@ -1427,7 +1427,7 @@
                     if (data.expenses && data.expenses.length > 0) {
                         state.expenses = data.expenses.map(e => ({
                             id: String(e['id pengeluaran'] || e.id || 'BBPK-101'),
-                            date: String(e.tanggal || e.date || '').split('T')[0],
+                            date: parseStandardDate(e.tanggal || e.date || ''),
                             desc: String(e.keterangan || e.desc || '-'),
                             paymentMethod: String(e.metode || e.paymentmethod || 'Cash'),
                             amount: Number(e.jumlah || e.amount || 0)
@@ -1928,7 +1928,7 @@
             }
             const clientName = document.getElementById('resClientName').value;
             const clientPhone = document.getElementById('resClientPhone').value;
-            const resDate = document.getElementById('resDate').value;
+            const resDate = document.getElementById('resDate').value; // format YYYY-MM-DD
             const resTime = document.getElementById('resTime').value;
             const barberObj = BARBERS.find(b => b.id === state.resSelectedBarber);
             const barberName = barberObj ? barberObj.name : 'Bebas';
@@ -1936,12 +1936,17 @@
                 .filter(s => state.resSelectedServices.includes(s.id))
                 .map(s => s.name)
                 .join(', ');
+                
+            // Fix timezone discrepancy by ensuring formatted date string matches local date components
+            const dObj = resDate ? new Date(resDate + 'T00:00:00') : new Date();
+            const localFormattedDate = `${String(dObj.getDate()).padStart(2, '0')}/${String(dObj.getMonth() + 1).padStart(2, '0')}/${dObj.getFullYear()}`;
+
             const reservationData = {
                 name: clientName,
                 phone: clientPhone,
                 barber: barberName,
                 services: selectedServices,
-                date: resDate,
+                date: localFormattedDate,
                 time: resTime,
                 status: 'Menunggu',
                 timestamp: new Date().toLocaleString('id-ID')
@@ -1981,11 +1986,16 @@
                 nextNum = maxNum + 1;
             }
             const itemsStr = state.cart.map(i => i.name).join(', ');
+            
+            const nowD = new Date();
+            const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
+            const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+
             const transaction = {
                 type: 'transaction',
                 id: 'BB-' + nextNum,
-                date: new Date().toLocaleDateString('id-ID'),
-                time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                date: localDateStr,
+                time: nowD.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
                 barberName: barberObj ? barberObj.name : 'Unknown',
                 paymentMethod: state.posPaymentMethod,
                 items: itemsStr,
@@ -2000,7 +2010,7 @@
             }).catch(err => console.error("Sheet transaction error:", err));
             const localTx = {
                 id: transaction.id,
-                date: new Date().toISOString().split('T')[0],
+                date: isoDateStr,
                 time: transaction.time,
                 barberName: transaction.barberName,
                 paymentMethod: transaction.paymentMethod,
@@ -2233,10 +2243,15 @@
                 }, 100);
                 nextNum = maxNum + 1;
             }
+            
+            const nowD = new Date();
+            const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
+            const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+
             const newExp = {
                 type: 'expense',
                 id: 'BBPK-' + nextNum,
-                date: new Date().toLocaleDateString('id-ID'),
+                date: localDateStr,
                 desc: desc,
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
@@ -2249,7 +2264,7 @@
             }).catch(err => console.error("Sheet expense error:", err));
             const localExp = {
                 id: newExp.id,
-                date: new Date().toISOString().split('T')[0],
+                date: isoDateStr,
                 desc: desc,
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
@@ -2317,10 +2332,14 @@
             const kasbonId = 'BBKB-' + nextNum;
             const fullDesc = `[KASBON] ${barberName}: ${note}`;
             
+            const nowD = new Date();
+            const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
+            const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+
             const newKasbonPayload = {
                 type: 'expense',
                 id: kasbonId,
-                date: new Date().toLocaleDateString('id-ID'),
+                date: localDateStr,
                 desc: fullDesc,
                 paymentMethod: state.kasbonPaymentMethod,
                 amount: amount
@@ -2335,7 +2354,7 @@
             
             const localKasbonExp = {
                 id: kasbonId,
-                date: new Date().toISOString().split('T')[0],
+                date: isoDateStr,
                 desc: fullDesc,
                 paymentMethod: state.kasbonPaymentMethod,
                 amount: amount
@@ -2606,14 +2625,14 @@
                 openLoginModal();
                 return;
             }
-            if (confirm('Apakah Anda yakin ingin mengosongkan riwayat laporan akuntansi lokal? (Data di Google Sheets tetap aman)')) {
+            if (confirm('Apakah Anda yakin ingin mengosongkan riwayat laporan akuntansi? (Data di Google Sheets tetap aman)')) {
                 state.transactions = [];
                 state.expenses = [];
                 renderTransactionHistory();
                 renderExpensesTable();
                 renderKasbonTable();
                 renderAccounting();
-                alert('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
+                alert('Tampilan laporan akuntansi berhasil dibersihkan.');
             }
         }
     </script>
