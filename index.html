@@ -1245,7 +1245,8 @@
             expenses: [],
             reservations: [],
             activeReservationPhone: '',
-            activeReservationName: ''
+            activeReservationName: '',
+            activeReservationDetails: null
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
@@ -1520,10 +1521,17 @@
             
             state.reservations[index].status = newStatus;
             
-            // Simpan data reservasi aktif ke state agar kasir tahu pelanggan mana yang sedang dilayani
+            // Simpan data reservasi aktif ke state agar kasir tahu pelanggan mana yang sedang dilayani beserta detailnya
             if (newStatus === 'Selesai') {
                 state.activeReservationName = clientName;
                 state.activeReservationPhone = res['no. wahtsapp'] || res['no. whatsapp'] || res.phone || res['whatsapp'] || '';
+                state.activeReservationDetails = {
+                    name: clientName,
+                    barber: res.barber || '',
+                    services: res.layanan || res.services || '',
+                    date: String(res.tanggal || res.date || '').split('T')[0],
+                    time: res.jam || res.time || ''
+                };
             }
 
             const updatePayload = {
@@ -2055,25 +2063,29 @@
             // Cek apakah transaksi ini berasal dari reservasi aktif yang diselesaikan
             const hasActiveReservation = state.activeReservationPhone && state.activeReservationPhone.trim() !== '';
             let targetPhone = state.activeReservationPhone;
+            let resDetails = state.activeReservationDetails;
 
             // Reset cart dan state reservasi aktif
             clearCart();
             state.activeReservationPhone = '';
             state.activeReservationName = '';
+            state.activeReservationDetails = null;
 
             renderTransactionHistory();
             renderAccounting();
 
-            if (hasActiveReservation) {
-                // Jika berasal dari reservasi, langsung redirect ke WhatsApp pelanggan tersebut untuk ulasan
+            if (hasActiveReservation && resDetails) {
+                // Jika berasal dari reservasi, langsung redirect ke WhatsApp pelanggan sesuai format pesan yang diminta
                 let cleanWA = String(targetPhone).replace(/\D/g, '');
                 if (cleanWA.startsWith('8')) {
                     cleanWA = '62' + cleanWA;
                 } else if (cleanWA.startsWith('0')) {
                     cleanWA = '62' + cleanWA.slice(1);
                 }
-                const pesanRating = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di Cahya Baru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
-                const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanRating)}`;
+                
+                const pesanKonfirmasi = `Hallo Kak ${resDetails.name}\n\nTerimakasih sudah Reservasi di *CahyaBaru BarberShop*\n\nReservasi Kakak kami Konfirmasi\nNama: ${resDetails.name}\nKapster: ${resDetails.barber}\nLayanan: ${resDetails.services}\nJadwal: ${resDetails.date} - ${resDetails.time}\n\n*Jadwal dengan Barber ${resDetails.barber} Pukul ${resDetails.time} Ready*\n\nMohon datang 10 Menit lebih awal ya kak. Jika ada perubahan Jadwal bisa Info ke Kami ya Kak.\n\nKami tunggu kedatangannya. Terimakasih!`;
+                
+                const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanKonfirmasi)}`;
                 window.location.href = urlWACustomer;
             } else {
                 // Jika transaksi kasir biasa (bukan dari reservasi), tampilkan modal input nomor WhatsApp seperti biasa
