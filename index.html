@@ -669,7 +669,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Lokasi & Peta Cabang Google Maps -->
                     <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -1246,6 +1245,7 @@
         </div>
     </div>
     <div id="printableReceipt" class="hidden"></div>
+
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0sCEzvFgJc2g8f5Ewkam7fn4lZCPLhC3lxZH_9TJxjkQzgOQD7iZtfGkwm3hy9H1Y/exec";
         const NOMOR_WA_KASIR = "6283853293150";
@@ -1330,9 +1330,12 @@
             }
             switchTab('schedule');
         });
+
+        // FIXED: Parsing Tanggal Standar Sesuai Format Google Sheets / ISO
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
+            
             if (clean.includes('/')) {
                 let parts = clean.split('/');
                 if (parts.length === 3) {
@@ -1352,6 +1355,7 @@
             }
             return clean;
         }
+
         function isDateInRange(dateStr, startStr, endStr) {
             if (!dateStr) return false;
             let normalized = parseStandardDate(dateStr);
@@ -1370,6 +1374,8 @@
             }
             return true;
         }
+
+        // FIXED: Pengambilan Jam Angka Aman dari String "10:00 WITA"
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
@@ -1382,10 +1388,14 @@
             }
             const dateObj = new Date(dateVal);
             const dayIndex = dateObj.getDay();
-            const hourNum = parseInt(timeVal.split(':')[0], 10);
+            
+            const matchHour = timeVal.match(/\d+/);
+            const hourNum = matchHour ? parseInt(matchHour[0], 10) : 10;
+            
             const shiftKey = (hourNum >= 10 && hourNum < 16) ? 'shift1' : 'shift2';
             const shiftLabel = shiftKey === 'shift1' ? 'Shift 1 (10.00-16.00)' : 'Shift 2 (16.00-22.00)';
             const activeBarberIds = SHIFT_SCHEDULE[dayIndex][shiftKey];
+            
             if (noticeEl) {
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
@@ -1395,6 +1405,7 @@
             }
             renderBookingBarbers(availableBarbers);
         }
+
         function renderBookingBarbers(listToRender) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
@@ -1410,10 +1421,12 @@
                 </button>
             `).join('');
         }
+
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
+
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
@@ -1478,6 +1491,7 @@
                     if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat kasbon.</td></tr>`;
                 });
         }
+
         function renderScheduleTable() {
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
@@ -1518,6 +1532,7 @@
                 `;
             }).join('');
         }
+
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -1528,6 +1543,7 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
+
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             const res = state.reservations[index];
@@ -1571,6 +1587,7 @@
             }
             renderScheduleTable();
         }
+
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1584,6 +1601,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -1591,6 +1609,7 @@
             }
             openModal('addMenuModal');
         }
+
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -1615,6 +1634,7 @@
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
+
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -1629,6 +1649,7 @@
                 renderPOSServices();
             }
         }
+
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -1666,6 +1687,8 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
             }
         }
+
+        // FIXED: Pengiriman Struk Bluetooth dengan Potongan Chunk 20-Byte
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1676,11 +1699,13 @@
                 let commands = [];
                 commands.push(new Uint8Array([0x1B, 0x40])); 
                 commands.push(new Uint8Array([0x1B, 0x61, 0x01])); 
+                
                 let headerText = 
-                    "\x1B\x21\x20CAHYABARU BARBERSHOP\x1B\x21\x00\n" +
+                    "CAHYABARU BARBERSHOP\n" +
                     "Style With Purpose\n" +
                     "--------------------------------\n";
                 commands.push(encoder.encode(headerText));
+                
                 commands.push(new Uint8Array([0x1B, 0x61, 0x00])); 
                 let infoText = 
                     `No    : ${tx.id}\n` +
@@ -1689,35 +1714,50 @@
                     `Metode: ${tx.paymentMethod}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(infoText));
+                
                 tx.items.forEach(item => {
-                    let itemName = item.name.padEnd(20, ' ');
+                    let itemName = item.name.substring(0, 18).padEnd(20, ' ');
                     let itemPrice = formatRp(item.price).padStart(12, ' ');
                     commands.push(encoder.encode(`${itemName}${itemPrice}\n`));
                 });
+                
                 let totalText = 
                     "--------------------------------\n" +
                     `TOTAL: ${formatRp(tx.total).padStart(26, ' ')}\n` +
                     "--------------------------------\n";
                 commands.push(encoder.encode(totalText));
+                
                 commands.push(new Uint8Array([0x1B, 0x61, 0x01])); 
                 let footerText = 
                     "Terima Kasih Atas Kunjungan Anda\n" +
                     "Simpan struk ini sebagai bukti\n\n\n";
                 commands.push(encoder.encode(footerText));
+
+                let fullBuffer = [];
                 for (let cmd of commands) {
-                    await bluetoothCharacteristic.writeValue(cmd);
+                    fullBuffer.push(...cmd);
                 }
+                
+                const chunkSize = 20;
+                for (let i = 0; i < fullBuffer.length; i += chunkSize) {
+                    let chunk = new Uint8Array(fullBuffer.slice(i, i + chunkSize));
+                    await bluetoothCharacteristic.writeValue(chunk);
+                    await new Promise(resolve => setTimeout(resolve, 20));
+                }
+                
                 alert('Struk berhasil dicetak!');
             } catch (err) {
                 console.error("Gagal mencetak:", err);
-                alert("Gagal mencetak ke printer.");
+                alert("Gagal mencetak ke printer. Periksa koneksi Bluetooth.");
             }
         }
+
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
+
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1728,10 +1768,12 @@
                 </button>
             `).join('');
         }
+
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
+
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1750,12 +1792,14 @@
                 </div>
             `).join('');
         }
+
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
+
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -1780,14 +1824,17 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
+
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
+
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
+
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -1801,6 +1848,7 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -1814,6 +1862,7 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function setKasbonPaymentMethod(method) {
             state.kasbonPaymentMethod = method;
             const btnCash = document.getElementById('kasbonCash');
@@ -1827,13 +1876,16 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function openPrinterModal() {
             openModal('printerModal');
         }
+
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
+
         function switchTab(tabId) {
             const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
@@ -1861,6 +1913,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -1869,15 +1922,19 @@
             }
             return 'Rp ' + formattedNum;
         }
+
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
+
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
+
         function openLoginModal() {
             openModal('loginModal');
         }
+
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1892,6 +1949,7 @@
                 alert('Kata sandi admin salah!');
             }
         }
+
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
@@ -1899,6 +1957,7 @@
             renderScheduleTable();
             switchTab('schedule');
         }
+
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             if (!container) return;
@@ -1916,6 +1975,7 @@
                 `;
             }).join('');
         }
+
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1924,6 +1984,7 @@
             }
             renderBookingServices();
         }
+
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             if (!container) return;
@@ -1945,6 +2006,7 @@
                 </div>
             `).join('');
         }
+
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
@@ -1968,7 +2030,6 @@
                 
             const dObj = resDate ? new Date(resDate + 'T00:00:00') : new Date();
             const localFormattedDate = `${String(dObj.getDate()).padStart(2, '0')}/${String(dObj.getMonth() + 1).padStart(2, '0')}/${dObj.getFullYear()}`;
-
             const reservationData = {
                 name: clientName,
                 phone: clientPhone,
@@ -1995,6 +2056,7 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
+
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -2018,7 +2080,6 @@
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
-
             const transaction = {
                 type: 'transaction',
                 id: 'BB-' + nextNum,
@@ -2057,6 +2118,7 @@
             if (inputWA) inputWA.value = '08';
             openModal('waReviewModal');
         }
+
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
@@ -2074,6 +2136,7 @@
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
+
         function getLatestDate(arrayData) {
             let nowIso = new Date().toISOString().split('T')[0];
             if (!arrayData || arrayData.length === 0) return nowIso;
@@ -2087,42 +2150,49 @@
             validDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
             return validDates[0];
         }
+
         function setTxFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterTxStartDate').value = targetDate;
             document.getElementById('filterTxEndDate').value = targetDate;
             renderTransactionHistory();
         }
+
         function resetTxFilter() {
             if (document.getElementById('filterTxStartDate')) document.getElementById('filterTxStartDate').value = '';
             if (document.getElementById('filterTxEndDate')) document.getElementById('filterTxEndDate').value = '';
             if (document.getElementById('filterTxMethod')) document.getElementById('filterTxMethod').value = 'ALL';
             renderTransactionHistory();
         }
+
         function setExpFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterExpStartDate').value = targetDate;
             document.getElementById('filterExpEndDate').value = targetDate;
             renderExpensesTable();
         }
+
         function resetExpFilter() {
             if (document.getElementById('filterExpStartDate')) document.getElementById('filterExpStartDate').value = '';
             if (document.getElementById('filterExpEndDate')) document.getElementById('filterExpEndDate').value = '';
             if (document.getElementById('filterExpMethod')) document.getElementById('filterExpMethod').value = 'ALL';
             renderExpensesTable();
         }
+
         function setAccFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterAccStartDate').value = targetDate;
             document.getElementById('filterAccEndDate').value = targetDate;
             renderAccounting();
         }
+
         function resetAccFilter() {
             if (document.getElementById('filterAccStartDate')) document.getElementById('filterAccStartDate').value = '';
             if (document.getElementById('filterAccEndDate')) document.getElementById('filterAccEndDate').value = '';
             if (document.getElementById('filterAccMethod')) document.getElementById('filterAccMethod').value = 'ALL';
             renderAccounting();
         }
+
         function renderTransactionHistory() {
             const container = document.getElementById('transactionHistoryTable');
             const startVal = document.getElementById('filterTxStartDate')?.value || '';
@@ -2167,6 +2237,7 @@
                 </tr>
             `).join('');
         }
+
         function showDetailTx(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -2236,6 +2307,7 @@
             
             openModal('detailTxModal');
         }
+
         function handleRefundTransaction(txId) {
             const pwd = prompt('Masukkan Kata Sandi Otorisasi Refund Admin:');
             if (pwd !== REFUND_PASSWORD && pwd !== ADMIN_PASSWORD) {
@@ -2251,6 +2323,7 @@
             renderAccounting();
             alert(`Transaksi ${txId} berhasil dibatalkan/refund.`);
         }
+
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
@@ -2275,7 +2348,6 @@
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
-
             const newExp = {
                 type: 'expense',
                 id: 'BBPK-' + nextNum,
@@ -2305,6 +2377,7 @@
             renderAccounting();
             alert('Pengeluaran berhasil dicatat!');
         }
+
         function renderExpensesTable() {
             const container = document.getElementById('expensesTableBody');
             const startVal = document.getElementById('filterExpStartDate')?.value || '';
@@ -2336,6 +2409,7 @@
                 </tr>
             `).join('');
         }
+
         function handleAddKasbon(e) {
             e.preventDefault();
             const barberName = document.getElementById('kasbonBarberName').value;
@@ -2363,7 +2437,6 @@
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
-
             const newKasbonPayload = {
                 type: 'expense',
                 id: kasbonId,
@@ -2398,6 +2471,7 @@
             renderAccounting();
             alert(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat!`);
         }
+
         function renderKasbonTable() {
             const container = document.getElementById('kasbonTableBody');
             const startVal = document.getElementById('filterKasbonStartDate')?.value || '';
@@ -2451,6 +2525,7 @@
                 `;
             }).join('');
         }
+
         function payOffKasbon(kasbonId) {
             const kasbonItem = state.expenses.find(e => e.id === kasbonId);
             if (!kasbonItem) return;
@@ -2476,18 +2551,21 @@
                 alert(`Kasbon ${kasbonId} berhasil dilunasi (Nominal berubah menjadi Rp 0).`);
             }
         }
+
         function setKasbonFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterKasbonStartDate').value = targetDate;
             document.getElementById('filterKasbonEndDate').value = targetDate;
             renderKasbonTable();
         }
+
         function resetKasbonFilter() {
             document.getElementById('filterKasbonStartDate').value = '';
             document.getElementById('filterKasbonEndDate').value = '';
             document.getElementById('filterKasbonMethod').value = 'ALL';
             renderKasbonTable();
         }
+
         function renderAccounting() {
             const startVal = document.getElementById('filterAccStartDate')?.value || '';
             const endVal = document.getElementById('filterAccEndDate')?.value || '';
@@ -2498,7 +2576,6 @@
                 if (methodVal !== 'ALL' && t.paymentMethod !== methodVal) return false;
                 return isDateInRange(t.date, startVal, endVal);
             });
-
             const filteredExp = state.expenses.filter(e => {
                 if (methodVal !== 'ALL' && e.paymentMethod !== methodVal) return false;
                 return isDateInRange(e.date, startVal, endVal);
@@ -2516,7 +2593,6 @@
                     totalQRISIn += t.total;
                 }
             });
-
             filteredExp.forEach(e => {
                 if (e.paymentMethod === 'Cash') {
                     totalCashOut += e.amount;
@@ -2524,19 +2600,16 @@
                     totalQRISOut += e.amount;
                 }
             });
-
             const netCash = totalCashIn - totalCashOut;
             const netQRIS = totalQRISIn - totalQRISOut;
             const totalRevenue = totalCashIn + totalQRISIn;
             const totalExpenses = filteredExp.reduce((sum, e) => sum + e.amount, 0);
             const netProfit = totalRevenue - totalExpenses;
-
             document.getElementById('accCash').innerText = formatRp(netCash);
             document.getElementById('accQRIS').innerText = formatRp(netQRIS);
             document.getElementById('accRevenue').innerText = formatRp(totalRevenue);
             document.getElementById('accExpenses').innerText = formatRp(totalExpenses);
             document.getElementById('accNetProfit').innerText = formatRp(netProfit);
-
             const barberSummaryContainer = document.getElementById('barberCountSummary');
             if (barberSummaryContainer) {
                 let summaryMap = {};
@@ -2632,6 +2705,7 @@
                 `).join('');
             }
         }
+
         function exportToExcel() {
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "ID Transaksi,Tanggal,Jam,Barber,Metode Pembayaran,Layanan,Total (Rp),Status\n";
@@ -2648,6 +2722,7 @@
             link.click();
             document.body.removeChild(link);
         }
+
         function confirmResetMonth() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
