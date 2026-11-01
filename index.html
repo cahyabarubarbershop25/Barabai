@@ -1457,8 +1457,9 @@
                         const bookingDate = String(item.tanggal || item.date || '').split('T')[0];
                         const bookingTime = item.jam || item.time || '';
                         const barberName = item.barber || '';
+                        const servicesList = item.layanan || item.services || '';
 
-                        const templatePesan = `Halo ${clientName}, konfirmasi dari CahyaBaru Barbershop untuk jadwal reservasi Anda pada tanggal ${bookingDate} jam ${bookingTime} dengan barber ${barberName}. Kami tunggu kedatangannya, jika ada Perubahan bisa hubungi kami ya Kak. Terimakasih!`;
+                        const templatePesan = `Hallo Kak ${clientName}\n\nTerimakasih sudah Reservasi di *CahyaBaru BarberShop*\n\nReservasi Kakak kami Konfirmasi\nNama: ${clientName}\nKapster: ${barberName}\nLayanan: ${servicesList}\nJadwal: ${bookingDate} - ${bookingTime}\n\n*Jadwal dengan Barber ${barberName} Pukul ${bookingTime} Ready*\n\nMohon datang 10 Menit lebih awal ya kak. Jika ada perubahan Jadwal bisa Info ke Kami ya Kak.\n\nKami tunggu kedatangannya. Terimakasih!`;
                         const encodedMessage = encodeURIComponent(templatePesan);
 
                         phoneCol = `
@@ -2083,7 +2084,7 @@
                     cleanWA = '62' + cleanWA.slice(1);
                 }
                 
-                const pesanKonfirmasi = `Hallo Kak ${resDetails.name}\n\nTerimakasih sudah Reservasi di *CahyaBaru BarberShop*\n\nReservasi Kakak kami Konfirmasi\nNama: ${resDetails.name}\nKapster: ${resDetails.barber}\nLayanan: ${resDetails.services}\nJadwal: ${resDetails.date} - ${resDetails.time}\n\n*Jadwal dengan Barber ${resDetails.barber} Pukul ${resDetails.time} Ready*\n\nMohon datang 10 Menit lebih awal ya kak. Jika ada perubahan Jadwal bisa Info ke Kami ya Kak.\n\nKami tunggu kedatangannya. Terimakasih!`;
+                const pesanKonfirmasi = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di CahyaBaru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
                 
                 const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanKonfirmasi)}`;
                 window.location.href = urlWACustomer;
