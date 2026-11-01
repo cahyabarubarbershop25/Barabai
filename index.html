@@ -1243,7 +1243,9 @@
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
             expenses: [],
-            reservations: []
+            reservations: [],
+            activeReservationPhone: '',
+            activeReservationName: ''
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
@@ -1517,6 +1519,13 @@
             const exactRowIndex = res.rowIndex;
             
             state.reservations[index].status = newStatus;
+            
+            // Simpan data reservasi aktif ke state agar kasir tahu pelanggan mana yang sedang dilayani
+            if (newStatus === 'Selesai') {
+                state.activeReservationName = clientName;
+                state.activeReservationPhone = res['no. wahtsapp'] || res['no. whatsapp'] || res.phone || res['whatsapp'] || '';
+            }
+
             const updatePayload = {
                 type: "update_reservation_status",
                 rowIndex: exactRowIndex,
@@ -2042,12 +2051,36 @@
             if (state.autoPrint) {
                 printReceipt(localTx);
             }
+
+            // Cek apakah transaksi ini berasal dari reservasi aktif yang diselesaikan
+            const hasActiveReservation = state.activeReservationPhone && state.activeReservationPhone.trim() !== '';
+            let targetPhone = state.activeReservationPhone;
+
+            // Reset cart dan state reservasi aktif
             clearCart();
+            state.activeReservationPhone = '';
+            state.activeReservationName = '';
+
             renderTransactionHistory();
             renderAccounting();
-            const inputWA = document.getElementById('waCustomerInput');
-            if (inputWA) inputWA.value = '08';
-            openModal('waReviewModal');
+
+            if (hasActiveReservation) {
+                // Jika berasal dari reservasi, langsung redirect ke WhatsApp pelanggan tersebut untuk ulasan
+                let cleanWA = String(targetPhone).replace(/\D/g, '');
+                if (cleanWA.startsWith('8')) {
+                    cleanWA = '62' + cleanWA;
+                } else if (cleanWA.startsWith('0')) {
+                    cleanWA = '62' + cleanWA.slice(1);
+                }
+                const pesanRating = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di Cahya Baru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
+                const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanRating)}`;
+                window.location.href = urlWACustomer;
+            } else {
+                // Jika transaksi kasir biasa (bukan dari reservasi), tampilkan modal input nomor WhatsApp seperti biasa
+                const inputWA = document.getElementById('waCustomerInput');
+                if (inputWA) inputWA.value = '08';
+                openModal('waReviewModal');
+            }
         }
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
