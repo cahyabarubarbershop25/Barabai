@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cahya Baru Barbershop</title>
+    <title>Cahya Baru Barbershop - POS & Reservasi</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome CDN -->
@@ -84,6 +84,7 @@
             </div>
         </div>
     </header>
+
     <!-- Konten Utama (Sidebar & Main Area) -->
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
         <!-- Sidebar Navigasi -->
@@ -143,14 +144,19 @@
                             <i class="fa-solid fa-chart-line w-5 text-amber-600"></i>
                             <span>Laporan Akuntansi</span>
                         </button>
+                        <button onclick="switchTab('commission')" id="nav-commission" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-percent w-5 text-amber-600"></i>
+                            <span>Komisi / Bagi Hasil</span>
+                        </button>
                     </nav>
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-300 text-xs text-slate-500 space-y-1 px-2">
-                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.05</p>
+                <p class="font-semibold text-slate-700">CahyaBaru Reservation 1.07</p>
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
+
         <!-- Dynamic Main Content -->
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Jadwal Reservasi -->
@@ -193,6 +199,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 2: Form Reservasi -->
             <section id="tab-booking" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -257,6 +264,7 @@
                     </form>
                 </div>
             </section>
+
             <!-- TAB 3: Daftar Layanan -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -269,7 +277,8 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-            <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan -->
+
+            <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan (DIKEMBALIKAN SEMULA) -->
             <section id="tab-education" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
                     <div class="pb-4 sm:pb-6 border-b border-slate-200">
@@ -500,7 +509,8 @@
                     </div>
                 </div>
             </section>
-            <!-- TAB 5: Tentang Kami -->
+
+            <!-- TAB 5: Tentang Kami (DIKEMBALIKAN SEMULA) -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
                     <div class="pb-4 sm:pb-6 border-b border-slate-200">
@@ -645,6 +655,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 6: Kasir POS -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -715,6 +726,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 7: Riwayat Transaksi -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -723,7 +735,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-receipt text-amber-600"></i> Riwayat Transaksi
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Filter dan lihat detail riwayat transaksi penjualan.</p>
+                            <p class="text-sm text-slate-600 mt-1">Filter, cari, dan lihat detail riwayat transaksi penjualan.</p>
                         </div>
                         <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
                             <i class="fa-solid fa-rotate"></i>
@@ -733,6 +745,22 @@
                     <!-- Filter Transaksi -->
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Cari (ID / Layanan)</label>
+                                <input type="text" id="filterTxSearch" oninput="renderTransactionHistory()" placeholder="Contoh: BB-101" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Barber</label>
+                                <select id="filterTxBarber" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                                    <option value="ALL">Semua Barber</option>
+                                    <option value="Fadil">Fadil</option>
+                                    <option value="Adit">Adit</option>
+                                    <option value="Wawan">Wawan</option>
+                                    <option value="Nain">Nain</option>
+                                    <option value="Reza">Reza</option>
+                                    <option value="Mutawali">Mutawali</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Metode</label>
                                 <select id="filterTxMethod" onchange="renderTransactionHistory()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
@@ -776,6 +804,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 8: Pengeluaran Kas -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -799,7 +828,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah (Rp)</label>
-                                <input type="number" id="expenseAmount" required placeholder="50000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+                                <input type="number" id="expenseAmount" min="1" required placeholder="50000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
                         <div>
@@ -863,6 +892,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 9: Catatan Kasbon -->
             <section id="tab-kasbon" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -895,7 +925,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah Kasbon (Rp)</label>
-                                <input type="number" id="kasbonAmount" required placeholder="100000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
+                                <input type="number" id="kasbonAmount" min="1" required placeholder="100000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Catatan / Keperluan</label>
@@ -966,6 +996,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- TAB 10: Laporan Akuntansi -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -1070,8 +1101,72 @@
                     </div>
                 </div>
             </section>
+
+            <!-- TAB 11: Komisi / Bagi Hasil Barber -->
+            <section id="tab-commission" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-200 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-percent text-amber-600"></i> Perhitungan Komisi & Bagi Hasil Barber
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Hitung otomatis omset, jumlah kepala, dan estimasi komisi bersih barber berdasarkan filter tanggal.</p>
+                        </div>
+                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Refresh Data</span>
+                        </button>
+                    </div>
+
+                    <!-- Filter Komisi -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterCommStartDate" onchange="renderCommissionReport()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterCommEndDate" onchange="renderCommissionReport()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setCommFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetCommFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        </div>
+                    </div>
+
+                    <!-- Pengaturan Persentase Komisi -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-3 w-full sm:w-auto">
+                            <label class="text-xs font-bold text-slate-700 uppercase">Persentase Bagi Hasil Komisi (%):</label>
+                            <input type="number" id="globalCommissionPercent" value="50" min="0" max="100" onchange="renderCommissionReport()" class="w-20 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-bold text-center focus:outline-none focus:border-amber-600">
+                        </div>
+                        <p class="text-[11px] text-slate-500 italic">Nilai persentase di atas otomatis mengalikan total pendapatan per barber.</p>
+                    </div>
+
+                    <!-- Tabel Rincian Komisi -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-slate-200 text-slate-600 uppercase text-[11px] border-b border-slate-300">
+                                <tr>
+                                    <th class="p-3">Nama Barber</th>
+                                    <th class="p-3 text-center">Jumlah Cukur (Kepala)</th>
+                                    <th class="p-3 text-right">Total Omset Kotor</th>
+                                    <th class="p-3 text-center">Persentase (%)</th>
+                                    <th class="p-3 text-right">Nominal Hak Komisi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="commissionTableBody" class="divide-y divide-slate-200">
+                                <tr><td colspan="5" class="text-center py-6 text-slate-400">Memuat data komisi...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
+
     <!-- MODAL-MODAL -->
     <!-- 1. Modal Login Admin -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
@@ -1116,6 +1211,7 @@
             </div>
         </div>
     </div>
+
     <!-- 3. Modal Tambah Menu -->
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1139,7 +1235,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Harga (Rp)</label>
-                    <input type="number" id="newServicePrice" required placeholder="75000" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
+                    <input type="number" id="newServicePrice" min="0" required placeholder="75000" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-amber-600">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
@@ -1152,6 +1248,7 @@
             </form>
         </div>
     </div>
+
     <!-- 4. Modal Detail Transaksi -->
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1163,6 +1260,7 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
+
     <!-- 5. Modal Pengaturan Printer Thermal -->
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1192,8 +1290,10 @@
             </div>
         </div>
     </div>
+
     <!-- Hidden Printable Struk -->
     <div id="printableReceipt" class="hidden"></div>
+
     <!-- JavaScript Logic Application -->
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0sCEzvFgJc2g8f5Ewkam7fn4lZCPLhC3lxZH_9TJxjkQzgOQD7iZtfGkwm3hy9H1Y/exec";
@@ -1243,13 +1343,11 @@
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
             expenses: [],
-            reservations: [],
-            activeReservationPhone: '',
-            activeReservationName: '',
-            activeReservationDetails: null
+            reservations: []
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
+
         window.addEventListener('DOMContentLoaded', () => {
             const filterTxStart = document.getElementById('filterTxStartDate');
             const filterTxEnd = document.getElementById('filterTxEndDate');
@@ -1259,6 +1357,8 @@
             const filterKasbonEnd = document.getElementById('filterKasbonEndDate');
             const filterAccStart = document.getElementById('filterAccStartDate');
             const filterAccEnd = document.getElementById('filterAccEndDate');
+            const filterCommStart = document.getElementById('filterCommStartDate');
+            const filterCommEnd = document.getElementById('filterCommEndDate');
             
             if (filterTxStart) filterTxStart.value = '';
             if (filterTxEnd) filterTxEnd.value = '';
@@ -1268,6 +1368,9 @@
             if (filterKasbonEnd) filterKasbonEnd.value = '';
             if (filterAccStart) filterAccStart.value = '';
             if (filterAccEnd) filterAccEnd.value = '';
+            if (filterCommStart) filterCommStart.value = '';
+            if (filterCommEnd) filterCommEnd.value = '';
+
             renderBookingServices();
             renderFullServices();
             renderPOSBarbers();
@@ -1279,6 +1382,26 @@
             }
             switchTab('schedule');
         });
+
+        function generateNextId(prefix, list, idKey = 'id') {
+            let maxNum = 100;
+            if (Array.isArray(list) && list.length > 0) {
+                list.forEach(item => {
+                    const rawId = String(item[idKey] || item['id transaksi'] || item['id pengeluaran'] || '');
+                    if (rawId.startsWith(prefix)) {
+                        const numPart = rawId.replace(prefix, '').match(/\d+/);
+                        if (numPart) {
+                            const num = parseInt(numPart[0], 10);
+                            if (!isNaN(num) && num > maxNum) {
+                                maxNum = num;
+                            }
+                        }
+                    }
+                });
+            }
+            return prefix + (maxNum + 1);
+        }
+
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
@@ -1302,6 +1425,7 @@
             }
             return clean;
         }
+
         function isDateInRange(dateStr, startStr, endStr) {
             if (!dateStr) return false;
             let normalized = parseStandardDate(dateStr);
@@ -1320,13 +1444,14 @@
             }
             return true;
         }
+
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
             const noticeEl = document.getElementById('barberNotice');
             if (!dateVal || !timeVal) {
                 if (noticeEl) noticeEl.innerText = "Silakan pilih tanggal dan jam terlebih dahulu untuk melihat barber yang bertugas.";
-                renderBookingBarbers([]);
+                renderBookingBarbers([], []);
                 return;
             }
             const dateObj = new Date(dateVal);
@@ -1340,12 +1465,33 @@
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
             const availableBarbers = BARBERS.filter(b => activeBarberIds.includes(b.id));
-            if (!activeBarberIds.includes(state.resSelectedBarber)) {
-                state.resSelectedBarber = availableBarbers.length > 0 ? availableBarbers[0].id : '';
+
+            const dObj = new Date(dateVal + 'T00:00:00');
+            const formattedSelectedDate = `${String(dObj.getDate()).padStart(2, '0')}/${String(dObj.getMonth() + 1).padStart(2, '0')}/${dObj.getFullYear()}`;
+            const isoSelectedDate = dateVal;
+
+            const busyBarberNames = state.reservations
+                .filter(res => {
+                    const resDate = String(res.tanggal || res.date || '').split('T')[0];
+                    const resTime = String(res.jam || res.time || '').trim();
+                    const resStatus = res.status || 'Menunggu';
+
+                    const isSameDate = (resDate === formattedSelectedDate || resDate === isoSelectedDate);
+                    const isSameTime = (resTime === timeVal);
+                    const isActive = (resStatus !== 'Dibatalkan' && resStatus !== 'Selesai');
+
+                    return isSameDate && isSameTime && isActive;
+                })
+                .map(res => String(res.barber || '').toLowerCase());
+
+            if (!activeBarberIds.includes(state.resSelectedBarber) || busyBarberNames.includes((BARBERS.find(b => b.id === state.resSelectedBarber)?.name || '').toLowerCase())) {
+                state.resSelectedBarber = '';
             }
-            renderBookingBarbers(availableBarbers);
+
+            renderBookingBarbers(availableBarbers, busyBarberNames);
         }
-        function renderBookingBarbers(listToRender) {
+
+        function renderBookingBarbers(listToRender, busyBarberNames = []) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
             const list = listToRender || [];
@@ -1353,17 +1499,34 @@
                 container.innerHTML = `<p class="col-span-full text-xs text-amber-700 italic">Silakan pilih tanggal & jam terlebih dahulu untuk memuat daftar barber.</p>`;
                 return;
             }
-            container.innerHTML = list.map(b => `
-                <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${state.resSelectedBarber === b.id ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
-                    <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
-                    <span class="text-xs">${b.name}</span>
-                </button>
-            `).join('');
+            container.innerHTML = list.map(b => {
+                const isBusy = busyBarberNames.includes(b.name.toLowerCase());
+                const isSelected = state.resSelectedBarber === b.id;
+
+                if (isBusy) {
+                    return `
+                        <button type="button" disabled class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 bg-slate-200 border-slate-300 text-slate-400 opacity-60 cursor-not-allowed relative" title="Barber sudah ada jadwal reservasi lain pada jam ini">
+                            <i class="fa-solid fa-user-clock text-lg mb-1"></i>
+                            <span class="text-xs font-bold line-through">${b.name}</span>
+                            <span class="text-[9px] font-bold text-red-600 bg-red-100 px-1.5 py-0.5 rounded border border-red-200 mt-1">Ada Jadwal Lain</span>
+                        </button>
+                    `;
+                }
+
+                return `
+                    <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${isSelected ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
+                        <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
+                        <span class="text-xs">${b.name}</span>
+                    </button>
+                `;
+            }).join('');
         }
+
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
+
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
@@ -1373,6 +1536,7 @@
             if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
             if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
             if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
+            
             fetch(GOOGLE_SHEET_WEB_APP_URL)
                 .then(res => res.json())
                 .then(data => {
@@ -1416,6 +1580,7 @@
                     renderExpensesTable();
                     renderKasbonTable();
                     renderAccounting();
+                    renderCommissionReport();
                 })
                 .catch(err => {
                     console.error("Gagal mengambil data sheet:", err);
@@ -1425,6 +1590,7 @@
                     if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat kasbon.</td></tr>`;
                 });
         }
+
         function renderScheduleTable() {
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
@@ -1436,9 +1602,16 @@
                 container.innerHTML = `<tr><td colspan="${state.isAdminLoggedIn ? 6 : 5}" class="text-center py-6 text-slate-400">Belum ada jadwal reservasi.</td></tr>`;
                 return;
             }
-            container.innerHTML = state.reservations.map((item, index) => {
+
+            const sortedReservations = [...state.reservations].sort((a, b) => {
+                let dateA = new Date(parseStandardDate(a.tanggal || a.date || '') + 'T' + (a.jam || '00:00').substring(0,5));
+                let dateB = new Date(parseStandardDate(b.tanggal || b.date || '') + 'T' + (b.jam || '00:00').substring(0,5));
+                return dateB - dateA;
+            });
+
+            container.innerHTML = sortedReservations.map((item) => {
+                const index = state.reservations.indexOf(item);
                 const currentStatus = item.status || 'Menunggu';
-                
                 let rawPhone = item['no. wahtsapp'] || item['no. whatsapp'] || item.phone || item['whatsapp'] || '';
                 let displayPhone = rawPhone ? String(rawPhone).trim() : '-';
                 
@@ -1446,22 +1619,18 @@
                 if (state.isAdminLoggedIn) {
                     if (displayPhone !== '-') {
                         let cleanWA = displayPhone.replace(/\D/g, '');
-                        
                         if (cleanWA.startsWith('8')) {
                             cleanWA = '62' + cleanWA;
                         } else if (cleanWA.startsWith('0')) {
                             cleanWA = '62' + cleanWA.slice(1);
                         }
-
                         const clientName = item.nama || item.name || 'Kak';
                         const bookingDate = String(item.tanggal || item.date || '').split('T')[0];
                         const bookingTime = item.jam || item.time || '';
                         const barberName = item.barber || '';
                         const servicesList = item.layanan || item.services || '';
-
                         const templatePesan = `Hallo Kak ${clientName}\n\nTerimakasih sudah Reservasi di *CahyaBaru BarberShop*\n\nReservasi Kakak kami Konfirmasi\nNama: ${clientName}\nKapster: ${barberName}\nLayanan: ${servicesList}\nJadwal: ${bookingDate} - ${bookingTime}\n\n*Jadwal dengan Barber ${barberName} Pukul ${bookingTime} Ready*\n\nMohon datang 10 Menit lebih awal ya kak. Jika ada perubahan Jadwal bisa Info ke Kami ya Kak.\n\nKami tunggu kedatangannya. Terimakasih!`;
                         const encodedMessage = encodeURIComponent(templatePesan);
-
                         phoneCol = `
                             <td class="p-3">
                                 <div class="flex items-center space-x-2">
@@ -1504,6 +1673,7 @@
                 `;
             }).join('');
         }
+
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -1514,6 +1684,7 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
+
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             const res = state.reservations[index];
@@ -1522,19 +1693,17 @@
             
             state.reservations[index].status = newStatus;
             
-            // Simpan data reservasi aktif ke state agar kasir tahu pelanggan mana yang sedang dilayani beserta detailnya
             if (newStatus === 'Selesai') {
-                state.activeReservationName = clientName;
-                state.activeReservationPhone = res['no. wahtsapp'] || res['no. whatsapp'] || res.phone || res['whatsapp'] || '';
-                state.activeReservationDetails = {
+                const activeResData = {
                     name: clientName,
+                    phone: res['no. wahtsapp'] || res['no. whatsapp'] || res.phone || res['whatsapp'] || '',
                     barber: res.barber || '',
                     services: res.layanan || res.services || '',
                     date: String(res.tanggal || res.date || '').split('T')[0],
                     time: res.jam || res.time || ''
                 };
+                sessionStorage.setItem('cb_active_reservation', JSON.stringify(activeResData));
             }
-
             const updatePayload = {
                 type: "update_reservation_status",
                 rowIndex: exactRowIndex,
@@ -1571,6 +1740,7 @@
             }
             renderScheduleTable();
         }
+
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1584,6 +1754,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -1591,12 +1762,14 @@
             }
             openModal('addMenuModal');
         }
+
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
             const category = document.getElementById('newServiceCategory').value;
-            const price = Number(document.getElementById('newServicePrice').value);
+            const price = Math.abs(Number(document.getElementById('newServicePrice').value));
             const desc = document.getElementById('newServiceDesc').value || '-';
+            
             const newService = {
                 id: 's-' + Date.now(),
                 category: category,
@@ -1606,15 +1779,18 @@
             };
             state.services.push(newService);
             localStorage.setItem('cb_services', JSON.stringify(state.services));
+            
             document.getElementById('newServiceName').value = '';
             document.getElementById('newServicePrice').value = '';
             document.getElementById('newServiceDesc').value = '';
             closeModal('addMenuModal');
+            
             renderBookingServices();
             renderFullServices();
             renderPOSServices();
             alert(`Menu "${name}" berhasil ditambahkan!`);
         }
+
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
@@ -1629,6 +1805,7 @@
                 renderPOSServices();
             }
         }
+
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
                 alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
@@ -1666,6 +1843,7 @@
                 alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
             }
         }
+
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1727,11 +1905,13 @@
                 alert("Gagal mencetak ke printer. Periksa koneksi Bluetooth.");
             }
         }
+
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
+
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1742,10 +1922,12 @@
                 </button>
             `).join('');
         }
+
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
+
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1764,12 +1946,14 @@
                 </div>
             `).join('');
         }
+
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
+
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -1794,14 +1978,17 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
+
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
+
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
+
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -1815,6 +2002,7 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -1828,6 +2016,7 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function setKasbonPaymentMethod(method) {
             state.kasbonPaymentMethod = method;
             const btnCash = document.getElementById('kasbonCash');
@@ -1841,15 +2030,18 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
+
         function openPrinterModal() {
             openModal('printerModal');
         }
+
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
+
         function switchTab(tabId) {
-            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting'];
+            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting', 'commission'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
@@ -1858,6 +2050,7 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const activeEl = document.getElementById(`tab-${tabId}`);
             if (activeEl) activeEl.classList.remove('hidden');
+            
             document.querySelectorAll('[id^="nav-"]').forEach(btn => {
                 btn.classList.remove('bg-amber-100', 'text-amber-900', 'font-bold');
                 btn.classList.add('text-slate-700');
@@ -1875,6 +2068,7 @@
                 backdrop.classList.add('hidden');
             }
         }
+
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -1883,15 +2077,19 @@
             }
             return 'Rp ' + formattedNum;
         }
+
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
+
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
+
         function openLoginModal() {
             openModal('loginModal');
         }
+
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -1906,6 +2104,7 @@
                 alert('Kata sandi admin salah!');
             }
         }
+
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
@@ -1913,6 +2112,7 @@
             renderScheduleTable();
             switchTab('schedule');
         }
+
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             if (!container) return;
@@ -1930,6 +2130,7 @@
                 `;
             }).join('');
         }
+
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -1938,6 +2139,7 @@
             }
             renderBookingServices();
         }
+
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             if (!container) return;
@@ -1959,6 +2161,7 @@
                 </div>
             `).join('');
         }
+
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
@@ -1981,6 +2184,7 @@
                 .join(', ');
             const dObj = resDate ? new Date(resDate + 'T00:00:00') : new Date();
             const localFormattedDate = `${String(dObj.getDate()).padStart(2, '0')}/${String(dObj.getMonth() + 1).padStart(2, '0')}/${dObj.getFullYear()}`;
+            
             const reservationData = {
                 name: clientName,
                 phone: clientPhone,
@@ -2007,6 +2211,7 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
+
         function checkoutPOS() {
             if (state.cart.length === 0) {
                 alert('Keranjang kasir masih kosong!');
@@ -2014,24 +2219,16 @@
             }
             const barberObj = BARBERS.find(b => b.id === state.selectedBarber);
             const total = state.cart.reduce((a, b) => a + b.price, 0);
-            let nextNum = 101;
-            if (state.transactions.length > 0) {
-                const maxNum = state.transactions.reduce((max, t) => {
-                    if (t.id && t.id.startsWith('BB-')) {
-                        const num = parseInt(t.id.replace('BB-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
+            
+            const newTxId = generateNextId('BB-', state.transactions, 'id');
             const itemsStr = state.cart.map(i => i.name).join(', ');
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
-            const transaction = {
+            
+            const transactionPayload = {
                 type: 'transaction',
-                id: 'BB-' + nextNum,
+                id: newTxId,
                 date: localDateStr,
                 time: nowD.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
                 barberName: barberObj ? barberObj.name : 'Unknown',
@@ -2044,14 +2241,14 @@
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(transaction)
+                body: JSON.stringify(transactionPayload)
             }).catch(err => console.error("Sheet transaction error:", err));
             const localTx = {
-                id: transaction.id,
+                id: transactionPayload.id,
                 date: isoDateStr,
-                time: transaction.time,
-                barberName: transaction.barberName,
-                paymentMethod: transaction.paymentMethod,
+                time: transactionPayload.time,
+                barberName: transactionPayload.barberName,
+                paymentMethod: transactionPayload.paymentMethod,
                 items: [...state.cart],
                 total: total,
                 status: 'Lunas'
@@ -2060,24 +2257,18 @@
             if (state.autoPrint) {
                 printReceipt(localTx);
             }
-
-            // Cek apakah transaksi ini berasal dari reservasi aktif yang diselesaikan
-            const hasActiveReservation = state.activeReservationPhone && state.activeReservationPhone.trim() !== '';
-            let targetPhone = state.activeReservationPhone;
-            let resDetails = state.activeReservationDetails;
-
-            // Reset cart dan state reservasi aktif
+            const activeResRaw = sessionStorage.getItem('cb_active_reservation');
+            let activeRes = null;
+            if (activeResRaw) {
+                try { activeRes = JSON.parse(activeResRaw); } catch(e){}
+            }
             clearCart();
-            state.activeReservationPhone = '';
-            state.activeReservationName = '';
-            state.activeReservationDetails = null;
-
+            sessionStorage.removeItem('cb_active_reservation');
             renderTransactionHistory();
             renderAccounting();
-
-            if (hasActiveReservation && resDetails) {
-                // Jika berasal dari reservasi, langsung redirect ke WhatsApp pelanggan sesuai format pesan yang diminta
-                let cleanWA = String(targetPhone).replace(/\D/g, '');
+            renderCommissionReport();
+            if (activeRes && activeRes.phone) {
+                let cleanWA = String(activeRes.phone).replace(/\D/g, '');
                 if (cleanWA.startsWith('8')) {
                     cleanWA = '62' + cleanWA;
                 } else if (cleanWA.startsWith('0')) {
@@ -2085,16 +2276,15 @@
                 }
                 
                 const pesanKonfirmasi = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di CahyaBaru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
-                
                 const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanKonfirmasi)}`;
                 window.location.href = urlWACustomer;
             } else {
-                // Jika transaksi kasir biasa (bukan dari reservasi), tampilkan modal input nomor WhatsApp seperti biasa
                 const inputWA = document.getElementById('waCustomerInput');
                 if (inputWA) inputWA.value = '08';
                 openModal('waReviewModal');
             }
         }
+
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
@@ -2112,6 +2302,7 @@
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
+
         function getLatestDate(arrayData) {
             let nowIso = new Date().toISOString().split('T')[0];
             if (!arrayData || arrayData.length === 0) return nowIso;
@@ -2125,52 +2316,71 @@
             validDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
             return validDates[0];
         }
+
         function setTxFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterTxStartDate').value = targetDate;
             document.getElementById('filterTxEndDate').value = targetDate;
             renderTransactionHistory();
         }
+
         function resetTxFilter() {
+            if (document.getElementById('filterTxSearch')) document.getElementById('filterTxSearch').value = '';
+            if (document.getElementById('filterTxBarber')) document.getElementById('filterTxBarber').value = 'ALL';
             if (document.getElementById('filterTxStartDate')) document.getElementById('filterTxStartDate').value = '';
             if (document.getElementById('filterTxEndDate')) document.getElementById('filterTxEndDate').value = '';
             if (document.getElementById('filterTxMethod')) document.getElementById('filterTxMethod').value = 'ALL';
             renderTransactionHistory();
         }
+
         function setExpFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterExpStartDate').value = targetDate;
             document.getElementById('filterExpEndDate').value = targetDate;
             renderExpensesTable();
         }
+
         function resetExpFilter() {
             if (document.getElementById('filterExpStartDate')) document.getElementById('filterExpStartDate').value = '';
             if (document.getElementById('filterExpEndDate')) document.getElementById('filterExpEndDate').value = '';
             if (document.getElementById('filterExpMethod')) document.getElementById('filterExpMethod').value = 'ALL';
             renderExpensesTable();
         }
+
         function setAccFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterAccStartDate').value = targetDate;
             document.getElementById('filterAccEndDate').value = targetDate;
             renderAccounting();
         }
+
         function resetAccFilter() {
             if (document.getElementById('filterAccStartDate')) document.getElementById('filterAccStartDate').value = '';
             if (document.getElementById('filterAccEndDate')) document.getElementById('filterAccEndDate').value = '';
             if (document.getElementById('filterAccMethod')) document.getElementById('filterAccMethod').value = 'ALL';
             renderAccounting();
         }
+
         function renderTransactionHistory() {
             const container = document.getElementById('transactionHistoryTable');
+            const searchVal = document.getElementById('filterTxSearch')?.value.toLowerCase().trim() || '';
+            const barberVal = document.getElementById('filterTxBarber')?.value || 'ALL';
             const startVal = document.getElementById('filterTxStartDate')?.value || '';
             const endVal = document.getElementById('filterTxEndDate')?.value || '';
             const methodVal = document.getElementById('filterTxMethod')?.value || 'ALL';
             if (!container) return;
+
             const filteredTx = state.transactions.filter(t => {
                 if (methodVal !== 'ALL' && t.paymentMethod !== methodVal) return false;
+                if (barberVal !== 'ALL' && t.barberName.toLowerCase() !== barberVal.toLowerCase()) return false;
+                if (searchVal) {
+                    const matchId = t.id.toLowerCase().includes(searchVal);
+                    const matchItems = t.items.some(i => i.name.toLowerCase().includes(searchVal));
+                    if (!matchId && !matchItems) return false;
+                }
                 return isDateInRange(t.date, startVal, endVal);
             });
+
             if (filteredTx.length === 0) {
                 container.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi pada filter tersebut.</td></tr>`;
                 return;
@@ -2201,11 +2411,13 @@
                 </tr>
             `).join('');
         }
+
         function showDetailTx(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             const detailContainer = document.getElementById('detailTxContent');
             const actionsContainer = document.getElementById('detailTxActions');
+            
             if (detailContainer) {
                 detailContainer.innerHTML = `
                     <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
@@ -2267,6 +2479,7 @@
             }
             openModal('detailTxModal');
         }
+
         function handleRefundTransaction(txId) {
             const pwd = prompt('Masukkan Kata Sandi Otorisasi Refund Admin:');
             if (pwd !== REFUND_PASSWORD && pwd !== ADMIN_PASSWORD) {
@@ -2280,33 +2493,27 @@
             closeModal('detailTxModal');
             renderTransactionHistory();
             renderAccounting();
+            renderCommissionReport();
             alert(`Transaksi ${txId} berhasil dibatalkan/refund.`);
         }
+
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
-            const amount = Number(document.getElementById('expenseAmount').value);
+            const rawAmount = Number(document.getElementById('expenseAmount').value);
+            const amount = Math.floor(Math.abs(rawAmount));
             if (!desc || isNaN(amount) || amount <= 0) {
-                alert('Isi keterangan dan jumlah pengeluaran dengan benar!');
+                alert('Isi keterangan dan jumlah pengeluaran bernilai positif!');
                 return;
             }
-            let nextNum = 101;
-            if (state.expenses.length > 0) {
-                const maxNum = state.expenses.reduce((max, exp) => {
-                    if (exp.id && exp.id.startsWith('BBPK-')) {
-                        const num = parseInt(exp.id.replace('BBPK-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
+            const newExpId = generateNextId('BBPK-', state.expenses, 'id');
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+            
             const newExp = {
                 type: 'expense',
-                id: 'BBPK-' + nextNum,
+                id: newExpId,
                 date: localDateStr,
                 desc: desc,
                 paymentMethod: state.expPaymentMethod,
@@ -2328,10 +2535,12 @@
             state.expenses.unshift(localExp);
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
+            
             renderExpensesTable();
             renderAccounting();
             alert('Pengeluaran berhasil dicatat!');
         }
+
         function renderExpensesTable() {
             const container = document.getElementById('expensesTableBody');
             const startVal = document.getElementById('filterExpStartDate')?.value || '';
@@ -2359,31 +2568,23 @@
                 </tr>
             `).join('');
         }
+
         function handleAddKasbon(e) {
             e.preventDefault();
             const barberName = document.getElementById('kasbonBarberName').value;
-            const amount = Number(document.getElementById('kasbonAmount').value);
+            const rawAmount = Number(document.getElementById('kasbonAmount').value);
+            const amount = Math.floor(Math.abs(rawAmount));
             const note = document.getElementById('kasbonNote').value || 'Tanpa Catatan';
             if (!barberName || isNaN(amount) || amount <= 0) {
-                alert('Pilih barber dan isi jumlah nominal kasbon dengan benar!');
+                alert('Pilih barber dan isi jumlah nominal kasbon bernilai positif!');
                 return;
             }
-            let nextNum = 101;
-            if (state.expenses.length > 0) {
-                const maxNum = state.expenses.reduce((max, exp) => {
-                    if (exp.id && exp.id.startsWith('BBKB-')) {
-                        const num = parseInt(exp.id.replace('BBKB-', ''), 10);
-                        return !isNaN(num) && num > max ? num : max;
-                    }
-                    return max;
-                }, 100);
-                nextNum = maxNum + 1;
-            }
-            const kasbonId = 'BBKB-' + nextNum;
+            const kasbonId = generateNextId('BBKB-', state.expenses, 'id');
             const fullDesc = `[KASBON] ${barberName}: ${note}`;
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+            
             const newKasbonPayload = {
                 type: 'expense',
                 id: kasbonId,
@@ -2414,6 +2615,7 @@
             renderAccounting();
             alert(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat!`);
         }
+
         function renderKasbonTable() {
             const container = document.getElementById('kasbonTableBody');
             const startVal = document.getElementById('filterKasbonStartDate')?.value || '';
@@ -2463,6 +2665,7 @@
                 `;
             }).join('');
         }
+
         function payOffKasbon(kasbonId) {
             const kasbonItem = state.expenses.find(e => e.id === kasbonId);
             if (!kasbonItem) return;
@@ -2485,18 +2688,21 @@
                 alert(`Kasbon ${kasbonId} berhasil dilunasi (Nominal berubah menjadi Rp 0).`);
             }
         }
+
         function setKasbonFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterKasbonStartDate').value = targetDate;
             document.getElementById('filterKasbonEndDate').value = targetDate;
             renderKasbonTable();
         }
+
         function resetKasbonFilter() {
             document.getElementById('filterKasbonStartDate').value = '';
             document.getElementById('filterKasbonEndDate').value = '';
             document.getElementById('filterKasbonMethod').value = 'ALL';
             renderKasbonTable();
         }
+
         function renderAccounting() {
             const startVal = document.getElementById('filterAccStartDate')?.value || '';
             const endVal = document.getElementById('filterAccEndDate')?.value || '';
@@ -2533,11 +2739,19 @@
             const totalRevenue = totalCashIn + totalQRISIn;
             const totalExpenses = filteredExp.reduce((sum, e) => sum + e.amount, 0);
             const netProfit = totalRevenue - totalExpenses;
-            document.getElementById('accCash').innerText = formatRp(netCash);
-            document.getElementById('accQRIS').innerText = formatRp(netQRIS);
-            document.getElementById('accRevenue').innerText = formatRp(totalRevenue);
-            document.getElementById('accExpenses').innerText = formatRp(totalExpenses);
-            document.getElementById('accNetProfit').innerText = formatRp(netProfit);
+
+            const accCashEl = document.getElementById('accCash');
+            const accQRISEl = document.getElementById('accQRIS');
+            const accRevEl = document.getElementById('accRevenue');
+            const accExpEl = document.getElementById('accExpenses');
+            const accNetEl = document.getElementById('accNetProfit');
+
+            if (accCashEl) accCashEl.innerText = formatRp(netCash);
+            if (accQRISEl) accQRISEl.innerText = formatRp(netQRIS);
+            if (accRevEl) accRevEl.innerText = formatRp(totalRevenue);
+            if (accExpEl) accExpEl.innerText = formatRp(totalExpenses);
+            if (accNetEl) accNetEl.innerText = formatRp(netProfit);
+
             const barberSummaryContainer = document.getElementById('barberCountSummary');
             if (barberSummaryContainer) {
                 let summaryMap = {};
@@ -2632,6 +2846,83 @@
                 `).join('');
             }
         }
+
+        function setCommFilterToday() {
+            let targetDate = getLatestDate(state.transactions);
+            document.getElementById('filterCommStartDate').value = targetDate;
+            document.getElementById('filterCommEndDate').value = targetDate;
+            renderCommissionReport();
+        }
+
+        function resetCommFilter() {
+            if (document.getElementById('filterCommStartDate')) document.getElementById('filterCommStartDate').value = '';
+            if (document.getElementById('filterCommEndDate')) document.getElementById('filterCommEndDate').value = '';
+            renderCommissionReport();
+        }
+
+        function renderCommissionReport() {
+            const startVal = document.getElementById('filterCommStartDate')?.value || '';
+            const endVal = document.getElementById('filterCommEndDate')?.value || '';
+            const commPercent = Number(document.getElementById('globalCommissionPercent')?.value || 50);
+            const container = document.getElementById('commissionTableBody');
+            if (!container) return;
+
+            const filteredTx = state.transactions.filter(t => {
+                if (t.status === 'Dibatalkan') return false;
+                return isDateInRange(t.date, startVal, endVal);
+            });
+
+            let summaryMap = {};
+            BARBERS.forEach(b => {
+                summaryMap[b.name] = { count: 0, revenue: 0 };
+            });
+
+            filteredTx.forEach(t => {
+                const bName = t.barberName;
+                if (!summaryMap[bName]) {
+                    summaryMap[bName] = { count: 0, revenue: 0 };
+                }
+                summaryMap[bName].count += 1;
+                summaryMap[bName].revenue += t.total;
+            });
+
+            let totalAllHeads = 0;
+            let totalAllRev = 0;
+            let totalAllComm = 0;
+
+            const rowsHTML = BARBERS.map(b => {
+                const stat = summaryMap[b.name] || { count: 0, revenue: 0 };
+                const commissionAmount = (stat.revenue * commPercent) / 100;
+                
+                totalAllHeads += stat.count;
+                totalAllRev += stat.revenue;
+                totalAllComm += commissionAmount;
+
+                return `
+                    <tr class="hover:bg-slate-100/60 transition">
+                        <td class="p-3 font-bold text-slate-900">${b.name}</td>
+                        <td class="p-3 text-center font-semibold text-amber-800">${stat.count} Kepala</td>
+                        <td class="p-3 text-right font-medium text-slate-700">${formatRp(stat.revenue)}</td>
+                        <td class="p-3 text-center">
+                            <span class="text-xs font-bold px-2 py-1 rounded bg-amber-100 text-amber-900 border border-amber-300">${commPercent}%</span>
+                        </td>
+                        <td class="p-3 text-right font-bold text-emerald-700 text-base">${formatRp(commissionAmount)}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                ${rowsHTML}
+                <tr class="bg-amber-50/80 font-bold border-t-2 border-slate-300 text-slate-900">
+                    <td class="p-3">TOTAL Keseluruhan</td>
+                    <td class="p-3 text-center text-amber-900">${totalAllHeads} Kepala</td>
+                    <td class="p-3 text-right text-slate-900">${formatRp(totalAllRev)}</td>
+                    <td class="p-3 text-center">-</td>
+                    <td class="p-3 text-right text-emerald-800 text-lg">${formatRp(totalAllComm)}</td>
+                </tr>
+            `;
+        }
+
         function exportToExcel() {
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "ID Transaksi,Tanggal,Jam,Barber,Metode Pembayaran,Layanan,Total (Rp),Status\n";
@@ -2647,6 +2938,7 @@
             link.click();
             document.body.removeChild(link);
         }
+
         function confirmResetMonth() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -2659,6 +2951,7 @@
                 renderExpensesTable();
                 renderKasbonTable();
                 renderAccounting();
+                renderCommissionReport();
                 alert('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
             }
         }
