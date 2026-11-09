@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Cahyabaru Barbershop",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Cahyabaru Barbershop",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "Barabai",
+  "description": "Reservation &amp;amp; POS"
+}
