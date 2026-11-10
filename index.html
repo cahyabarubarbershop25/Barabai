@@ -751,7 +751,7 @@
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
                             <div>
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Cari (ID / Layanan)</label>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Cari ID Transaksi</label>
                                 <input type="text" id="filterTxSearch" oninput="renderTransactionHistory()" placeholder="Contoh: BB-101" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
                             </div>
                             <div>
@@ -916,9 +916,9 @@
                     <form onsubmit="handleAddKasbon(event)" class="space-y-4 pb-6 border-b border-slate-200">
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Pilih Barber / Karyawan</label>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Pilih Karyawan</label>
                                 <select id="kasbonBarberName" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
-                                    <option value="">-- Pilih Barber --</option>
+                                    <option value="">-- Pilih Karyawan --</option>
                                     <option value="Fadil">Fadil</option>
                                     <option value="Adit">Adit</option>
                                     <option value="Wawan">Wawan</option>
@@ -929,11 +929,11 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah Kasbon (Rp)</label>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Jumlah Kasbon</label>
                                 <input type="number" id="kasbonAmount" min="1" required placeholder="100000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Catatan / Keperluan</label>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Catatan</label>
                                 <input type="text" id="kasbonNote" placeholder="Contoh: Keperluan Mendesak" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-slate-800 text-sm focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
@@ -987,11 +987,11 @@
                                 <tr>
                                     <th class="p-3">ID Kasbon</th>
                                     <th class="p-3">Tanggal</th>
-                                    <th class="p-3">Peminjam / Barber</th>
+                                    <th class="p-3">Peminjam</th>
                                     <th class="p-3">Metode</th>
                                     <th class="p-3">Catatan</th>
                                     <th class="p-3 text-right">Nominal Sisa</th>
-                                    <th class="p-3 text-center">Aksi / Pelunasan</th>
+                                    <th class="p-3 text-center">Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody id="kasbonTableBody" class="divide-y divide-slate-200">
@@ -1064,11 +1064,11 @@
                             <p class="text-[10px] text-slate-400 mt-1">Pendapatan QRIS - Pengeluaran QRIS</p>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
-                            <p class="text-xs font-bold text-slate-500 uppercase">Total Omset Penjualan</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase">Total Penjualan</p>
                             <p id="accRevenue" class="text-xl font-bold text-emerald-700 mt-2">Rp 0</p>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
-                            <p class="text-xs font-bold text-slate-500 uppercase">Total Pengeluaran Kas</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase">Pengeluaran Kas</p>
                             <p id="accExpenses" class="text-xl font-bold text-red-700 mt-2">Rp 0</p>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-2xs">
@@ -1132,14 +1132,14 @@
                                     <option value="ALL">Semua Layanan (Omzet Total)</option>
                                     
                                     <optgroup label="HAIRCUT OPSIONAL">
-                                        <option value="HAIRCUT" selected>Seluruh Haircut Opsional (Hijau)</option>
+                                        <option value="HAIRCUT" selected>Seluruh Haircut Opsional</option>
                                         <option value="Reguler Haircut">Reguler Haircut</option>
                                         <option value="Signature Haircut">Signature Haircut</option>
                                         <option value="Luxury Haircut">Luxury Haircut</option>
                                     </optgroup>
                                     
                                     <optgroup label="CHEMICAL TREATMENT">
-                                        <option value="CHEMICAL_ALL">Seluruh Chemical Treatment (Hijau)</option>
+                                        <option value="CHEMICAL_ALL">Seluruh Chemical Treatment</option>
                                         <option value="Hairperm">Hairperm (Keriting)</option>
                                         <option value="Designperm">Designperm / Rootlift</option>
                                         <option value="Smooth Keratin">Smooth Keratin</option>
@@ -1148,7 +1148,7 @@
                                     </optgroup>
                                     
                                     <optgroup label="ADDITIONAL TREATMENT">
-                                        <option value="ADDITIONAL_ALL">Seluruh Additional Treatment (Hijau)</option>
+                                        <option value="ADDITIONAL_ALL">Seluruh Additional Treatment</option>
                                         <option value="Home Servis">Home Servis</option>
                                         <option value="Wedding Styling">Wedding Styling</option>
                                     </optgroup>
@@ -2699,9 +2699,9 @@
                         <td class="p-3 text-xs text-slate-600">${displayNote}</td>
                         <td class="p-3 font-bold text-right ${isLunas ? 'text-emerald-600' : 'text-red-600'}">${formatRp(k.amount)}</td>
                         <td class="p-3 text-center">
-                            ${isLunas ? '<span class="text-[10px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">LUNAS (0)</span>' : `
+                            ${isLunas ? '<span class="text-[10px] font-bold px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">LUNAS</span>' : `
                                 <button onclick="payOffKasbon('${k.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-2xs">
-                                    <i class="fa-solid fa-check"></i> Pelunasan / Set 0
+                                    <i class="fa-solid fa-check"></i> Belum Lunas
                                 </button>
                             `}
                         </td>
