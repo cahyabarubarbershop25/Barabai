@@ -89,7 +89,6 @@
             </div>
         </div>
     </header>
-
     <!-- Konten Utama (Sidebar & Main Area) -->
     <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 overflow-hidden">
         <!-- Sidebar Navigasi -->
@@ -153,6 +152,10 @@
                             <i class="fa-solid fa-percent w-5 text-amber-600"></i>
                             <span>Komisi Barber</span>
                         </button>
+                        <button onclick="switchTab('closing')" id="nav-closing" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium text-sm transition text-slate-700 hover:bg-slate-300/50">
+                            <i class="fa-solid fa-book-bookmark w-5 text-amber-600"></i>
+                            <span>Tutup Buku</span>
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -161,7 +164,6 @@
                 <p>All Rights Reserved.</p>
             </div>
         </aside>
-
         <!-- Dynamic Main Content -->
         <main class="flex-1 overflow-y-auto pr-1">
             <!-- TAB 1: Jadwal Reservasi -->
@@ -204,7 +206,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 2: Form Reservasi -->
             <section id="tab-booking" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -213,7 +214,7 @@
                             <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <i class="fa-solid fa-calendar-plus text-amber-600"></i> Form Reservasi Pelanggan
                             </h2>
-                            <p class="text-sm text-slate-600 mt-1">Jadwal Shift 1 (10.00-16.00) & Jadwal Shift 2 (16.00-22.00).</p>
+                            <p class="text-sm text-slate-600 mt-1">Jadwal Shift 1 (10.00-16.00), Middle (14.00-22.00), & Shift 2 (16.00-22.00).</p>
                         </div>
                     </div>
                     <form onsubmit="handleCustomerBooking(event)" class="mt-6 space-y-6">
@@ -269,7 +270,6 @@
                     </form>
                 </div>
             </section>
-
             <!-- TAB 3: Daftar Layanan -->
             <section id="tab-services" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs">
@@ -282,7 +282,6 @@
                     <div id="fullServicesDisplay" class="mt-6 space-y-8"></div>
                 </div>
             </section>
-
             <!-- TAB 4: Edukasi & Rekomendasi Gaya Potongan -->
             <section id="tab-education" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -514,7 +513,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 5: Tentang Kami -->
             <section id="tab-about" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-4 sm:p-6 shadow-xs space-y-6">
@@ -569,11 +567,11 @@
                                 </div>
                                 <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl text-center flex flex-col items-center justify-between space-y-2">
                                     <div>
-                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Nain</p>
+                                        <p class="font-bold text-slate-800 text-xs sm:text-sm">Dodot</p>
                                         <span class="text-[10px] sm:text-xs text-amber-800 font-medium">Barber</span>
                                     </div>
                                     <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-xl overflow-hidden border-2 border-amber-300 shadow-sm bg-white">
-                                        <img src="Nain.jpeg" alt="Nain" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/150x150/e2e8f0/d97706?text=Nain'">
+                                        <img src="Dodot.jpeg" alt="Dodot" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/150x150/e2e8f0/d97706?text=Dodot'">
                                     </div>
                                     <a href="https://instagram.com/mhmmd_zulkarnain9" target="_blank" class="text-[11px] font-bold text-pink-600 hover:text-pink-700 hover:underline flex items-center justify-center gap-1 mt-1 transition">
                                         <i class="fa-brands fa-instagram"></i> @mhmmd_zulkarnain9
@@ -660,7 +658,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 6: Kasir POS -->
             <section id="tab-pos" class="tab-content hidden space-y-6">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -691,6 +688,21 @@
                                 <span class="text-[11px] text-slate-400 italic">Klik ikon (Sampah) untuk menghapus menu</span>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="posServicesGrid"></div>
+                            
+                            <!-- Tambahan Menu Tips Customer Nominal Manual -->
+                            <div class="mt-4 pt-4 border-t border-slate-200 bg-white p-3 rounded-xl border border-slate-300 shadow-2xs">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-bold text-slate-800 text-xs text-amber-800 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-hand-holding-dollar"></i> Tips Customer (Nominal Manual)
+                                    </h4>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="number" id="customTipAmount" min="0" placeholder="Contoh: 10000" class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600 font-semibold">
+                                    <button type="button" onclick="addCustomTipToCart()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition shadow-2xs flex items-center gap-1">
+                                        <i class="fa-solid fa-plus"></i> Tambah Tips
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="bg-slate-50 border border-slate-300 rounded-2xl p-5 flex flex-col justify-between h-full shadow-xs">
@@ -731,7 +743,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 7: Riwayat Transaksi -->
             <section id="tab-transactions" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -761,7 +772,7 @@
                                     <option value="Fadil">Fadil</option>
                                     <option value="Adit">Adit</option>
                                     <option value="Wawan">Wawan</option>
-                                    <option value="Nain">Nain</option>
+                                    <option value="Dodot">Dodot</option>
                                     <option value="Reza">Reza</option>
                                     <option value="Mutawali">Mutawali</option>
                                 </select>
@@ -809,7 +820,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 8: Pengeluaran Kas -->
             <section id="tab-expenses" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -897,7 +907,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 9: Catatan Kasbon -->
             <section id="tab-kasbon" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -922,7 +931,7 @@
                                     <option value="Fadil">Fadil</option>
                                     <option value="Adit">Adit</option>
                                     <option value="Wawan">Wawan</option>
-                                    <option value="Nain">Nain</option>
+                                    <option value="Dodot">Dodot</option>
                                     <option value="Reza">Reza</option>
                                     <option value="Mutawali">Mutawali</option>
                                     <option value="Bonar">Bonar (Kasir)</option>
@@ -1001,7 +1010,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 10: Laporan Akuntansi -->
             <section id="tab-accounting" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -1106,7 +1114,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- TAB 11: Komisi / Bagi Hasil Barber -->
             <section id="tab-commission" class="tab-content hidden space-y-6">
                 <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
@@ -1122,7 +1129,6 @@
                             <span>Refresh Data</span>
                         </button>
                     </div>
-
                     <!-- Filter Komisi -->
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
@@ -1168,7 +1174,6 @@
                             <button type="button" onclick="resetCommFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
                         </div>
                     </div>
-
                     <!-- Pengaturan Persentase Komisi Manual -->
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center space-x-3 w-full sm:w-auto">
@@ -1177,7 +1182,6 @@
                         </div>
                         <p class="text-[11px] text-slate-500 italic">Nilai persentase di atas otomatis mengalikan total pendapatan per barber.</p>
                     </div>
-
                     <!-- Tabel Rincian Komisi -->
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm text-slate-700">
@@ -1197,9 +1201,194 @@
                     </div>
                 </div>
             </section>
+            <!-- TAB 12: Tutup Buku -->
+            <section id="tab-closing" class="tab-content hidden space-y-6">
+                <div class="bg-slate-50 border border-slate-300 rounded-2xl p-6 shadow-xs space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-200 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-book-bookmark text-amber-600"></i> Laporan Tutup Buku Harian / Periode
+                            </h2>
+                            <p class="text-sm text-slate-600 mt-1">Klik salah satu kartu ringkasan atau nama barber untuk melihat rincian riwayat transaksinya.</p>
+                        </div>
+                        <button onclick="loadAllDataFromSheet()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Refresh Data</span>
+                        </button>
+                    </div>
+
+                    <!-- Filter Tanggal & Layanan Tutup Buku -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Filter Layanan (Jasa)</label>
+                                <select id="filterCloseService" onchange="renderClosingBook()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-semibold focus:outline-none focus:border-amber-600">
+                                    <option value="ALL" selected>Semua Layanan (Omzet Total)</option>
+                                    
+                                    <optgroup label="HAIRCUT OPSIONAL">
+                                        <option value="HAIRCUT">Seluruh Haircut Opsional</option>
+                                        <option value="Reguler Haircut">Reguler Haircut</option>
+                                        <option value="Signature Haircut">Signature Haircut</option>
+                                        <option value="Luxury Haircut">Luxury Haircut</option>
+                                    </optgroup>
+                                    
+                                    <optgroup label="CHEMICAL TREATMENT">
+                                        <option value="CHEMICAL_ALL">Seluruh Chemical Treatment</option>
+                                        <option value="Hairperm">Hairperm (Keriting)</option>
+                                        <option value="Designperm">Designperm / Rootlift</option>
+                                        <option value="Smooth Keratin">Smooth Keratin</option>
+                                        <option value="Braidbox">Braidbox (Kepang)</option>
+                                        <option value="Cornrow">Cornrow (Kepang)</option>
+                                    </optgroup>
+                                    
+                                    <optgroup label="ADDITIONAL TREATMENT">
+                                        <option value="ADDITIONAL_ALL">Seluruh Additional Treatment</option>
+                                        <option value="Home Servis">Home Servis</option>
+                                        <option value="Wedding Styling">Wedding Styling</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Dari Tanggal</label>
+                                <input type="date" id="filterCloseStartDate" onchange="renderClosingBook()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sampai Tanggal</label>
+                                <input type="date" id="filterCloseEndDate" onchange="renderClosingBook()" class="bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button type="button" onclick="setCloseFilterToday()" class="flex-1 md:flex-none bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Hari Ini</button>
+                            <button type="button" onclick="resetCloseFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
+                        </div>
+                    </div>
+
+                    <!-- 10 Poin Ringkasan Tutup Buku -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="closingMetricsGrid">
+                        <button type="button" onclick="showClosingDetail('pendapatan_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">1. Total Pendapatan Kotor</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-amber-600"></i>
+                            </div>
+                            <p id="closePendapatanKotor" class="text-lg font-bold text-slate-900 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Khusus Jasa / Layanan</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('penjualan_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">2. Total Penjualan Kotor</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-amber-600"></i>
+                            </div>
+                            <p id="closePenjualanKotor" class="text-lg font-bold text-slate-900 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Khusus Produk</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('cash_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">3. Cash Kotor</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-amber-600"></i>
+                            </div>
+                            <p id="closeCashKotor" class="text-lg font-bold text-amber-700 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Pemasukan Tunai</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('qriss_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">4. Qriss Kotor</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-amber-600"></i>
+                            </div>
+                            <p id="closeQrissKotor" class="text-lg font-bold text-cyan-700 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Pemasukan QRIS</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('pengeluaran')" class="text-left bg-white hover:bg-red-50/60 p-4 rounded-xl border border-slate-300 hover:border-red-400 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-red-800">5. Pengeluaran</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-red-600"></i>
+                            </div>
+                            <p id="closePengeluaran" class="text-lg font-bold text-red-600 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Di luar Kasbon</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('kasbon')" class="text-left bg-white hover:bg-red-50/60 p-4 rounded-xl border border-slate-300 hover:border-red-400 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-red-800">6. Kasbon</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-red-600"></i>
+                            </div>
+                            <p id="closeKasbon" class="text-lg font-bold text-orange-600 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Pinjaman Karyawan</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('cash_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">7. Cash Bersih</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-emerald-600"></i>
+                            </div>
+                            <p id="closeCashBersih" class="text-lg font-bold text-amber-800 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Cash Kotor - Keluar Cash</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('qriss_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">8. Qriss Bersih</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-emerald-600"></i>
+                            </div>
+                            <p id="closeQrissBersih" class="text-lg font-bold text-cyan-800 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Qriss Kotor - Keluar QRIS</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('pendapatan_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">9. Pendapatan Bersih</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-emerald-600"></i>
+                            </div>
+                            <p id="closePendapatanBersih" class="text-lg font-bold text-emerald-700 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Jasa - Beban Operasional</p>
+                        </button>
+
+                        <button type="button" onclick="showClosingDetail('penjualan_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">10. Penjualan Bersih</p>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-emerald-600"></i>
+                            </div>
+                            <p id="closePenjualanBersih" class="text-lg font-bold text-emerald-700 mt-1.5">Rp 0</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Total Produk Terjual</p>
+                        </button>
+                    </div>
+
+                    <!-- Rekap per Barber (Klik Nama Barber untuk Lihat Riwayat Transaksinya) -->
+                    <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-user-scissors text-amber-600"></i> Rekap Transaksi per Barber (Klik Nama Barber untuk Riwayat)
+                            </p>
+                            <span class="text-[11px] text-slate-400 font-medium italic">Sesuai Filter Tanggal & Layanan</span>
+                        </div>
+                        <div id="closingBarberSummary" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 pt-1"></div>
+                    </div>
+
+                    <!-- Panel Rincian Riwayat Transaksi / Mutasi Tutup Buku -->
+                    <div id="closingDetailPanel" class="hidden bg-white p-4 sm:p-5 rounded-xl border-2 border-amber-400 shadow-sm space-y-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-3 border-b border-slate-200">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 px-2 py-0.5 rounded border border-amber-300">Rincian Data</span>
+                                <h3 id="closingDetailTitle" class="text-base font-bold text-slate-900 mt-1">Riwayat Transaksi</h3>
+                            </div>
+                            <button type="button" onclick="closeClosingDetailPanel()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-xmark"></i> Tutup Rincian
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-slate-700">
+                                <thead id="closingDetailHead" class="bg-slate-100 text-slate-600 uppercase text-[11px] border-b border-slate-300"></thead>
+                                <tbody id="closingDetailBody" class="divide-y divide-slate-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
-
     <!-- MODAL-MODAL -->
     <!-- 1. Modal Login Admin -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
@@ -1244,7 +1433,6 @@
             </div>
         </div>
     </div>
-
     <!-- 3. Modal Tambah Menu -->
     <div id="addMenuModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1281,7 +1469,6 @@
             </form>
         </div>
     </div>
-
     <!-- 4. Modal Detail Transaksi -->
     <div id="detailTxModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1293,7 +1480,6 @@
             <div id="detailTxActions" class="pt-3 border-t border-slate-200 flex flex-wrap justify-end gap-2"></div>
         </div>
     </div>
-
     <!-- 5. Modal Pengaturan Printer Thermal -->
     <div id="printerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-50 border border-slate-300 w-full max-w-md rounded-2xl p-6 shadow-xl space-y-4">
@@ -1323,6 +1509,31 @@
             </div>
         </div>
     </div>
+    <!-- 6. Modal Otorisasi Refund Admin -->
+    <div id="refundModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 border border-slate-300 w-full max-w-sm rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left text-red-600"></i>
+                    <span>Otorisasi Refund Admin</span>
+                </h3>
+                <button onclick="closeModal('refundModal')" class="text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-600">Masukkan kata sandi otorisasi admin untuk membatalkan/refund transaksi <span id="refundTxIdLabel" class="font-bold text-slate-900"></span>.</p>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Kata Sandi Otorisasi</label>
+                <input type="password" id="refundPasswordInput" placeholder="Masukkan kata sandi" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:border-red-600">
+            </div>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeModal('refundModal')" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl transition text-xs">
+                    Batal
+                </button>
+                <button onclick="confirmRefundTransaction()" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow-sm">
+                    Konfirmasi Refund
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Hidden Printable Struk -->
     <div id="printableReceipt" class="hidden"></div>
@@ -1338,19 +1549,23 @@
             { id: "fadil", name: "Fadil" },
             { id: "adit", name: "Adit" },
             { id: "wawan", name: "Wawan" },
-            { id: "nain", name: "Nain" },
+            { id: "dodot", name: "Dodot" },
             { id: "reza", name: "Reza" },
             { id: "mutawali", name: "Mutawali" }
         ];
+
+        // Jadwal Shift Baru (Shift 1: 10.00-16.00, Middle: 14.00-22.00, Shift 2: 16.00-22.00)
+        // Index hari: 0 = Minggu, 1 = Senin, 2 = Selasa, 3 = Rabu, 4 = Kamis, 5 = Jumat, 6 = Sabtu
         const SHIFT_SCHEDULE = {
-            0: { shift1: ["wawan", "nain"], shift2: ["adit", "fadil"] },
-            1: { shift1: ["fadil", "nain"], shift2: ["wawan", "adit"] },
-            2: { shift1: ["mutawali", "wawan"], shift2: ["nain", "adit"] },
-            3: { shift1: ["nain", "adit"], shift2: ["fadil", "wawan"] },
-            4: { shift1: ["mutawali", "adit"], shift2: ["fadil", "wawan"] },
-            5: { shift1: ["mutawali", "wawan"], shift2: ["fadil", "nain"] },
-            6: { shift1: ["fadil"], shift2: ["nain", "adit"] }
+            0: { shift1: ["wawan"], shift2: ["fadil"], middle: ["adit"] },       // MINGGU
+            1: { shift1: ["fadil"], shift2: ["wawan"], middle: ["adit"] },       // SENIN
+            2: { shift1: ["mutawali"], shift2: ["adit"], middle: ["wawan"] },    // SELASA (Fadil Libur)
+            3: { shift1: ["wawan"], shift2: ["adit"], middle: ["fadil"] },       // RABU
+            4: { shift1: ["mutawali"], shift2: ["fadil"], middle: ["adit"] },    // KAMIS (Wawan Libur)
+            5: { shift1: ["mutawali"], shift2: ["fadil"], middle: ["wawan"] },   // JUMAT (Adit Libur)
+            6: { shift1: ["adit"], shift2: ["wawan"], middle: ["fadil"] }        // SABTU
         };
+
         const DEFAULT_SERVICES = [
             { id: "s1", category: "Haircut Opsional", name: "Reguler Haircut", price: 60000, desc: "Potong, keramas, styling" },
             { id: "s2", category: "Haircut Opsional", name: "Signature Haircut", price: 80000, desc: "Keramas, potong, hairmask, styling" },
@@ -1374,6 +1589,7 @@
             posPaymentMethod: 'Cash',
             expPaymentMethod: 'Cash',
             kasbonPaymentMethod: 'Cash',
+            pendingRefundTxId: null,
             autoPrint: JSON.parse(localStorage.getItem('cb_autoprint') || 'true'),
             services: JSON.parse(localStorage.getItem('cb_services') || JSON.stringify(DEFAULT_SERVICES)),
             transactions: [],
@@ -1382,7 +1598,6 @@
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
-
         window.addEventListener('DOMContentLoaded', () => {
             // Register Service Worker untuk PWA
             if ('serviceWorker' in navigator) {
@@ -1390,7 +1605,6 @@
                     .then(reg => console.log('Service Worker terdaftar:', reg.scope))
                     .catch(err => console.log('Pendaftaran Service Worker gagal:', err));
             }
-
             const filterTxStart = document.getElementById('filterTxStartDate');
             const filterTxEnd = document.getElementById('filterTxEndDate');
             const filterExpStart = document.getElementById('filterExpStartDate');
@@ -1401,6 +1615,8 @@
             const filterAccEnd = document.getElementById('filterAccEndDate');
             const filterCommStart = document.getElementById('filterCommStartDate');
             const filterCommEnd = document.getElementById('filterCommEndDate');
+            const filterCloseStart = document.getElementById('filterCloseStartDate');
+            const filterCloseEnd = document.getElementById('filterCloseEndDate');
             
             if (filterTxStart) filterTxStart.value = '';
             if (filterTxEnd) filterTxEnd.value = '';
@@ -1412,7 +1628,8 @@
             if (filterAccEnd) filterAccEnd.value = '';
             if (filterCommStart) filterCommStart.value = '';
             if (filterCommEnd) filterCommEnd.value = '';
-
+            if (filterCloseStart) filterCloseStart.value = '';
+            if (filterCloseEnd) filterCloseEnd.value = '';
             renderBookingServices();
             renderFullServices();
             renderPOSBarbers();
@@ -1424,7 +1641,6 @@
             }
             switchTab('schedule');
         });
-
         function generateNextId(prefix, list, idKey = 'id') {
             let maxNum = 100;
             if (Array.isArray(list) && list.length > 0) {
@@ -1443,7 +1659,6 @@
             }
             return prefix + (maxNum + 1);
         }
-
         function parseStandardDate(dateStr) {
             if (!dateStr) return '';
             let clean = String(dateStr).split('T')[0].trim();
@@ -1467,7 +1682,6 @@
             }
             return clean;
         }
-
         function isDateInRange(dateStr, startStr, endStr) {
             if (!dateStr) return false;
             let normalized = parseStandardDate(dateStr);
@@ -1487,6 +1701,7 @@
             return true;
         }
 
+        // Pembaruan Logika Ketersediaan Barber (Shift 1, Middle, Shift 2)
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
             const timeVal = document.getElementById('resTime').value;
@@ -1496,40 +1711,50 @@
                 renderBookingBarbers([], []);
                 return;
             }
-            const dateObj = new Date(dateVal);
+            // Menggunakan + 'T00:00:00' agar indeks hari tepat sesuai zona waktu lokal
+            const dateObj = new Date(dateVal + 'T00:00:00');
             const dayIndex = dateObj.getDay();
             const matchHour = timeVal.match(/\d+/);
             const hourNum = matchHour ? parseInt(matchHour[0], 10) : 10;
-            const shiftKey = (hourNum >= 10 && hourNum < 16) ? 'shift1' : 'shift2';
-            const shiftLabel = shiftKey === 'shift1' ? 'Shift 1 (10.00-16.00)' : 'Shift 2 (16.00-22.00)';
-            const activeBarberIds = SHIFT_SCHEDULE[dayIndex][shiftKey];
+            
+            const daySchedule = SHIFT_SCHEDULE[dayIndex];
+            let activeBarberIds = [];
+            let shiftLabel = '';
+
+            if (hourNum >= 10 && hourNum < 14) {
+                // Jam 10:00 - 13:59 -> Hanya Shift 1
+                activeBarberIds = [...(daySchedule.shift1 || [])];
+                shiftLabel = 'Shift 1 (10.00-16.00)';
+            } else if (hourNum >= 14 && hourNum < 16) {
+                // Jam 14:00 - 15:59 -> Shift 1 + Middle
+                activeBarberIds = [...new Set([...(daySchedule.shift1 || []), ...(daySchedule.middle || [])])];
+                shiftLabel = 'Shift 1 (10.00-16.00) & Middle (14.00-22.00)';
+            } else {
+                // Jam 16:00 - 22:00 -> Shift 2 + Middle
+                activeBarberIds = [...new Set([...(daySchedule.shift2 || []), ...(daySchedule.middle || [])])];
+                shiftLabel = 'Middle (14.00-22.00) & Shift 2 (16.00-22.00)';
+            }
+
             if (noticeEl) {
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
             const availableBarbers = BARBERS.filter(b => activeBarberIds.includes(b.id));
-
-            const dObj = new Date(dateVal + 'T00:00:00');
-            const formattedSelectedDate = `${String(dObj.getDate()).padStart(2, '0')}/${String(dObj.getMonth() + 1).padStart(2, '0')}/${dObj.getFullYear()}`;
+            const formattedSelectedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()}`;
             const isoSelectedDate = dateVal;
-
             const busyBarberNames = state.reservations
                 .filter(res => {
                     const resDate = String(res.tanggal || res.date || '').split('T')[0];
                     const resTime = String(res.jam || res.time || '').trim();
                     const resStatus = res.status || 'Menunggu';
-
                     const isSameDate = (resDate === formattedSelectedDate || resDate === isoSelectedDate);
                     const isSameTime = (resTime === timeVal);
                     const isActive = (resStatus !== 'Dibatalkan' && resStatus !== 'Selesai');
-
                     return isSameDate && isSameTime && isActive;
                 })
                 .map(res => String(res.barber || '').toLowerCase());
-
             if (!activeBarberIds.includes(state.resSelectedBarber) || busyBarberNames.includes((BARBERS.find(b => b.id === state.resSelectedBarber)?.name || '').toLowerCase())) {
                 state.resSelectedBarber = '';
             }
-
             renderBookingBarbers(availableBarbers, busyBarberNames);
         }
 
@@ -1544,7 +1769,6 @@
             container.innerHTML = list.map(b => {
                 const isBusy = busyBarberNames.includes(b.name.toLowerCase());
                 const isSelected = state.resSelectedBarber === b.id;
-
                 if (isBusy) {
                     return `
                         <button type="button" disabled class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 bg-slate-200 border-slate-300 text-slate-400 opacity-60 cursor-not-allowed relative" title="Barber sudah ada jadwal reservasi lain pada jam ini">
@@ -1554,7 +1778,6 @@
                         </button>
                     `;
                 }
-
                 return `
                     <button type="button" onclick="selectBookingBarber('${b.id}')" class="p-3 rounded-xl border text-center transition flex flex-col items-center justify-center space-y-1 ${isSelected ? 'bg-amber-100 border-amber-600 text-amber-900 font-bold shadow-2xs' : 'bg-white border-slate-300 text-slate-700 hover:border-slate-400'}">
                         <i class="fa-solid fa-user-scissors text-lg mb-1"></i>
@@ -1563,12 +1786,10 @@
                 `;
             }).join('');
         }
-
         function selectBookingBarber(id) {
             state.resSelectedBarber = id;
             updateAvailableBarbers();
         }
-
         function loadAllDataFromSheet() {
             const scheduleContainer = document.getElementById('scheduleTableBody');
             const txContainer = document.getElementById('transactionHistoryTable');
@@ -1623,6 +1844,7 @@
                     renderKasbonTable();
                     renderAccounting();
                     renderCommissionReport();
+                    renderClosingBook();
                 })
                 .catch(err => {
                     console.error("Gagal mengambil data sheet:", err);
@@ -1632,7 +1854,6 @@
                     if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat kasbon.</td></tr>`;
                 });
         }
-
         function renderScheduleTable() {
             const container = document.getElementById('scheduleTableBody');
             const thPhone = document.getElementById('thPhoneHeader');
@@ -1644,13 +1865,11 @@
                 container.innerHTML = `<tr><td colspan="${state.isAdminLoggedIn ? 6 : 5}" class="text-center py-6 text-slate-400">Belum ada jadwal reservasi.</td></tr>`;
                 return;
             }
-
             const sortedReservations = [...state.reservations].sort((a, b) => {
                 let dateA = new Date(parseStandardDate(a.tanggal || a.date || '') + 'T' + (a.jam || '00:00').substring(0,5));
                 let dateB = new Date(parseStandardDate(b.tanggal || b.date || '') + 'T' + (b.jam || '00:00').substring(0,5));
                 return dateB - dateA;
             });
-
             container.innerHTML = sortedReservations.map((item) => {
                 const index = state.reservations.indexOf(item);
                 const currentStatus = item.status || 'Menunggu';
@@ -1715,7 +1934,6 @@
                 `;
             }).join('');
         }
-
         function getCustomerStatusBadge(status) {
             switch(status) {
                 case 'Proses':
@@ -1726,7 +1944,6 @@
                     return '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Menunggu</span>';
             }
         }
-
         function updateReservationStatus(index, newStatus) {
             if (!state.reservations[index]) return;
             const res = state.reservations[index];
@@ -1776,13 +1993,12 @@
                 }
                 renderPOSCart();
                 switchTab('pos');
-                alert(`Status ${clientName} diubah jadi Selesai. Dialihkan ke Kasir POS.`);
+                showNotification(`Status ${clientName} diubah jadi Selesai. Dialihkan ke Kasir POS.`);
             } else {
-                alert(`Status ${clientName} berhasil diubah menjadi ${newStatus}!`);
+                showNotification(`Status ${clientName} berhasil diubah menjadi ${newStatus}!`);
             }
             renderScheduleTable();
         }
-
         function toggleMobileNav() {
             const sidebar = document.getElementById('sidebarNav');
             const backdrop = document.getElementById('mobileBackdrop');
@@ -1790,13 +2006,12 @@
             
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
-                backdrop.classList.add('hidden');
+                backdrop.classList.remove('hidden');
             } else {
                 sidebar.classList.add('-translate-x-full');
                 backdrop.classList.add('hidden');
             }
         }
-
         function openAddMenuModal() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
@@ -1804,7 +2019,6 @@
             }
             openModal('addMenuModal');
         }
-
         function handleAddNewService(e) {
             e.preventDefault();
             const name = document.getElementById('newServiceName').value;
@@ -1830,27 +2044,24 @@
             renderBookingServices();
             renderFullServices();
             renderPOSServices();
-            alert(`Menu "${name}" berhasil ditambahkan!`);
+            showNotification(`Menu "${name}" berhasil ditambahkan!`);
         }
-
         function deleteService(serviceId, event) {
             event.stopPropagation();
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
             }
-            if (confirm('Apakah Anda yakin ingin menghapus menu layanan ini?')) {
-                state.services = state.services.filter(s => s.id !== serviceId);
-                localStorage.setItem('cb_services', JSON.stringify(state.services));
-                renderBookingServices();
-                renderFullServices();
-                renderPOSServices();
-            }
+            state.services = state.services.filter(s => s.id !== serviceId);
+            localStorage.setItem('cb_services', JSON.stringify(state.services));
+            renderBookingServices();
+            renderFullServices();
+            renderPOSServices();
+            showNotification('Menu layanan berhasil dihapus.');
         }
-
         async function connectBluetoothPrinter() {
             if (!navigator.bluetooth) {
-                alert('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
+                showNotification('Web Bluetooth API tidak didukung di browser ini. Gunakan Google Chrome di Android/PC.');
                 return;
             }
             try {
@@ -1879,13 +2090,12 @@
                 }
                 document.getElementById('printerStatusLabel').innerText = `Terhubung: ${device.name || 'VSC MP-58M'}`;
                 document.getElementById('printerStatusIcon').className = "text-2xl text-emerald-600";
-                alert(`Berhasil terhubung ke printer ${device.name || 'VSC MP-58M'}!`);
+                showNotification(`Berhasil terhubung ke printer ${device.name || 'VSC MP-58M'}!`);
             } catch (err) {
                 console.log('Bluetooth connection error:', err);
-                alert('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
+                showNotification('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
             }
         }
-
         async function printReceipt(tx) {
             if (!bluetoothCharacteristic) {
                 openPrinterModal();
@@ -1941,19 +2151,17 @@
                     await new Promise(resolve => setTimeout(resolve, 20));
                 }
                 
-                alert('Struk berhasil dicetak!');
+                showNotification('Struk berhasil dicetak!');
             } catch (err) {
                 console.error("Gagal mencetak:", err);
-                alert("Gagal mencetak ke printer. Periksa koneksi Bluetooth.");
+                showNotification("Gagal mencetak ke printer. Periksa koneksi Bluetooth.");
             }
         }
-
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             printReceipt(tx);
         }
-
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
             if (!container) return;
@@ -1964,12 +2172,10 @@
                 </button>
             `).join('');
         }
-
         function selectPOSBarber(id) {
             state.selectedBarber = id;
             renderPOSBarbers();
         }
-
         function renderPOSServices() {
             const container = document.getElementById('posServicesGrid');
             if (!container) return;
@@ -1988,14 +2194,31 @@
                 </div>
             `).join('');
         }
-
         function addToCart(serviceId) {
             const s = state.services.find(x => x.id === serviceId);
             if (!s) return;
             state.cart.push({ ...s });
             renderPOSCart();
         }
-
+        function addCustomTipToCart() {
+            const inputEl = document.getElementById('customTipAmount');
+            if (!inputEl) return;
+            const tipVal = Math.floor(Math.abs(Number(inputEl.value || 0)));
+            if (tipVal <= 0) {
+                showNotification('Masukkan nominal tips customer dengan benar!');
+                return;
+            }
+            state.cart.push({
+                id: 'tip-' + Date.now(),
+                category: 'Tips Customer',
+                name: 'Tips Customer',
+                price: tipVal,
+                desc: 'Tips tambahan dari pelanggan'
+            });
+            inputEl.value = '';
+            renderPOSCart();
+            showNotification(`Tips sebesar ${formatRp(tipVal)} ditambahkan ke keranjang.`);
+        }
         function renderPOSCart() {
             const container = document.getElementById('posCartList');
             const subtotalEl = document.getElementById('posSubtotal');
@@ -2020,17 +2243,14 @@
             if (subtotalEl) subtotalEl.innerText = formatRp(total);
             if (totalEl) totalEl.innerText = formatRp(total);
         }
-
         function removeFromCart(index) {
             state.cart.splice(index, 1);
             renderPOSCart();
         }
-
         function clearCart() {
             state.cart = [];
             renderPOSCart();
         }
-
         function setPosPaymentMethod(method) {
             state.posPaymentMethod = method;
             const btnCash = document.getElementById('pmCash');
@@ -2044,7 +2264,6 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function setExpPaymentMethod(method) {
             state.expPaymentMethod = method;
             const btnCash = document.getElementById('expCash');
@@ -2058,7 +2277,6 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function setKasbonPaymentMethod(method) {
             state.kasbonPaymentMethod = method;
             const btnCash = document.getElementById('kasbonCash');
@@ -2072,23 +2290,23 @@
                 btnCash.className = "py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center space-x-2 bg-white border-slate-300 text-slate-600";
             }
         }
-
         function openPrinterModal() {
             openModal('printerModal');
         }
-
         function toggleAutoPrint(el) {
             state.autoPrint = el.checked;
             localStorage.setItem('cb_autoprint', JSON.stringify(state.autoPrint));
         }
-
         function switchTab(tabId) {
-            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting', 'commission'];
+            const adminTabs = ['pos', 'transactions', 'expenses', 'kasbon', 'accounting', 'commission', 'closing'];
             if (adminTabs.includes(tabId) && !state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
             }
             state.activeTab = tabId;
+            if (tabId === 'closing') {
+                renderClosingBook();
+            }
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const activeEl = document.getElementById(`tab-${tabId}`);
             if (activeEl) activeEl.classList.remove('hidden');
@@ -2110,7 +2328,6 @@
                 backdrop.classList.add('hidden');
             }
         }
-
         function formatRp(val) {
             const num = Number(val || 0);
             const formattedNum = Math.abs(num).toLocaleString('id-ID');
@@ -2119,19 +2336,15 @@
             }
             return 'Rp ' + formattedNum;
         }
-
         function openModal(id) {
             document.getElementById(id).classList.remove('hidden');
         }
-
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
-
         function openLoginModal() {
             openModal('loginModal');
         }
-
         function handleAdminLogin() {
             const pwd = document.getElementById('adminPasswordInput').value;
             if (pwd === ADMIN_PASSWORD) {
@@ -2143,10 +2356,9 @@
                 renderScheduleTable();
                 switchTab('pos');
             } else {
-                alert('Kata sandi admin salah!');
+                showNotification('Kata sandi admin salah!');
             }
         }
-
         function logoutAdmin() {
             state.isAdminLoggedIn = false;
             document.getElementById('adminBadge').classList.add('hidden');
@@ -2154,7 +2366,6 @@
             renderScheduleTable();
             switchTab('schedule');
         }
-
         function renderBookingServices() {
             const container = document.getElementById('bookingServicesList');
             if (!container) return;
@@ -2173,7 +2384,6 @@
                 `;
             }).join('');
         }
-
         function toggleBookingService(id) {
             if (state.resSelectedServices.includes(id)) {
                 state.resSelectedServices = state.resSelectedServices.filter(x => x !== id);
@@ -2182,7 +2392,6 @@
             }
             renderBookingServices();
         }
-
         function renderFullServices() {
             const container = document.getElementById('fullServicesDisplay');
             if (!container) return;
@@ -2205,15 +2414,14 @@
                 </div>
             `).join('');
         }
-
         function handleCustomerBooking(e) {
             e.preventDefault();
             if (!state.resSelectedBarber) {
-                alert('Silakan pilih salah satu barber yang bertugas!');
+                showNotification('Silakan pilih salah satu barber yang bertugas!');
                 return;
             }
             if (state.resSelectedServices.length === 0) {
-                alert('Pilih minimal satu layanan!');
+                showNotification('Pilih minimal satu layanan!');
                 return;
             }
             const clientName = document.getElementById('resClientName').value;
@@ -2255,10 +2463,9 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
-
         function checkoutPOS() {
             if (state.cart.length === 0) {
-                alert('Keranjang kasir masih kosong!');
+                showNotification('Keranjang kasir masih kosong!');
                 return;
             }
             const barberObj = BARBERS.find(b => b.id === state.selectedBarber);
@@ -2311,6 +2518,7 @@
             renderTransactionHistory();
             renderAccounting();
             renderCommissionReport();
+            renderClosingBook();
             if (activeRes && activeRes.phone) {
                 let cleanWA = String(activeRes.phone).replace(/\D/g, '');
                 if (cleanWA.startsWith('8')) {
@@ -2328,12 +2536,11 @@
                 openModal('waReviewModal');
             }
         }
-
         function sendWAReviewDirect() {
             const inputEl = document.getElementById('waCustomerInput');
             let customerPhoneWA = inputEl ? inputEl.value.trim() : '';
             if (!customerPhoneWA || customerPhoneWA === '08' || customerPhoneWA === '') {
-                alert('Silakan masukkan nomor WhatsApp pelanggan terlebih dahulu!');
+                showNotification('Silakan masukkan nomor WhatsApp pelanggan terlebih dahulu!');
                 return;
             }
             if (customerPhoneWA.startsWith('0')) {
@@ -2346,7 +2553,6 @@
             closeModal('waReviewModal');
             closeModal('detailTxModal');
         }
-
         function getLatestDate(arrayData) {
             let nowIso = new Date().toISOString().split('T')[0];
             if (!arrayData || arrayData.length === 0) return nowIso;
@@ -2360,14 +2566,12 @@
             validDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
             return validDates[0];
         }
-
         function setTxFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterTxStartDate').value = targetDate;
             document.getElementById('filterTxEndDate').value = targetDate;
             renderTransactionHistory();
         }
-
         function resetTxFilter() {
             if (document.getElementById('filterTxSearch')) document.getElementById('filterTxSearch').value = '';
             if (document.getElementById('filterTxBarber')) document.getElementById('filterTxBarber').value = 'ALL';
@@ -2376,35 +2580,30 @@
             if (document.getElementById('filterTxMethod')) document.getElementById('filterTxMethod').value = 'ALL';
             renderTransactionHistory();
         }
-
         function setExpFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterExpStartDate').value = targetDate;
             document.getElementById('filterExpEndDate').value = targetDate;
             renderExpensesTable();
         }
-
         function resetExpFilter() {
             if (document.getElementById('filterExpStartDate')) document.getElementById('filterExpStartDate').value = '';
             if (document.getElementById('filterExpEndDate')) document.getElementById('filterExpEndDate').value = '';
             if (document.getElementById('filterExpMethod')) document.getElementById('filterExpMethod').value = 'ALL';
             renderExpensesTable();
         }
-
         function setAccFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterAccStartDate').value = targetDate;
             document.getElementById('filterAccEndDate').value = targetDate;
             renderAccounting();
         }
-
         function resetAccFilter() {
             if (document.getElementById('filterAccStartDate')) document.getElementById('filterAccStartDate').value = '';
             if (document.getElementById('filterAccEndDate')) document.getElementById('filterAccEndDate').value = '';
             if (document.getElementById('filterAccMethod')) document.getElementById('filterAccMethod').value = 'ALL';
             renderAccounting();
         }
-
         function renderTransactionHistory() {
             const container = document.getElementById('transactionHistoryTable');
             const searchVal = document.getElementById('filterTxSearch')?.value.toLowerCase().trim() || '';
@@ -2413,7 +2612,6 @@
             const endVal = document.getElementById('filterTxEndDate')?.value || '';
             const methodVal = document.getElementById('filterTxMethod')?.value || 'ALL';
             if (!container) return;
-
             const filteredTx = state.transactions.filter(t => {
                 if (methodVal !== 'ALL' && t.paymentMethod !== methodVal) return false;
                 if (barberVal !== 'ALL' && t.barberName.toLowerCase() !== barberVal.toLowerCase()) return false;
@@ -2424,7 +2622,6 @@
                 }
                 return isDateInRange(t.date, startVal, endVal);
             });
-
             if (filteredTx.length === 0) {
                 container.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi pada filter tersebut.</td></tr>`;
                 return;
@@ -2455,7 +2652,6 @@
                 </tr>
             `).join('');
         }
-
         function showDetailTx(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
@@ -2505,7 +2701,7 @@
             }
             if (actionsContainer) {
                 actionsContainer.innerHTML = `
-                    <button onclick="sendWAReviewDirect()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center space-x-1 shadow-2xs">
+                    <button onclick="openModal('waReviewModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-xs transition flex items-center space-x-1 shadow-2xs">
                         <i class="fa-brands fa-whatsapp text-sm"></i>
                         <span>Kirim Ulasan WA</span>
                     </button>
@@ -2523,31 +2719,41 @@
             }
             openModal('detailTxModal');
         }
-
         function handleRefundTransaction(txId) {
-            const pwd = prompt('Masukkan Kata Sandi Otorisasi Refund Admin:');
+            state.pendingRefundTxId = txId;
+            const labelEl = document.getElementById('refundTxIdLabel');
+            const inputEl = document.getElementById('refundPasswordInput');
+            if (labelEl) labelEl.innerText = txId;
+            if (inputEl) inputEl.value = '';
+            openModal('refundModal');
+        }
+        function confirmRefundTransaction() {
+            const pwd = document.getElementById('refundPasswordInput')?.value || '';
             if (pwd !== REFUND_PASSWORD && pwd !== ADMIN_PASSWORD) {
-                alert('Kata sandi refund salah!');
+                showNotification('Kata sandi refund salah!');
                 return;
             }
+            const txId = state.pendingRefundTxId;
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
             
             tx.status = 'Dibatalkan';
+            state.pendingRefundTxId = null;
+            closeModal('refundModal');
             closeModal('detailTxModal');
             renderTransactionHistory();
             renderAccounting();
             renderCommissionReport();
-            alert(`Transaksi ${txId} berhasil dibatalkan/refund.`);
+            renderClosingBook();
+            showNotification(`Transaksi ${txId} berhasil dibatalkan/refund.`);
         }
-
         function handleAddExpense(e) {
             e.preventDefault();
             const desc = document.getElementById('expenseDesc').value;
             const rawAmount = Number(document.getElementById('expenseAmount').value);
             const amount = Math.floor(Math.abs(rawAmount));
             if (!desc || isNaN(amount) || amount <= 0) {
-                alert('Isi keterangan dan jumlah pengeluaran bernilai positif!');
+                showNotification('Isi keterangan dan jumlah pengeluaran bernilai positif!');
                 return;
             }
             const newExpId = generateNextId('BBPK-', state.expenses, 'id');
@@ -2582,9 +2788,9 @@
             
             renderExpensesTable();
             renderAccounting();
-            alert('Pengeluaran berhasil dicatat!');
+            renderClosingBook();
+            showNotification('Pengeluaran berhasil dicatat!');
         }
-
         function renderExpensesTable() {
             const container = document.getElementById('expensesTableBody');
             const startVal = document.getElementById('filterExpStartDate')?.value || '';
@@ -2612,7 +2818,6 @@
                 </tr>
             `).join('');
         }
-
         function handleAddKasbon(e) {
             e.preventDefault();
             const barberName = document.getElementById('kasbonBarberName').value;
@@ -2620,7 +2825,7 @@
             const amount = Math.floor(Math.abs(rawAmount));
             const note = document.getElementById('kasbonNote').value || 'Tanpa Catatan';
             if (!barberName || isNaN(amount) || amount <= 0) {
-                alert('Pilih barber dan isi jumlah nominal kasbon bernilai positif!');
+                showNotification('Pilih barber dan isi jumlah nominal kasbon bernilai positif!');
                 return;
             }
             const kasbonId = generateNextId('BBKB-', state.expenses, 'id');
@@ -2657,9 +2862,9 @@
             renderExpensesTable();
             renderKasbonTable();
             renderAccounting();
-            alert(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat!`);
+            renderClosingBook();
+            showNotification(`Kasbon sebesar ${formatRp(amount)} untuk ${barberName} berhasil dicatat!`);
         }
-
         function renderKasbonTable() {
             const container = document.getElementById('kasbonTableBody');
             const startVal = document.getElementById('filterKasbonStartDate')?.value || '';
@@ -2709,44 +2914,39 @@
                 `;
             }).join('');
         }
-
         function payOffKasbon(kasbonId) {
             const kasbonItem = state.expenses.find(e => e.id === kasbonId);
             if (!kasbonItem) return;
-            if (confirm(`Konfirmasi pelunasan kasbon ${kasbonId}? Nominal di sheet expenses akan diubah menjadi 0.`)) {
-                kasbonItem.amount = 0;
-                const updatePayload = {
-                    type: "update_expense_amount",
-                    id: kasbonId,
-                    amount: 0
-                };
-                fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatePayload)
-                }).catch(err => console.error("Sheet update error:", err));
-                renderExpensesTable();
-                renderKasbonTable();
-                renderAccounting();
-                alert(`Kasbon ${kasbonId} berhasil dilunasi (Nominal berubah menjadi Rp 0).`);
-            }
+            kasbonItem.amount = 0;
+            const updatePayload = {
+                type: "update_expense_amount",
+                id: kasbonId,
+                amount: 0
+            };
+            fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatePayload)
+            }).catch(err => console.error("Sheet update error:", err));
+            renderExpensesTable();
+            renderKasbonTable();
+            renderAccounting();
+            renderClosingBook();
+            showNotification(`Kasbon ${kasbonId} berhasil dilunasi (Nominal berubah menjadi Rp 0).`);
         }
-
         function setKasbonFilterToday() {
             let targetDate = getLatestDate(state.expenses);
             document.getElementById('filterKasbonStartDate').value = targetDate;
             document.getElementById('filterKasbonEndDate').value = targetDate;
             renderKasbonTable();
         }
-
         function resetKasbonFilter() {
             document.getElementById('filterKasbonStartDate').value = '';
             document.getElementById('filterKasbonEndDate').value = '';
             document.getElementById('filterKasbonMethod').value = 'ALL';
             renderKasbonTable();
         }
-
         function renderAccounting() {
             const startVal = document.getElementById('filterAccStartDate')?.value || '';
             const endVal = document.getElementById('filterAccEndDate')?.value || '';
@@ -2783,19 +2983,16 @@
             const totalRevenue = totalCashIn + totalQRISIn;
             const totalExpenses = filteredExp.reduce((sum, e) => sum + e.amount, 0);
             const netProfit = totalRevenue - totalExpenses;
-
             const accCashEl = document.getElementById('accCash');
             const accQRISEl = document.getElementById('accQRIS');
             const accRevEl = document.getElementById('accRevenue');
             const accExpEl = document.getElementById('accExpenses');
             const accNetEl = document.getElementById('accNetProfit');
-
             if (accCashEl) accCashEl.innerText = formatRp(netCash);
             if (accQRISEl) accQRISEl.innerText = formatRp(netQRIS);
             if (accRevEl) accRevEl.innerText = formatRp(totalRevenue);
             if (accExpEl) accExpEl.innerText = formatRp(totalExpenses);
             if (accNetEl) accNetEl.innerText = formatRp(netProfit);
-
             const barberSummaryContainer = document.getElementById('barberCountSummary');
             if (barberSummaryContainer) {
                 let summaryMap = {};
@@ -2890,21 +3087,18 @@
                 `).join('');
             }
         }
-
         function setCommFilterToday() {
             let targetDate = getLatestDate(state.transactions);
             document.getElementById('filterCommStartDate').value = targetDate;
             document.getElementById('filterCommEndDate').value = targetDate;
             renderCommissionReport();
         }
-
         function resetCommFilter() {
             if (document.getElementById('filterCommStartDate')) document.getElementById('filterCommStartDate').value = '';
             if (document.getElementById('filterCommEndDate')) document.getElementById('filterCommEndDate').value = '';
             if (document.getElementById('filterCommService')) document.getElementById('filterCommService').value = 'HAIRCUT';
             renderCommissionReport();
         }
-
         function renderCommissionReport() {
             const startVal = document.getElementById('filterCommStartDate')?.value || '';
             const endVal = document.getElementById('filterCommEndDate')?.value || '';
@@ -2912,35 +3106,29 @@
             const commPercent = Number(document.getElementById('globalCommissionPercent')?.value || 0);
             const container = document.getElementById('commissionTableBody');
             if (!container) return;
-
             const filteredTx = state.transactions.filter(t => {
                 if (t.status === 'Dibatalkan') return false;
                 return isDateInRange(t.date, startVal, endVal);
             });
-
             let summaryMap = {};
             BARBERS.forEach(b => {
                 summaryMap[b.name] = { count: 0, revenue: 0 };
             });
-
             filteredTx.forEach(t => {
                 const bName = t.barberName;
                 if (!summaryMap[bName]) {
                     summaryMap[bName] = { count: 0, revenue: 0 };
                 }
-
                 if (serviceFilter === 'ALL') {
                     summaryMap[bName].count += 1;
                     summaryMap[bName].revenue += t.total;
                 } else {
                     let subtotalFiltered = 0;
                     let hasMatchingItem = false;
-
                     t.items.forEach(item => {
                         const itemNameLower = item.name.toLowerCase();
                         const foundService = state.services.find(s => s.name.toLowerCase() === itemNameLower);
                         let isMatch = false;
-
                         if (serviceFilter === 'HAIRCUT') {
                             const isHaircutCategory = foundService && foundService.category === 'Haircut Opsional';
                             const isHaircutName = itemNameLower.includes('haircut') || itemNameLower.includes('cukur') || itemNameLower.includes('potong');
@@ -2953,24 +3141,20 @@
                             // Filter spesifik nama layanan
                             isMatch = itemNameLower.includes(serviceFilter.toLowerCase());
                         }
-
                         if (isMatch) {
                             subtotalFiltered += item.price;
                             hasMatchingItem = true;
                         }
                     });
-
                     if (hasMatchingItem) {
                         summaryMap[bName].count += 1;
                         summaryMap[bName].revenue += subtotalFiltered;
                     }
                 }
             });
-
             let totalAllHeads = 0;
             let totalAllRev = 0;
             let totalAllComm = 0;
-
             const rowsHTML = BARBERS.map(b => {
                 const stat = summaryMap[b.name] || { count: 0, revenue: 0 };
                 const commissionAmount = (stat.revenue * commPercent) / 100;
@@ -2978,7 +3162,6 @@
                 totalAllHeads += stat.count;
                 totalAllRev += stat.revenue;
                 totalAllComm += commissionAmount;
-
                 return `
                     <tr class="hover:bg-slate-100/60 transition">
                         <td class="p-3 font-bold text-slate-900">${b.name}</td>
@@ -2991,7 +3174,6 @@
                     </tr>
                 `;
             }).join('');
-
             container.innerHTML = `
                 ${rowsHTML}
                 <tr class="bg-amber-50/80 font-bold border-t-2 border-slate-300 text-slate-900">
@@ -3003,7 +3185,6 @@
                 </tr>
             `;
         }
-
         function exportToExcel() {
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "ID Transaksi,Tanggal,Jam,Barber,Metode Pembayaran,Layanan,Total (Rp),Status\n";
@@ -3019,32 +3200,488 @@
             link.click();
             document.body.removeChild(link);
         }
-
         function confirmResetMonth() {
             if (!state.isAdminLoggedIn) {
                 openLoginModal();
                 return;
             }
-            if (confirm('Apakah Anda yakin ingin mengosongkan riwayat laporan akuntansi lokal? (Data di Google Sheets tetap aman)')) {
-                state.transactions = [];
-                state.expenses = [];
-                renderTransactionHistory();
-                renderExpensesTable();
-                renderKasbonTable();
-                renderAccounting();
-                renderCommissionReport();
-                alert('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
+            state.transactions = [];
+            state.expenses = [];
+            renderTransactionHistory();
+            renderExpensesTable();
+            renderKasbonTable();
+            renderAccounting();
+            renderCommissionReport();
+            renderClosingBook();
+            showNotification('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
+        }
+
+        // ================= LOGIKA TUTUP BUKU =================
+        function setCloseFilterToday() {
+            let targetDate = getLatestDate(state.transactions);
+            document.getElementById('filterCloseStartDate').value = targetDate;
+            document.getElementById('filterCloseEndDate').value = targetDate;
+            renderClosingBook();
+        }
+
+        function resetCloseFilter() {
+            if (document.getElementById('filterCloseStartDate')) document.getElementById('filterCloseStartDate').value = '';
+            if (document.getElementById('filterCloseEndDate')) document.getElementById('filterCloseEndDate').value = '';
+            if (document.getElementById('filterCloseService')) document.getElementById('filterCloseService').value = 'ALL';
+            closeClosingDetailPanel();
+            renderClosingBook();
+        }
+
+        function isProductItem(itemName) {
+            const lower = String(itemName || '').toLowerCase();
+            const foundService = state.services.find(s => s.name.toLowerCase() === lower);
+            if (foundService && foundService.category === 'Produk / Lainnya') return true;
+            return lower.includes('pomade') || lower.includes('clay') || lower.includes('powder') || lower.includes('tonic') || lower.includes('produk');
+        }
+
+        function matchesClosingServiceFilter(itemName, serviceFilter) {
+            if (serviceFilter === 'ALL') return true;
+            const itemNameLower = String(itemName || '').toLowerCase();
+            const foundService = state.services.find(s => s.name.toLowerCase() === itemNameLower);
+            if (serviceFilter === 'HAIRCUT') {
+                const isHaircutCategory = foundService && foundService.category === 'Haircut Opsional';
+                const isHaircutName = itemNameLower.includes('haircut') || itemNameLower.includes('cukur') || itemNameLower.includes('potong');
+                return isHaircutCategory || isHaircutName;
+            } else if (serviceFilter === 'CHEMICAL_ALL') {
+                return foundService && foundService.category === 'Chemical Treatment';
+            } else if (serviceFilter === 'ADDITIONAL_ALL') {
+                return foundService && foundService.category === 'Additional Treatment';
+            } else {
+                return itemNameLower.includes(serviceFilter.toLowerCase());
             }
         }
-    </script>
-    <script>
-        // Inline Service Worker generator script or direct registration reminder
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => {
-                    console.log('SW registration fallback active');
-                });
+
+        function getClosingFilteredData() {
+            const startVal = document.getElementById('filterCloseStartDate')?.value || '';
+            const endVal = document.getElementById('filterCloseEndDate')?.value || '';
+            const serviceFilter = document.getElementById('filterCloseService')?.value || 'ALL';
+
+            const validTx = state.transactions.filter(t => {
+                if (t.status === 'Dibatalkan') return false;
+                return isDateInRange(t.date, startVal, endVal);
             });
+
+            const validExp = state.expenses.filter(e => isDateInRange(e.date, startVal, endVal));
+            return { validTx, validExp, serviceFilter };
+        }
+
+        function renderClosingBook() {
+            const { validTx, validExp, serviceFilter } = getClosingFilteredData();
+
+            let pendapatanKotorJasa = 0;
+            let penjualanKotorProduk = 0;
+            let cashKotor = 0;
+            let qrissKotor = 0;
+
+            let barberStats = {};
+            BARBERS.forEach(b => {
+                barberStats[b.name] = { count: 0, total: 0 };
+            });
+
+            validTx.forEach(t => {
+                let txServiceSum = 0;
+                let txProductSum = 0;
+                let txMatchedTotal = 0;
+                let hasMatchedService = false;
+
+                t.items.forEach(item => {
+                    const price = Number(item.price || 0);
+                    if (isProductItem(item.name)) {
+                        txProductSum += price;
+                        if (serviceFilter === 'ALL') {
+                            txMatchedTotal += price;
+                        }
+                    } else {
+                        if (matchesClosingServiceFilter(item.name, serviceFilter)) {
+                            txServiceSum += price;
+                            txMatchedTotal += price;
+                            hasMatchedService = true;
+                        }
+                    }
+                });
+
+                // Fallback jika data dari sheet tidak terpecah harganya di state.services
+                if (t.total > 0 && txServiceSum === 0 && txProductSum === 0 && serviceFilter === 'ALL') {
+                    txServiceSum = t.total;
+                    txMatchedTotal = t.total;
+                    hasMatchedService = true;
+                }
+
+                pendapatanKotorJasa += txServiceSum;
+                penjualanKotorProduk += txProductSum;
+
+                if (t.paymentMethod === 'Cash') {
+                    cashKotor += txMatchedTotal;
+                } else if (t.paymentMethod === 'QRIS') {
+                    qrissKotor += txMatchedTotal;
+                }
+
+                if (serviceFilter === 'ALL' || hasMatchedService) {
+                    const bName = t.barberName;
+                    if (!barberStats[bName]) {
+                        barberStats[bName] = { count: 0, total: 0 };
+                    }
+                    barberStats[bName].count += 1;
+                    barberStats[bName].total += txMatchedTotal;
+                }
+            });
+
+            let pengeluaranNonKasbon = 0;
+            let totalKasbon = 0;
+            let keluarCash = 0;
+            let keluarQriss = 0;
+
+            validExp.forEach(e => {
+                const amt = Number(e.amount || 0);
+                const isKasbon = (e.id && e.id.startsWith('BBKB-')) || (e.desc && e.desc.includes('[KASBON]'));
+                if (isKasbon) {
+                    totalKasbon += amt;
+                } else {
+                    pengeluaranNonKasbon += amt;
+                }
+
+                if (e.paymentMethod === 'Cash') {
+                    keluarCash += amt;
+                } else if (e.paymentMethod === 'QRIS') {
+                    keluarQriss += amt;
+                }
+            });
+
+            const cashBersih = cashKotor - keluarCash;
+            const qrissBersih = qrissKotor - keluarQriss;
+            const pendapatanBersih = pendapatanKotorJasa - pengeluaranNonKasbon - totalKasbon;
+            const penjualanBersih = penjualanKotorProduk;
+
+            const setVal = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = formatRp(val);
+            };
+
+            setVal('closePendapatanKotor', pendapatanKotorJasa);
+            setVal('closePenjualanKotor', penjualanKotorProduk);
+            setVal('closeCashKotor', cashKotor);
+            setVal('closeQrissKotor', qrissKotor);
+            setVal('closePengeluaran', pengeluaranNonKasbon);
+            setVal('closeKasbon', totalKasbon);
+            setVal('closeCashBersih', cashBersih);
+            setVal('closeQrissBersih', qrissBersih);
+            setVal('closePendapatanBersih', pendapatanBersih);
+            setVal('closePenjualanBersih', penjualanBersih);
+
+            // Render tombol barber interaktif
+            const barberContainer = document.getElementById('closingBarberSummary');
+            if (barberContainer) {
+                barberContainer.innerHTML = BARBERS.map(b => {
+                    const stat = barberStats[b.name] || { count: 0, total: 0 };
+                    return `
+                        <button type="button" onclick="showClosingBarberDetail('${b.name}')" class="bg-slate-50 hover:bg-amber-100/80 p-3 rounded-xl border border-slate-200 hover:border-amber-500 flex flex-col justify-between text-center space-y-1 transition cursor-pointer group">
+                            <p class="font-bold text-slate-800 group-hover:text-amber-900 text-xs sm:text-sm flex items-center justify-center gap-1">
+                                <span>${b.name}</span>
+                                <i class="fa-solid fa-magnifying-glass text-[10px] text-amber-600 opacity-70 group-hover:opacity-100"></i>
+                            </p>
+                            <div>
+                                <p class="text-base sm:text-lg font-black text-amber-700">${stat.count}</p>
+                                <p class="text-[10px] text-slate-500 font-medium">Transaksi</p>
+                            </div>
+                            <p class="text-xs font-bold text-emerald-700 pt-1 border-t border-slate-200 w-full">${formatRp(stat.total)}</p>
+                        </button>
+                    `;
+                }).join('');
+            }
+        }
+
+        function closeClosingDetailPanel() {
+            const panel = document.getElementById('closingDetailPanel');
+            if (panel) panel.classList.add('hidden');
+        }
+
+        function showClosingDetail(metricKey) {
+            const { validTx, validExp, serviceFilter } = getClosingFilteredData();
+            const panel = document.getElementById('closingDetailPanel');
+            const titleEl = document.getElementById('closingDetailTitle');
+            const headEl = document.getElementById('closingDetailHead');
+            const bodyEl = document.getElementById('closingDetailBody');
+            if (!panel || !titleEl || !headEl || !bodyEl) return;
+
+            const titles = {
+                pendapatan_kotor: '1. Riwayat Total Pendapatan Kotor (Khusus Jasa)',
+                penjualan_kotor: '2. Riwayat Total Penjualan Kotor (Khusus Produk)',
+                cash_kotor: '3. Riwayat Transaksi Cash Kotor',
+                qriss_kotor: '4. Riwayat Transaksi Qriss Kotor',
+                pengeluaran: '5. Riwayat Pengeluaran (Di luar Kasbon)',
+                kasbon: '6. Riwayat Kasbon Karyawan',
+                cash_bersih: '7. Rincian Mutasi Cash Bersih (Masuk & Keluar Cash)',
+                qriss_bersih: '8. Rincian Mutasi Qriss Bersih (Masuk & Keluar QRIS)',
+                pendapatan_bersih: '9. Rincian Pendapatan Bersih (Jasa & Pengeluaran)',
+                penjualan_bersih: '10. Riwayat Penjualan Bersih (Produk)'
+            };
+
+            titleEl.innerText = titles[metricKey] || 'Rincian Riwayat Transaksi';
+
+            // Kategori yang menampilkan daftar pengeluaran / kasbon
+            if (metricKey === 'pengeluaran' || metricKey === 'kasbon') {
+                const list = validExp.filter(e => {
+                    const isKasbon = (e.id && e.id.startsWith('BBKB-')) || (e.desc && e.desc.includes('[KASBON]'));
+                    return metricKey === 'kasbon' ? isKasbon : !isKasbon;
+                });
+
+                headEl.innerHTML = `
+                    <tr>
+                        <th class="p-3">ID</th>
+                        <th class="p-3">Tanggal</th>
+                        <th class="p-3">Keterangan</th>
+                        <th class="p-3">Metode</th>
+                        <th class="p-3 text-right">Nominal</th>
+                    </tr>
+                `;
+
+                if (list.length === 0) {
+                    bodyEl.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">Tidak ada data pada filter tanggal ini.</td></tr>`;
+                } else {
+                    bodyEl.innerHTML = list.map(e => `
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 font-mono text-xs font-semibold text-amber-900">${e.id}</td>
+                            <td class="p-3 text-xs text-slate-600">${e.date}</td>
+                            <td class="p-3 font-medium text-slate-800">${e.desc}</td>
+                            <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">${e.paymentMethod}</span></td>
+                            <td class="p-3 font-bold text-red-600 text-right">${formatRp(e.amount)}</td>
+                        </tr>
+                    `).join('');
+                }
+            } else if (metricKey === 'cash_bersih' || metricKey === 'qriss_bersih' || metricKey === 'pendapatan_bersih') {
+                // Gabungan Pemasukan & Pengeluaran sesuai metode
+                const targetMethod = metricKey === 'cash_bersih' ? 'Cash' : (metricKey === 'qriss_bersih' ? 'QRIS' : 'ALL');
+                let combined = [];
+
+                validTx.forEach(t => {
+                    if (targetMethod !== 'ALL' && t.paymentMethod !== targetMethod) return;
+                    let matchedAmt = 0;
+                    let matchedNames = [];
+                    t.items.forEach(item => {
+                        if (metricKey === 'pendapatan_bersih' && isProductItem(item.name)) return;
+                        if (isProductItem(item.name) || matchesClosingServiceFilter(item.name, serviceFilter)) {
+                            matchedAmt += Number(item.price || 0);
+                            matchedNames.push(item.name);
+                        }
+                    });
+                    if (t.total > 0 && matchedAmt === 0 && serviceFilter === 'ALL') {
+                        matchedAmt = t.total;
+                        matchedNames = t.items.map(i => i.name);
+                    }
+                    if (matchedAmt > 0) {
+                        combined.push({
+                            code: t.id,
+                            date: `${t.date} ${t.time}`,
+                            desc: `${t.barberName} - ${matchedNames.join(', ')}`,
+                            method: t.paymentMethod,
+                            type: 'Masuk',
+                            amount: matchedAmt
+                        });
+                    }
+                });
+
+                validExp.forEach(e => {
+                    if (targetMethod !== 'ALL' && e.paymentMethod !== targetMethod) return;
+                    combined.push({
+                        code: e.id,
+                        date: e.date,
+                        desc: e.desc,
+                        method: e.paymentMethod,
+                        type: 'Keluar',
+                        amount: Number(e.amount || 0)
+                    });
+                });
+
+                headEl.innerHTML = `
+                    <tr>
+                        <th class="p-3">Kode</th>
+                        <th class="p-3">Tanggal</th>
+                        <th class="p-3">Keterangan</th>
+                        <th class="p-3">Metode</th>
+                        <th class="p-3">Arus</th>
+                        <th class="p-3 text-right">Nominal</th>
+                    </tr>
+                `;
+
+                if (combined.length === 0) {
+                    bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Tidak ada mutasi transaksi pada filter ini.</td></tr>`;
+                } else {
+                    bodyEl.innerHTML = combined.map(row => `
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 font-mono text-xs font-semibold text-amber-900">${row.code}</td>
+                            <td class="p-3 text-xs text-slate-600">${row.date}</td>
+                            <td class="p-3 font-medium text-slate-800">${row.desc}</td>
+                            <td class="p-3 text-xs font-semibold">${row.method}</td>
+                            <td class="p-3">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${row.type === 'Keluar' ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'}">${row.type}</span>
+                            </td>
+                            <td class="p-3 font-bold text-right ${row.type === 'Keluar' ? 'text-red-600' : 'text-emerald-700'}">${formatRp(row.amount)}</td>
+                        </tr>
+                    `).join('');
+                }
+            } else {
+                // Kategori Transaksi Penjualan / Jasa / Cash Kotor / Qriss Kotor
+                let filteredList = [];
+                validTx.forEach(t => {
+                    if (metricKey === 'cash_kotor' && t.paymentMethod !== 'Cash') return;
+                    if (metricKey === 'qriss_kotor' && t.paymentMethod !== 'QRIS') return;
+
+                    let matchedItems = [];
+                    let matchedTotal = 0;
+
+                    t.items.forEach(item => {
+                        const prod = isProductItem(item.name);
+                        if (metricKey === 'pendapatan_kotor' && !prod && matchesClosingServiceFilter(item.name, serviceFilter)) {
+                            matchedItems.push(item.name);
+                            matchedTotal += Number(item.price || 0);
+                        } else if ((metricKey === 'penjualan_kotor' || metricKey === 'penjualan_bersih') && prod) {
+                            matchedItems.push(item.name);
+                            matchedTotal += Number(item.price || 0);
+                        } else if ((metricKey === 'cash_kotor' || metricKey === 'qriss_kotor') && (prod || matchesClosingServiceFilter(item.name, serviceFilter))) {
+                            matchedItems.push(item.name);
+                            matchedTotal += Number(item.price || 0);
+                        }
+                    });
+
+                    if (matchedItems.length > 0) {
+                        filteredList.push({
+                            id: t.id,
+                            date: `${t.date} ${t.time}`,
+                            barberName: t.barberName,
+                            paymentMethod: t.paymentMethod,
+                            itemsText: matchedItems.join(', '),
+                            total: matchedTotal
+                        });
+                    }
+                });
+
+                headEl.innerHTML = `
+                    <tr>
+                        <th class="p-3">ID Transaksi</th>
+                        <th class="p-3">Tanggal & Jam</th>
+                        <th class="p-3">Barber</th>
+                        <th class="p-3">Metode</th>
+                        <th class="p-3">Item / Layanan</th>
+                        <th class="p-3 text-right">Nominal</th>
+                    </tr>
+                `;
+
+                if (filteredList.length === 0) {
+                    bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi untuk kategori ini.</td></tr>`;
+                } else {
+                    bodyEl.innerHTML = filteredList.map(t => `
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 font-mono text-xs font-semibold text-amber-900">${t.id}</td>
+                            <td class="p-3 text-xs text-slate-600">${t.date}</td>
+                            <td class="p-3 font-medium text-slate-800">${t.barberName}</td>
+                            <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'QRIS' ? 'bg-cyan-100 text-cyan-800' : 'bg-amber-100 text-amber-800'}">${t.paymentMethod}</span></td>
+                            <td class="p-3 text-xs text-slate-600">${t.itemsText}</td>
+                            <td class="p-3 font-bold text-slate-900 text-right">${formatRp(t.total)}</td>
+                        </tr>
+                    `).join('');
+                }
+            }
+
+            panel.classList.remove('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showClosingBarberDetail(barberName) {
+            const { validTx, serviceFilter } = getClosingFilteredData();
+            const panel = document.getElementById('closingDetailPanel');
+            const titleEl = document.getElementById('closingDetailTitle');
+            const headEl = document.getElementById('closingDetailHead');
+            const bodyEl = document.getElementById('closingDetailBody');
+            if (!panel || !titleEl || !headEl || !bodyEl) return;
+
+            titleEl.innerText = `Riwayat Transaksi Khusus Barber: ${barberName}`;
+            headEl.innerHTML = `
+                <tr>
+                    <th class="p-3">ID Transaksi</th>
+                    <th class="p-3">Tanggal & Jam</th>
+                    <th class="p-3">Barber</th>
+                    <th class="p-3">Metode</th>
+                    <th class="p-3">Layanan / Item</th>
+                    <th class="p-3 text-right">Total</th>
+                </tr>
+            `;
+
+            const barberTxList = [];
+            validTx.forEach(t => {
+                if (t.barberName.toLowerCase() !== barberName.toLowerCase()) return;
+                let matchedItems = [];
+                let matchedTotal = 0;
+
+                t.items.forEach(item => {
+                    if (isProductItem(item.name)) {
+                        if (serviceFilter === 'ALL') {
+                            matchedItems.push(item.name);
+                            matchedTotal += Number(item.price || 0);
+                        }
+                    } else if (matchesClosingServiceFilter(item.name, serviceFilter)) {
+                        matchedItems.push(item.name);
+                        matchedTotal += Number(item.price || 0);
+                    }
+                });
+
+                if (t.total > 0 && matchedItems.length === 0 && serviceFilter === 'ALL') {
+                    matchedItems = t.items.map(i => i.name);
+                    matchedTotal = t.total;
+                }
+
+                if (matchedItems.length > 0) {
+                    barberTxList.push({
+                        id: t.id,
+                        date: `${t.date} ${t.time}`,
+                        barberName: t.barberName,
+                        paymentMethod: t.paymentMethod,
+                        itemsText: matchedItems.join(', '),
+                        total: matchedTotal
+                    });
+                }
+            });
+
+            if (barberTxList.length === 0) {
+                bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada riwayat transaksi untuk ${barberName} pada filter ini.</td></tr>`;
+            } else {
+                bodyEl.innerHTML = barberTxList.map(t => `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-mono text-xs font-semibold text-amber-900">${t.id}</td>
+                        <td class="p-3 text-xs text-slate-600">${t.date}</td>
+                        <td class="p-3 font-bold text-slate-800">${t.barberName}</td>
+                        <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'QRIS' ? 'bg-cyan-100 text-cyan-800' : 'bg-amber-100 text-amber-800'}">${t.paymentMethod}</span></td>
+                        <td class="p-3 text-xs text-slate-600">${t.itemsText}</td>
+                        <td class="p-3 font-bold text-emerald-700 text-right">${formatRp(t.total)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            panel.classList.remove('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Toast Notifikasi Halus (Non-blocking pengganti alert)
+        function showNotification(msg) {
+            let toast = document.getElementById('cbToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'cbToast';
+                toast.className = 'fixed bottom-4 right-4 z-[60] bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 text-xs font-medium flex items-center gap-2 transition-all duration-300 transform translate-y-2 opacity-0';
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = `<i class="fa-solid fa-circle-info text-amber-400 text-sm"></i><span>${msg}</span>`;
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+            clearTimeout(toast.hideTimeout);
+            toast.hideTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+            }, 3500);
         }
     </script>
 </body>
