@@ -1216,7 +1216,6 @@
                             <span>Refresh Data</span>
                         </button>
                     </div>
-
                     <!-- Filter Tanggal & Layanan Tutup Buku -->
                     <div class="bg-white p-4 rounded-xl border border-slate-300 flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
@@ -1262,7 +1261,6 @@
                             <button type="button" onclick="resetCloseFilter()" class="flex-1 md:flex-none bg-slate-200 hover:bg-slate-300 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">Semua</button>
                         </div>
                     </div>
-
                     <!-- 10 Poin Ringkasan Tutup Buku -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="closingMetricsGrid">
                         <button type="button" onclick="showClosingDetail('pendapatan_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
@@ -1273,7 +1271,6 @@
                             <p id="closePendapatanKotor" class="text-lg font-bold text-slate-900 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Khusus Jasa / Layanan</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('penjualan_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">2. Penjualan Kotor</p>
@@ -1282,7 +1279,6 @@
                             <p id="closePenjualanKotor" class="text-lg font-bold text-slate-900 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Khusus Produk</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('cash_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">3. Cash Kotor</p>
@@ -1291,7 +1287,6 @@
                             <p id="closeCashKotor" class="text-lg font-bold text-amber-700 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Pemasukan Tunai</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('qriss_kotor')" class="text-left bg-white hover:bg-amber-50/70 p-4 rounded-xl border border-slate-300 hover:border-amber-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-amber-800">4. Qriss Kotor</p>
@@ -1300,7 +1295,6 @@
                             <p id="closeQrissKotor" class="text-lg font-bold text-cyan-700 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Pemasukan QRIS</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('pengeluaran')" class="text-left bg-white hover:bg-red-50/60 p-4 rounded-xl border border-slate-300 hover:border-red-400 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-red-800">5. Pengeluaran</p>
@@ -1309,7 +1303,6 @@
                             <p id="closePengeluaran" class="text-lg font-bold text-red-600 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Di luar Kasbon</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('kasbon')" class="text-left bg-white hover:bg-red-50/60 p-4 rounded-xl border border-slate-300 hover:border-red-400 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-red-800">6. Kasbon</p>
@@ -1318,7 +1311,6 @@
                             <p id="closeKasbon" class="text-lg font-bold text-orange-600 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Pinjaman Karyawan</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('cash_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">7. Cash Bersih</p>
@@ -1327,7 +1319,6 @@
                             <p id="closeCashBersih" class="text-lg font-bold text-amber-800 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Cash Kotor - Keluar Cash</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('qriss_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">8. Qriss Bersih</p>
@@ -1336,7 +1327,6 @@
                             <p id="closeQrissBersih" class="text-lg font-bold text-cyan-800 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Qriss Kotor - Keluar QRIS</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('pendapatan_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">9. Pendapatan Bersih</p>
@@ -1345,7 +1335,6 @@
                             <p id="closePendapatanBersih" class="text-lg font-bold text-emerald-700 mt-1.5">Rp 0</p>
                             <p class="text-[10px] text-slate-400 mt-1">Jasa - Beban Operasional</p>
                         </button>
-
                         <button type="button" onclick="showClosingDetail('penjualan_bersih')" class="text-left bg-white hover:bg-emerald-50/60 p-4 rounded-xl border border-slate-300 hover:border-emerald-500 shadow-2xs transition group cursor-pointer">
                             <div class="flex justify-between items-start">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase group-hover:text-emerald-800">10. Penjualan Bersih</p>
@@ -1355,7 +1344,6 @@
                             <p class="text-[10px] text-slate-400 mt-1">Total Produk Terjual</p>
                         </button>
                     </div>
-
                     <!-- Rekap per Barber (Klik Nama Barber untuk Lihat Riwayat Transaksinya) -->
                     <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-300 shadow-2xs space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -1366,7 +1354,6 @@
                         </div>
                         <div id="closingBarberSummary" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 pt-1"></div>
                     </div>
-
                     <!-- Panel Rincian Riwayat Transaksi / Mutasi Tutup Buku -->
                     <div id="closingDetailPanel" class="hidden bg-white p-4 sm:p-5 rounded-xl border-2 border-amber-400 shadow-sm space-y-4">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-3 border-b border-slate-200">
@@ -1534,10 +1521,8 @@
             </div>
         </div>
     </div>
-
     <!-- Hidden Printable Struk -->
     <div id="printableReceipt" class="hidden"></div>
-
     <!-- JavaScript Logic Application -->
     <script>
         const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz0sCEzvFgJc2g8f5Ewkam7fn4lZCPLhC3lxZH_9TJxjkQzgOQD7iZtfGkwm3hy9H1Y/exec";
@@ -1553,7 +1538,6 @@
             { id: "reza", name: "Reza" },
             { id: "mutawali", name: "Mutawali" }
         ];
-
         // Jadwal Shift Baru (Shift 1: 10.00-16.00, Middle: 14.00-22.00, Shift 2: 16.00-22.00)
         // Index hari: 0 = Minggu, 1 = Senin, 2 = Selasa, 3 = Rabu, 4 = Kamis, 5 = Jumat, 6 = Sabtu
         const SHIFT_SCHEDULE = {
@@ -1565,7 +1549,6 @@
             5: { shift1: ["mutawali"], shift2: ["fadil"], middle: ["wawan"] },   // JUMAT (Adit Libur)
             6: { shift1: ["adit"], shift2: ["wawan"], middle: ["fadil"] }        // SABTU
         };
-
         const DEFAULT_SERVICES = [
             { id: "s1", category: "Haircut Opsional", name: "Reguler Haircut", price: 60000, desc: "Potong, keramas, styling" },
             { id: "s2", category: "Haircut Opsional", name: "Signature Haircut", price: 80000, desc: "Keramas, potong, hairmask, styling" },
@@ -1598,6 +1581,57 @@
         };
         let bluetoothDevice = null;
         let bluetoothCharacteristic = null;
+
+        // Helper pengiriman data aman ke Google Sheets dengan pengecekan jaringan
+        function postToSheet(payload) {
+            if (!navigator.onLine) {
+                showNotification('Peringatan: Perangkat offline! Data tersimpan di sesi lokal saja.');
+                return Promise.resolve();
+            }
+            return fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => {
+                console.error("Sheet sync error:", err);
+                showNotification('Gagal menyinkronkan ke Google Sheet. Periksa koneksi internet.');
+            });
+        }
+
+        // Helper mengurai string layanan yang mungkin menyertakan harga kustom di dalam tanda kurung siku, misal: "Tips Customer [10000]"
+        function parseTransactionItems(layananStr, txTotal) {
+            let itemsArr = [];
+            const rawParts = String(layananStr || '').split(',').map(s => s.trim()).filter(Boolean);
+            
+            rawParts.forEach(part => {
+                // Cek apakah ada format harga eksplisit di akhir item: "Nama Item [15000]"
+                const priceMatch = part.match(/^(.*?)\s*\[(\d+)\]$/);
+                if (priceMatch) {
+                    const itemName = priceMatch[1].trim();
+                    const itemPrice = Number(priceMatch[2]);
+                    itemsArr.push({ name: itemName, price: itemPrice });
+                } else {
+                    const foundS = state.services.find(s => s.name.toLowerCase() === part.toLowerCase());
+                    itemsArr.push({ name: part, price: foundS ? foundS.price : 0 });
+                }
+            });
+
+            // Jika total nominal transaksi lebih besar dari jumlah harga item yang terdeteksi (misal transaksi lama yang memuat Tips Customer tanpa nominal tersimpan), alokasikan selisihnya ke item yang bernilai 0
+            const detectedSum = itemsArr.reduce((sum, it) => sum + it.price, 0);
+            const remainder = Number(txTotal || 0) - detectedSum;
+            if (remainder > 0 && itemsArr.length > 0) {
+                const zeroPriceItems = itemsArr.filter(it => it.price === 0);
+                if (zeroPriceItems.length === 1) {
+                    zeroPriceItems[0].price = remainder;
+                } else if (itemsArr.length === 1) {
+                    itemsArr[0].price = Number(txTotal || 0);
+                }
+            }
+
+            return itemsArr;
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             // Register Service Worker untuk PWA
             if ('serviceWorker' in navigator) {
@@ -1630,10 +1664,26 @@
             if (filterCommEnd) filterCommEnd.value = '';
             if (filterCloseStart) filterCloseStart.value = '';
             if (filterCloseEnd) filterCloseEnd.value = '';
+
+            // Support tombol Enter saat login admin / refund
+            const adminPwdInput = document.getElementById('adminPasswordInput');
+            if (adminPwdInput) {
+                adminPwdInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleAdminLogin();
+                });
+            }
+            const refundPwdInput = document.getElementById('refundPasswordInput');
+            if (refundPwdInput) {
+                refundPwdInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') confirmRefundTransaction();
+                });
+            }
+
             renderBookingServices();
             renderFullServices();
             renderPOSBarbers();
             renderPOSServices();
+            renderPOSCart();
             loadAllDataFromSheet();
             const autoPrintCheckbox = document.getElementById('autoPrintToggle');
             if (autoPrintCheckbox) {
@@ -1700,7 +1750,6 @@
             }
             return true;
         }
-
         // Pembaruan Logika Ketersediaan Barber (Shift 1, Middle, Shift 2)
         function updateAvailableBarbers() {
             const dateVal = document.getElementById('resDate').value;
@@ -1720,7 +1769,6 @@
             const daySchedule = SHIFT_SCHEDULE[dayIndex];
             let activeBarberIds = [];
             let shiftLabel = '';
-
             if (hourNum >= 10 && hourNum < 14) {
                 // Jam 10:00 - 13:59 -> Hanya Shift 1
                 activeBarberIds = [...(daySchedule.shift1 || [])];
@@ -1734,7 +1782,6 @@
                 activeBarberIds = [...new Set([...(daySchedule.shift2 || []), ...(daySchedule.middle || [])])];
                 shiftLabel = 'Middle (14.00-22.00) & Shift 2 (16.00-22.00)';
             }
-
             if (noticeEl) {
                 noticeEl.innerText = `Barber yang bertugas pada ${shiftLabel}:`;
             }
@@ -1743,10 +1790,11 @@
             const isoSelectedDate = dateVal;
             const busyBarberNames = state.reservations
                 .filter(res => {
-                    const resDate = String(res.tanggal || res.date || '').split('T')[0];
+                    const resDate = parseStandardDate(res.tanggal || res.date || '');
+                    const resRawDate = String(res.tanggal || res.date || '').split('T')[0];
                     const resTime = String(res.jam || res.time || '').trim();
                     const resStatus = res.status || 'Menunggu';
-                    const isSameDate = (resDate === formattedSelectedDate || resDate === isoSelectedDate);
+                    const isSameDate = (resDate === isoSelectedDate || resRawDate === formattedSelectedDate || resRawDate === isoSelectedDate);
                     const isSameTime = (resTime === timeVal);
                     const isActive = (resStatus !== 'Dibatalkan' && resStatus !== 'Selesai');
                     return isSameDate && isSameTime && isActive;
@@ -1757,7 +1805,6 @@
             }
             renderBookingBarbers(availableBarbers, busyBarberNames);
         }
-
         function renderBookingBarbers(listToRender, busyBarberNames = []) {
             const container = document.getElementById('bookingBarberList');
             if (!container) return;
@@ -1795,7 +1842,8 @@
             const txContainer = document.getElementById('transactionHistoryTable');
             const expContainer = document.getElementById('expensesTableBody');
             const kasbonContainer = document.getElementById('kasbonTableBody');
-            if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
+            const colSpanSched = state.isAdminLoggedIn ? 6 : 5;
+            if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="${colSpanSched}" class="text-center py-6 text-slate-400">Memuat data...</td></tr>`;
             if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">Memuat riwayat transaksi...</td></tr>`;
             if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Memuat data pengeluaran...</td></tr>`;
             if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400">Memuat data kasbon...</td></tr>`;
@@ -1806,21 +1854,18 @@
                     state.reservations = data.reservations || [];
                     if (data.transactions && data.transactions.length > 0) {
                         state.transactions = data.transactions.map(t => {
-                            let itemsArr = [];
                             const layananStr = String(t.layanan || t.items || '');
-                            layananStr.split(',').forEach(lName => {
-                                const cleanName = lName.trim();
-                                const foundS = state.services.find(s => s.name.toLowerCase() === cleanName.toLowerCase());
-                                itemsArr.push({ name: cleanName, price: foundS ? foundS.price : 0 });
-                            });
+                            const txTotal = Number(t.total || 0);
+                            const itemsArr = parseTransactionItems(layananStr, txTotal);
                             return {
                                 id: String(t['id transaksi'] || t.id || 'BB-101'),
+                                rowIndex: t.rowIndex,
                                 date: parseStandardDate(t.tanggal || t.date || ''),
                                 time: String(t.jam || t.time || ''),
                                 barberName: String(t.barber || t.barbername || '-'),
                                 paymentMethod: String(t.metode || t.paymentmethod || 'Cash'),
                                 items: itemsArr,
-                                total: Number(t.total || 0),
+                                total: txTotal,
                                 status: String(t.status || 'Lunas')
                             };
                         });
@@ -1845,10 +1890,13 @@
                     renderAccounting();
                     renderCommissionReport();
                     renderClosingBook();
+                    if (document.getElementById('resDate')?.value && document.getElementById('resTime')?.value) {
+                        updateAvailableBarbers();
+                    }
                 })
                 .catch(err => {
                     console.error("Gagal mengambil data sheet:", err);
-                    if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-red-500">Gagal memuat jadwal.</td></tr>`;
+                    if (scheduleContainer) scheduleContainer.innerHTML = `<tr><td colspan="${colSpanSched}" class="text-center py-6 text-red-500">Gagal memuat jadwal.</td></tr>`;
                     if (txContainer) txContainer.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-red-500">Gagal memuat transaksi.</td></tr>`;
                     if (expContainer) expContainer.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat pengeluaran.</td></tr>`;
                     if (kasbonContainer) kasbonContainer.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-red-500">Gagal memuat kasbon.</td></tr>`;
@@ -1968,12 +2016,8 @@
                 rowIndex: exactRowIndex,
                 status: newStatus
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatePayload)
-            }).catch(err => console.error("Gagal update status ke sheet:", err));
+            postToSheet(updatePayload);
+
             if (newStatus === 'Selesai') {
                 const barberName = res.barber || 'Fadil';
                 const foundBarber = BARBERS.find(b => b.name.toLowerCase() === barberName.toLowerCase());
@@ -1981,11 +2025,12 @@
                     state.selectedBarber = foundBarber.id;
                     renderPOSBarbers();
                 }
-                const serviceStr = (res.layanan || res.services || '').toLowerCase();
+                const serviceParts = (res.layanan || res.services || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
                 state.cart = [];
-                state.services.forEach(s => {
-                    if (serviceStr.includes(s.name.toLowerCase())) {
-                        state.cart.push({ ...s });
+                serviceParts.forEach(part => {
+                    const matchedS = state.services.find(s => s.name.toLowerCase() === part || part.includes(s.name.toLowerCase()));
+                    if (matchedS) {
+                        state.cart.push({ ...matchedS });
                     }
                 });
                 if (state.cart.length === 0 && state.services.length > 0) {
@@ -2096,12 +2141,59 @@
                 showNotification('Gagal terhubung ke printer. Pastikan Bluetooth & Lokasi HP aktif.');
             }
         }
-        async function printReceipt(tx) {
+        function renderBrowserFallbackReceipt(tx) {
+            const receiptEl = document.getElementById('printableReceipt');
+            if (!receiptEl) return;
+            receiptEl.innerHTML = `
+                <div style="text-align:center; font-weight:bold;">CAHYABARU BARBERSHOP</div>
+                <div style="text-align:center; font-size:10px;">Style With Purpose</div>
+                <div>--------------------------------</div>
+                <div>No    : ${tx.id}</div>
+                <div>Date  : ${tx.date} ${tx.time}</div>
+                <div>Kasir : Bonartha</div>
+                <div>Barber: ${tx.barberName}</div>
+                <div>Metode: ${tx.paymentMethod}</div>
+                <div>--------------------------------</div>
+                ${tx.items.map(item => `
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>${item.name}</span>
+                        <span>${formatRp(item.price)}</span>
+                    </div>
+                `).join('')}
+                <div>--------------------------------</div>
+                <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                    <span>TOTAL</span>
+                    <span>${formatRp(tx.total)}</span>
+                </div>
+                <div>--------------------------------</div>
+                <div style="text-align:center; margin-top:4px;">Terima Kasih Atas Kunjungan Anda</div>
+                <div style="text-align:center; font-size:10px;">Simpan struk ini sebagai bukti</div>
+            `;
+        }
+        async function printReceipt(tx, isManualReprint = false) {
+            renderBrowserFallbackReceipt(tx);
             if (!bluetoothCharacteristic) {
-                openPrinterModal();
+                if (isManualReprint) {
+                    window.print();
+                } else {
+                    openPrinterModal();
+                }
                 return;
             }
             try {
+                // Reconnect GATT jika terputus sementara
+                if (bluetoothDevice && !bluetoothDevice.gatt.connected) {
+                    const server = await bluetoothDevice.gatt.connect();
+                    let service;
+                    try {
+                        service = await server.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb');
+                    } catch (e) {
+                        service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+                    }
+                    const characteristics = await service.getCharacteristics();
+                    bluetoothCharacteristic = characteristics.find(c => c.properties.write || c.properties.writeWithoutResponse);
+                }
+
                 let encoder = new TextEncoder();
                 let commands = [];
                 commands.push(new Uint8Array([0x1B, 0x40])); 
@@ -2160,7 +2252,7 @@
         function reprintTransaction(txId) {
             const tx = state.transactions.find(x => x.id === txId);
             if (!tx) return;
-            printReceipt(tx);
+            printReceipt(tx, true);
         }
         function renderPOSBarbers() {
             const container = document.getElementById('posBarberList');
@@ -2447,12 +2539,8 @@
                 status: 'Menunggu',
                 timestamp: new Date().toLocaleString('id-ID')
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(reservationData)
-            }).catch(err => console.error("Sheet error:", err));
+            postToSheet(reservationData);
+
             const pesanWA = `Halo Kasir CahyaBaru, saya ingin melakukan reservasi:\n\n` +
                             `*Nama:* ${clientName}\n` +
                             `*No. WhatsApp:* ${clientPhone}\n` +
@@ -2463,7 +2551,7 @@
             const urlWA = `https://wa.me/${NOMOR_WA_KASIR}?text=${encodeURIComponent(pesanWA)}`;
             window.location.href = urlWA;
         }
-        function checkoutPOS() {
+        async function checkoutPOS() {
             if (state.cart.length === 0) {
                 showNotification('Keranjang kasir masih kosong!');
                 return;
@@ -2472,7 +2560,14 @@
             const total = state.cart.reduce((a, b) => a + b.price, 0);
             
             const newTxId = generateNextId('BB-', state.transactions, 'id');
-            const itemsStr = state.cart.map(i => i.name).join(', ');
+            // Simpan harga eksplisit dalam kurung siku jika item merupakan Tips Customer atau kategori custom
+            const itemsStr = state.cart.map(i => {
+                if (i.category === 'Tips Customer' || String(i.id).startsWith('tip-')) {
+                    return `${i.name} [${i.price}]`;
+                }
+                return i.name;
+            }).join(', ');
+
             const nowD = new Date();
             const localDateStr = `${String(nowD.getDate()).padStart(2, '0')}/${String(nowD.getMonth() + 1).padStart(2, '0')}/${nowD.getFullYear()}`;
             const isoDateStr = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
@@ -2488,12 +2583,8 @@
                 total: total,
                 status: 'Lunas'
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(transactionPayload)
-            }).catch(err => console.error("Sheet transaction error:", err));
+            postToSheet(transactionPayload);
+
             const localTx = {
                 id: transactionPayload.id,
                 date: isoDateStr,
@@ -2506,7 +2597,7 @@
             };
             state.transactions.unshift(localTx);
             if (state.autoPrint) {
-                printReceipt(localTx);
+                await printReceipt(localTx, false);
             }
             const activeResRaw = sessionStorage.getItem('cb_active_reservation');
             let activeRes = null;
@@ -2529,7 +2620,8 @@
                 
                 const pesanKonfirmasi = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di CahyaBaru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
                 const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanKonfirmasi)}`;
-                window.location.href = urlWACustomer;
+                // Buka di tab baru agar koneksi Web Bluetooth tidak terputus mendadak
+                window.open(urlWACustomer, '_blank');
             } else {
                 const inputWA = document.getElementById('waCustomerInput');
                 if (inputWA) inputWA.value = '08';
@@ -2543,11 +2635,14 @@
                 showNotification('Silakan masukkan nomor WhatsApp pelanggan terlebih dahulu!');
                 return;
             }
-            if (customerPhoneWA.startsWith('0')) {
-                customerPhoneWA = '62' + customerPhoneWA.slice(1);
+            let cleanWA = customerPhoneWA.replace(/\D/g, '');
+            if (cleanWA.startsWith('8')) {
+                cleanWA = '62' + cleanWA;
+            } else if (cleanWA.startsWith('0')) {
+                cleanWA = '62' + cleanWA.slice(1);
             }
             const pesanRating = `Halo Kak! Terima kasih banyak telah berkunjung dan melakukan perawatan di Cahya Baru Barbershop. ✂️✨\n\nSemoga hasil potongannya memuaskan ya!\n\nBantu dukung usaha kami agar terus berkembang dengan memberikan ulasan & rating bintang 5 di Google Maps melalui link di bawah ini ya Kak:\n👉 https://maps.app.goo.gl/E57rUDntyNJPhnjGA\n\nDitunggu kedatangannya kembali! 🙏`;
-            const urlWACustomer = `https://wa.me/${customerPhoneWA}?text=${encodeURIComponent(pesanRating)}`;
+            const urlWACustomer = `https://wa.me/${cleanWA}?text=${encodeURIComponent(pesanRating)}`;
             
             window.open(urlWACustomer, '_blank');
             closeModal('waReviewModal');
@@ -2738,6 +2833,16 @@
             if (!tx) return;
             
             tx.status = 'Dibatalkan';
+
+            // Sinkronisasi pembatalan/refund transaksi ke Google Sheets
+            const updateTxPayload = {
+                type: "update_transaction_status",
+                id: txId,
+                rowIndex: tx.rowIndex,
+                status: "Dibatalkan"
+            };
+            postToSheet(updateTxPayload);
+
             state.pendingRefundTxId = null;
             closeModal('refundModal');
             closeModal('detailTxModal');
@@ -2769,12 +2874,8 @@
                 paymentMethod: state.expPaymentMethod,
                 amount: amount
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newExp)
-            }).catch(err => console.error("Sheet expense error:", err));
+            postToSheet(newExp);
+
             const localExp = {
                 id: newExp.id,
                 date: isoDateStr,
@@ -2842,12 +2943,8 @@
                 paymentMethod: state.kasbonPaymentMethod,
                 amount: amount
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newKasbonPayload)
-            }).catch(err => console.error("Sheet kasbon error:", err));
+            postToSheet(newKasbonPayload);
+
             const localKasbonExp = {
                 id: kasbonId,
                 date: isoDateStr,
@@ -2923,12 +3020,8 @@
                 id: kasbonId,
                 amount: 0
             };
-            fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatePayload)
-            }).catch(err => console.error("Sheet update error:", err));
+            postToSheet(updatePayload);
+
             renderExpensesTable();
             renderKasbonTable();
             renderAccounting();
@@ -3124,7 +3217,7 @@
                     summaryMap[bName].revenue += t.total;
                 } else {
                     let subtotalFiltered = 0;
-                    let hasMatchingItem = false;
+                    let matchingCount = 0;
                     t.items.forEach(item => {
                         const itemNameLower = item.name.toLowerCase();
                         const foundService = state.services.find(s => s.name.toLowerCase() === itemNameLower);
@@ -3143,11 +3236,11 @@
                         }
                         if (isMatch) {
                             subtotalFiltered += item.price;
-                            hasMatchingItem = true;
+                            matchingCount += 1;
                         }
                     });
-                    if (hasMatchingItem) {
-                        summaryMap[bName].count += 1;
+                    if (matchingCount > 0) {
+                        summaryMap[bName].count += matchingCount;
                         summaryMap[bName].revenue += subtotalFiltered;
                     }
                 }
@@ -3215,7 +3308,6 @@
             renderClosingBook();
             showNotification('Tampilan laporan akuntansi lokal berhasil dibersihkan.');
         }
-
         // ================= LOGIKA TUTUP BUKU =================
         function setCloseFilterToday() {
             let targetDate = getLatestDate(state.transactions);
@@ -3223,7 +3315,6 @@
             document.getElementById('filterCloseEndDate').value = targetDate;
             renderClosingBook();
         }
-
         function resetCloseFilter() {
             if (document.getElementById('filterCloseStartDate')) document.getElementById('filterCloseStartDate').value = '';
             if (document.getElementById('filterCloseEndDate')) document.getElementById('filterCloseEndDate').value = '';
@@ -3231,14 +3322,12 @@
             closeClosingDetailPanel();
             renderClosingBook();
         }
-
         function isProductItem(itemName) {
             const lower = String(itemName || '').toLowerCase();
             const foundService = state.services.find(s => s.name.toLowerCase() === lower);
             if (foundService && foundService.category === 'Produk / Lainnya') return true;
             return lower.includes('pomade') || lower.includes('clay') || lower.includes('powder') || lower.includes('tonic') || lower.includes('produk');
         }
-
         function matchesClosingServiceFilter(itemName, serviceFilter) {
             if (serviceFilter === 'ALL') return true;
             const itemNameLower = String(itemName || '').toLowerCase();
@@ -3255,40 +3344,32 @@
                 return itemNameLower.includes(serviceFilter.toLowerCase());
             }
         }
-
         function getClosingFilteredData() {
             const startVal = document.getElementById('filterCloseStartDate')?.value || '';
             const endVal = document.getElementById('filterCloseEndDate')?.value || '';
             const serviceFilter = document.getElementById('filterCloseService')?.value || 'ALL';
-
             const validTx = state.transactions.filter(t => {
                 if (t.status === 'Dibatalkan') return false;
                 return isDateInRange(t.date, startVal, endVal);
             });
-
             const validExp = state.expenses.filter(e => isDateInRange(e.date, startVal, endVal));
             return { validTx, validExp, serviceFilter };
         }
-
         function renderClosingBook() {
             const { validTx, validExp, serviceFilter } = getClosingFilteredData();
-
             let pendapatanKotorJasa = 0;
             let penjualanKotorProduk = 0;
             let cashKotor = 0;
             let qrissKotor = 0;
-
             let barberStats = {};
             BARBERS.forEach(b => {
                 barberStats[b.name] = { count: 0, total: 0 };
             });
-
             validTx.forEach(t => {
                 let txServiceSum = 0;
                 let txProductSum = 0;
                 let txMatchedTotal = 0;
                 let hasMatchedService = false;
-
                 t.items.forEach(item => {
                     const price = Number(item.price || 0);
                     if (isProductItem(item.name)) {
@@ -3304,23 +3385,19 @@
                         }
                     }
                 });
-
                 // Fallback jika data dari sheet tidak terpecah harganya di state.services
                 if (t.total > 0 && txServiceSum === 0 && txProductSum === 0 && serviceFilter === 'ALL') {
                     txServiceSum = t.total;
                     txMatchedTotal = t.total;
                     hasMatchedService = true;
                 }
-
                 pendapatanKotorJasa += txServiceSum;
                 penjualanKotorProduk += txProductSum;
-
                 if (t.paymentMethod === 'Cash') {
                     cashKotor += txMatchedTotal;
                 } else if (t.paymentMethod === 'QRIS') {
                     qrissKotor += txMatchedTotal;
                 }
-
                 if (serviceFilter === 'ALL' || hasMatchedService) {
                     const bName = t.barberName;
                     if (!barberStats[bName]) {
@@ -3330,12 +3407,10 @@
                     barberStats[bName].total += txMatchedTotal;
                 }
             });
-
             let pengeluaranNonKasbon = 0;
             let totalKasbon = 0;
             let keluarCash = 0;
             let keluarQriss = 0;
-
             validExp.forEach(e => {
                 const amt = Number(e.amount || 0);
                 const isKasbon = (e.id && e.id.startsWith('BBKB-')) || (e.desc && e.desc.includes('[KASBON]'));
@@ -3344,24 +3419,20 @@
                 } else {
                     pengeluaranNonKasbon += amt;
                 }
-
                 if (e.paymentMethod === 'Cash') {
                     keluarCash += amt;
                 } else if (e.paymentMethod === 'QRIS') {
                     keluarQriss += amt;
                 }
             });
-
             const cashBersih = cashKotor - keluarCash;
             const qrissBersih = qrissKotor - keluarQriss;
             const pendapatanBersih = pendapatanKotorJasa - pengeluaranNonKasbon - totalKasbon;
             const penjualanBersih = penjualanKotorProduk;
-
             const setVal = (id, val) => {
                 const el = document.getElementById(id);
                 if (el) el.innerText = formatRp(val);
             };
-
             setVal('closePendapatanKotor', pendapatanKotorJasa);
             setVal('closePenjualanKotor', penjualanKotorProduk);
             setVal('closeCashKotor', cashKotor);
@@ -3372,7 +3443,6 @@
             setVal('closeQrissBersih', qrissBersih);
             setVal('closePendapatanBersih', pendapatanBersih);
             setVal('closePenjualanBersih', penjualanBersih);
-
             // Render tombol barber interaktif
             const barberContainer = document.getElementById('closingBarberSummary');
             if (barberContainer) {
@@ -3394,12 +3464,10 @@
                 }).join('');
             }
         }
-
         function closeClosingDetailPanel() {
             const panel = document.getElementById('closingDetailPanel');
             if (panel) panel.classList.add('hidden');
         }
-
         function showClosingDetail(metricKey) {
             const { validTx, validExp, serviceFilter } = getClosingFilteredData();
             const panel = document.getElementById('closingDetailPanel');
@@ -3407,7 +3475,6 @@
             const headEl = document.getElementById('closingDetailHead');
             const bodyEl = document.getElementById('closingDetailBody');
             if (!panel || !titleEl || !headEl || !bodyEl) return;
-
             const titles = {
                 pendapatan_kotor: '1. Riwayat Total Pendapatan Kotor (Khusus Jasa)',
                 penjualan_kotor: '2. Riwayat Total Penjualan Kotor (Khusus Produk)',
@@ -3420,16 +3487,13 @@
                 pendapatan_bersih: '9. Rincian Pendapatan Bersih (Jasa & Pengeluaran)',
                 penjualan_bersih: '10. Riwayat Penjualan Bersih (Produk)'
             };
-
             titleEl.innerText = titles[metricKey] || 'Rincian Riwayat Transaksi';
-
             // Kategori yang menampilkan daftar pengeluaran / kasbon
             if (metricKey === 'pengeluaran' || metricKey === 'kasbon') {
                 const list = validExp.filter(e => {
                     const isKasbon = (e.id && e.id.startsWith('BBKB-')) || (e.desc && e.desc.includes('[KASBON]'));
                     return metricKey === 'kasbon' ? isKasbon : !isKasbon;
                 });
-
                 headEl.innerHTML = `
                     <tr>
                         <th class="p-3">ID</th>
@@ -3439,7 +3503,6 @@
                         <th class="p-3 text-right">Nominal</th>
                     </tr>
                 `;
-
                 if (list.length === 0) {
                     bodyEl.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">Tidak ada data pada filter tanggal ini.</td></tr>`;
                 } else {
@@ -3457,7 +3520,6 @@
                 // Gabungan Pemasukan & Pengeluaran sesuai metode
                 const targetMethod = metricKey === 'cash_bersih' ? 'Cash' : (metricKey === 'qriss_bersih' ? 'QRIS' : 'ALL');
                 let combined = [];
-
                 validTx.forEach(t => {
                     if (targetMethod !== 'ALL' && t.paymentMethod !== targetMethod) return;
                     let matchedAmt = 0;
@@ -3484,7 +3546,6 @@
                         });
                     }
                 });
-
                 validExp.forEach(e => {
                     if (targetMethod !== 'ALL' && e.paymentMethod !== targetMethod) return;
                     combined.push({
@@ -3496,7 +3557,6 @@
                         amount: Number(e.amount || 0)
                     });
                 });
-
                 headEl.innerHTML = `
                     <tr>
                         <th class="p-3">Kode</th>
@@ -3507,7 +3567,6 @@
                         <th class="p-3 text-right">Nominal</th>
                     </tr>
                 `;
-
                 if (combined.length === 0) {
                     bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Tidak ada mutasi transaksi pada filter ini.</td></tr>`;
                 } else {
@@ -3530,10 +3589,8 @@
                 validTx.forEach(t => {
                     if (metricKey === 'cash_kotor' && t.paymentMethod !== 'Cash') return;
                     if (metricKey === 'qriss_kotor' && t.paymentMethod !== 'QRIS') return;
-
                     let matchedItems = [];
                     let matchedTotal = 0;
-
                     t.items.forEach(item => {
                         const prod = isProductItem(item.name);
                         if (metricKey === 'pendapatan_kotor' && !prod && matchesClosingServiceFilter(item.name, serviceFilter)) {
@@ -3547,7 +3604,6 @@
                             matchedTotal += Number(item.price || 0);
                         }
                     });
-
                     if (matchedItems.length > 0) {
                         filteredList.push({
                             id: t.id,
@@ -3559,7 +3615,6 @@
                         });
                     }
                 });
-
                 headEl.innerHTML = `
                     <tr>
                         <th class="p-3">ID Transaksi</th>
@@ -3570,7 +3625,6 @@
                         <th class="p-3 text-right">Nominal</th>
                     </tr>
                 `;
-
                 if (filteredList.length === 0) {
                     bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Tidak ada riwayat transaksi untuk kategori ini.</td></tr>`;
                 } else {
@@ -3586,11 +3640,9 @@
                     `).join('');
                 }
             }
-
             panel.classList.remove('hidden');
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-
         function showClosingBarberDetail(barberName) {
             const { validTx, serviceFilter } = getClosingFilteredData();
             const panel = document.getElementById('closingDetailPanel');
@@ -3598,89 +3650,64 @@
             const headEl = document.getElementById('closingDetailHead');
             const bodyEl = document.getElementById('closingDetailBody');
             if (!panel || !titleEl || !headEl || !bodyEl) return;
-
             titleEl.innerText = `Riwayat Transaksi Khusus Barber: ${barberName}`;
-            headEl.innerHTML = `
-                <tr>
-                    <th class="p-3">ID Transaksi</th>
-                    <th class="p-3">Tanggal & Jam</th>
-                    <th class="p-3">Barber</th>
-                    <th class="p-3">Metode</th>
-                    <th class="p-3">Layanan / Item</th>
-                    <th class="p-3 text-right">Total</th>
-                </tr>
-            `;
-
-            const barberTxList = [];
+            let barberTxList = [];
             validTx.forEach(t => {
                 if (t.barberName.toLowerCase() !== barberName.toLowerCase()) return;
                 let matchedItems = [];
                 let matchedTotal = 0;
-
                 t.items.forEach(item => {
-                    if (isProductItem(item.name)) {
-                        if (serviceFilter === 'ALL') {
-                            matchedItems.push(item.name);
-                            matchedTotal += Number(item.price || 0);
-                        }
-                    } else if (matchesClosingServiceFilter(item.name, serviceFilter)) {
+                    if (isProductItem(item.name) || matchesClosingServiceFilter(item.name, serviceFilter)) {
                         matchedItems.push(item.name);
                         matchedTotal += Number(item.price || 0);
                     }
                 });
-
-                if (t.total > 0 && matchedItems.length === 0 && serviceFilter === 'ALL') {
+                if (serviceFilter === 'ALL' && matchedItems.length === 0) {
                     matchedItems = t.items.map(i => i.name);
                     matchedTotal = t.total;
                 }
-
                 if (matchedItems.length > 0) {
                     barberTxList.push({
                         id: t.id,
                         date: `${t.date} ${t.time}`,
-                        barberName: t.barberName,
                         paymentMethod: t.paymentMethod,
                         itemsText: matchedItems.join(', '),
                         total: matchedTotal
                     });
                 }
             });
-
+            headEl.innerHTML = `
+                <tr>
+                    <th class="p-3">ID Transaksi</th>
+                    <th class="p-3">Tanggal & Jam</th>
+                    <th class="p-3">Metode</th>
+                    <th class="p-3">Layanan / Produk</th>
+                    <th class="p-3 text-right">Total</th>
+                </tr>
+            `;
             if (barberTxList.length === 0) {
-                bodyEl.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada riwayat transaksi untuk ${barberName} pada filter ini.</td></tr>`;
+                bodyEl.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">Belum ada riwayat transaksi untuk ${barberName} pada filter ini.</td></tr>`;
             } else {
                 bodyEl.innerHTML = barberTxList.map(t => `
                     <tr class="hover:bg-slate-50">
                         <td class="p-3 font-mono text-xs font-semibold text-amber-900">${t.id}</td>
                         <td class="p-3 text-xs text-slate-600">${t.date}</td>
-                        <td class="p-3 font-bold text-slate-800">${t.barberName}</td>
                         <td class="p-3"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${t.paymentMethod === 'QRIS' ? 'bg-cyan-100 text-cyan-800' : 'bg-amber-100 text-amber-800'}">${t.paymentMethod}</span></td>
                         <td class="p-3 text-xs text-slate-600">${t.itemsText}</td>
-                        <td class="p-3 font-bold text-emerald-700 text-right">${formatRp(t.total)}</td>
+                        <td class="p-3 font-bold text-slate-900 text-right">${formatRp(t.total)}</td>
                     </tr>
                 `).join('');
             }
-
             panel.classList.remove('hidden');
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-
-        // Toast Notifikasi Halus (Non-blocking pengganti alert)
         function showNotification(msg) {
-            let toast = document.getElementById('cbToast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'cbToast';
-                toast.className = 'fixed bottom-4 right-4 z-[60] bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 text-xs font-medium flex items-center gap-2 transition-all duration-300 transform translate-y-2 opacity-0';
-                document.body.appendChild(toast);
-            }
-            toast.innerHTML = `<i class="fa-solid fa-circle-info text-amber-400 text-sm"></i><span>${msg}</span>`;
-            requestAnimationFrame(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            });
-            clearTimeout(toast.hideTimeout);
-            toast.hideTimeout = setTimeout(() => {
-                toast.classList.add('translate-y-2', 'opacity-0');
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-xs font-semibold z-50 flex items-center space-x-2 animate-bounce";
+            toast.innerHTML = `<i class="fa-solid fa-circle-info text-amber-400"></i> <span>${msg}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
             }, 3500);
         }
     </script>
